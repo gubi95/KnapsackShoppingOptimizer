@@ -1,0 +1,5 @@
+C:\Users\Gubi\Desktop\GitRepos\KnapsackShoppingOptimizer\KnapsackOptimizer\bin\Release\KnapsackOptimizer.dll
+C:\Users\Gubi\Desktop\GitRepos\KnapsackShoppingOptimizer\KnapsackOptimizer\bin\Release\KnapsackOptimizer.pdb
+C:\Users\Gubi\Desktop\GitRepos\KnapsackShoppingOptimizer\KnapsackOptimizer\obj\Release\KnapsackOptimizer.csprojResolveAssemblyReference.cache
+C:\Users\Gubi\Desktop\GitRepos\KnapsackShoppingOptimizer\KnapsackOptimizer\obj\Release\KnapsackOptimizer.dll
+C:\Users\Gubi\Desktop\GitRepos\KnapsackShoppingOptimizer\KnapsackOptimizer\obj\Release\KnapsackOptimizer.pdb
