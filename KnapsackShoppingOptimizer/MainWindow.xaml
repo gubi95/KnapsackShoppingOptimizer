@@ -2,16 +2,16 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KnapsackShoppingOptimizer"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+        xmlns:local="clr-namespace:KnapsackShoppingOptimizer"        
         mc:Ignorable="d"
-        Title="Optymalizwanie listy zakupowej" Height="600" Width="800">
+        Title="Optymalizwanie listy zakupowej" Height="600" Width="800">    
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="235*"/>
-            <RowDefinition Height="333*"/>
+        <Grid.RowDefinitions>                        
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        <Button x:Name="btnCreateStore" Style="{StaticResource ResourceKey=BlueButton}" Content="Dodaj sklep" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Click="btnCreateStore_Click" />
+        <Button x:Name="btnCreateProduct" Style="{StaticResource ResourceKey=BlueButton}" Content="Dodaj produkt" HorizontalAlignment="Left" Margin="145,0,0,10" VerticalAlignment="Bottom" Click="btnCreateProduct_Click" />
+        <Button x:Name="btnExit" Style="{StaticResource ResourceKey=WhiteButton}" Content="Wyjście" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Click="btnExit_Click" />
     </Grid>
 </Window>

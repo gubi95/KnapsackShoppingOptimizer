@@ -29,6 +29,21 @@ namespace KnapsackShoppingOptimizer
         private void FormLoad(object sender, RoutedEventArgs e)
         {
             
+        }  
+
+        private void btnCreateStore_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCreateProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
