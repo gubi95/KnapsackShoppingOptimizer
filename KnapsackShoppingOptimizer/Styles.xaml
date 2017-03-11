@@ -1,11 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:KnapsackShoppingOptimizer">
-
-
-    <Style TargetType="Button" x:Key="BlueButton" >        
+                    xmlns:local="clr-namespace:KnapsackShoppingOptimizer" 
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+    <!-- CONSTANTS -->
+    <CornerRadius x:Key="DefaultCornerRadius">5</CornerRadius>
+    
+    <!-- CONTROLS -->
+    <Style TargetType="{x:Type Button}" x:Key="BlueButton" >
         <Setter Property="Foreground" Value="White" />
-        <Setter Property="Background" Value="#0275d8"/>
+        <Setter Property="Background" Value="{DynamicResource BrushBlueButton}"/>
         <Setter Property="FontSize" Value="20" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontFamily" Value="Trebuchet MS" />
@@ -13,7 +17,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border CornerRadius="5" Background="{TemplateBinding Background}" Padding="10 4 10 6">
+                    <Border CornerRadius="{StaticResource DefaultCornerRadius}" Background="{TemplateBinding Background}" Padding="10 4 10 6">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                 </ControlTemplate>
@@ -26,7 +30,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="Button" x:Key="WhiteButton" >
+    <Style TargetType="{x:Type Button}" x:Key="WhiteButton" >
         <Setter Property="Foreground" Value="#666" />
         <Setter Property="Background" Value="White"/>
         <Setter Property="FontSize" Value="20" />
@@ -36,7 +40,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border CornerRadius="5" Background="{TemplateBinding Background}" Padding="10 4 10 6" BorderThickness="1" BorderBrush="Gray">
+                    <Border CornerRadius="{StaticResource DefaultCornerRadius}" Background="{TemplateBinding Background}" Padding="10 4 10 6" BorderThickness="1" BorderBrush="Gray">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                 </ControlTemplate>
@@ -49,4 +53,64 @@
         </Style.Triggers>
     </Style>
 
+    <!--Data grid -->
+    <Style x:Key="ColumnHeaderDefault" TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Background" Value="{DynamicResource BrushDataGridHeader}" />
+        <Setter Property="Foreground" Value ="White" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+    </Style>
+
+
+    <Style x:Key="DataGridProductsPreview" TargetType="{x:Type DataGrid}">
+        <Setter Property="CanUserResizeRows" Value="False"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="CanUserReorderColumns" Value="False"/>
+        <Setter Property="CanUserResizeColumns" Value="False"/>
+        <Setter Property="CanUserSortColumns" Value="False"/>
+        <Setter Property="ColumnHeaderStyle" Value="{DynamicResource ColumnHeaderDefault}"/>
+        <Setter Property="RowHeaderWidth" Value="0"/>
+        <Setter Property="AlternatingRowBackground" Value="{DynamicResource BrushDataGridAlternatingColor}" />
+        <Setter Property="GridLinesVisibility" Value="Vertical" />
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource BrushDataGridVerticalLines}" />
+        <Setter Property="CellStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Style.Triggers>
+                        <Trigger  Property="IsSelected" Value="true">
+                            <Setter Property="Background" Value="{DynamicResource BrushDataGridSelection}" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Trigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+                                <Condition Binding="{Binding IsKeyboardFocusWithin, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}, Mode=FindAncestor}}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource BrushDataGridSelection}" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ComboBox}" x:Key="StyleComboBoxDefault">
+        <Setter Property="SelectedValuePath" Value="Content"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Template" Value="{DynamicResource ComboBoxDefaultControlTemplate}"/>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="StyleTextBoxAmount">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontFamily" Value="Trebuchet MS" />
+        <Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
+    </Style>
 </ResourceDictionary>

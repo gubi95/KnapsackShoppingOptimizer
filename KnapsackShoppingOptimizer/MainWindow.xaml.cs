@@ -45,5 +45,30 @@ namespace KnapsackShoppingOptimizer
         {
 
         }
+
+        private void menuItemAddToShoppingList_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void menuItemEditProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void menuItemDeleteProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void menuItemDeleteShoppingProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void menuItemEditShoppingProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
