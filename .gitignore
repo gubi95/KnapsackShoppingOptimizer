@@ -1,4 +1,5 @@
 *.suo
+.suo
 [Bb]in/
 [Oo]bj/
 
