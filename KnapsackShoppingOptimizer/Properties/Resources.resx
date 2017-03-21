@@ -123,6 +123,9 @@
   <data name="ModalNewShopCloseConfirmation" xml:space="preserve">
     <value>Czy na pewno chcesz anulować dodawanie nowego sklepu?</value>
   </data>
+  <data name="ModalNewShopHeader" xml:space="preserve">
+    <value>Dodaj nowy sklep</value>
+  </data>
   <data name="ModalNewShopTextBoxName" xml:space="preserve">
     <value>Nazwa sklepu</value>
   </data>

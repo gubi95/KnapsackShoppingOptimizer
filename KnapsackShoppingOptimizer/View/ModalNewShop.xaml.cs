@@ -24,6 +24,12 @@ namespace KnapsackShoppingOptimizer.View
             InitializeComponent();
         }
 
+        public void ShowDialog(Window window)
+        {
+            this.Owner = window;
+            this.ShowDialog();
+        }
+
         private void TextBoxShopName_GotFocus(object sender, RoutedEventArgs e)
         {
             if (TextBoxShopName.Text.Trim() == Properties.Resources.ModalNewShopTextBoxName)
@@ -44,13 +50,12 @@ namespace KnapsackShoppingOptimizer.View
 
         private void btnSaveNewProduct_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            var confirmationResult = MessageBox.Show(this, 
-                Properties.Resources.ModalNewShopTextBoxName,
+            var confirmationResult = MessageBoxCenter.Show(this.Owner, 
+                Properties.Resources.ModalNewShopCloseConfirmation,
                 Properties.Resources.MessageBoxConfirmationHeader, 
                 MessageBoxButton.YesNo);
             if(confirmationResult == MessageBoxResult.Yes)

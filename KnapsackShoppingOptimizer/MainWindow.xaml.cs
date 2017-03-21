@@ -34,7 +34,7 @@ namespace KnapsackShoppingOptimizer
 
         private void btnCreateStore_Click(object sender, RoutedEventArgs e)
         {
-
+            new ModalNewShop().ShowDialog(this);
         }
 
         private void btnCreateProduct_Click(object sender, RoutedEventArgs e)

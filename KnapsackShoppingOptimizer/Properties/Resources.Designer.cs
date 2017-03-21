@@ -79,6 +79,15 @@ namespace KnapsackShoppingOptimizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dodaj nowy sklep.
+        /// </summary>
+        public static string ModalNewShopHeader {
+            get {
+                return ResourceManager.GetString("ModalNewShopHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nazwa sklepu.
         /// </summary>
         public static string ModalNewShopTextBoxName {
