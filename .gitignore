@@ -1,5 +1,8 @@
 *.suo
 .suo
-[Bb]in/
-[Oo]bj/
+KnapsackOptimizer/[Bb]in/
+KnapsackOptimizer/[Oo]bj/
+KnapsackShoppingOptimizer/[Bb]in/
+KnapsackShoppingOptimizer/[Oo]bj/
+
 
