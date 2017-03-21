@@ -61,11 +61,47 @@ namespace KnapsackShoppingOptimizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Czy na pewno chcesz zamknąć program?.
+        /// </summary>
+        public static string MainWindowCloseConfirmation {
+            get {
+                return ResourceManager.GetString("MainWindowCloseConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Potwierdzenie.
         /// </summary>
         public static string MessageBoxConfirmationHeader {
             get {
                 return ResourceManager.GetString("MessageBoxConfirmationHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czy na pewno chcesz anulować dodawanie nowego produktu?.
+        /// </summary>
+        public static string ModalNewProductCloseConfirmation {
+            get {
+                return ResourceManager.GetString("ModalNewProductCloseConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dodaj nowy produkt.
+        /// </summary>
+        public static string ModalNewProductHeader {
+            get {
+                return ResourceManager.GetString("ModalNewProductHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nazwa produktu.
+        /// </summary>
+        public static string ModalNewProductTextBoxName {
+            get {
+                return ResourceManager.GetString("ModalNewProductTextBoxName", resourceCulture);
             }
         }
         
@@ -93,6 +129,33 @@ namespace KnapsackShoppingOptimizer.Properties {
         public static string ModalNewShopTextBoxName {
             get {
                 return ResourceManager.GetString("ModalNewShopTextBoxName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to llość.
+        /// </summary>
+        public static string ShopPickerHeaderAmount {
+            get {
+                return ResourceManager.GetString("ShopPickerHeaderAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cena.
+        /// </summary>
+        public static string ShopPickerHeaderPrice {
+            get {
+                return ResourceManager.GetString("ShopPickerHeaderPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nazwa sklepu.
+        /// </summary>
+        public static string ShopPickerHeaderShopName {
+            get {
+                return ResourceManager.GetString("ShopPickerHeaderShopName", resourceCulture);
             }
         }
     }

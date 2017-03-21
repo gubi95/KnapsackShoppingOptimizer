@@ -44,7 +44,14 @@ namespace KnapsackShoppingOptimizer
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-
+            var confirmationResult = MessageBoxCenter.Show(this,
+               Properties.Resources.MainWindowCloseConfirmation,
+               Properties.Resources.MessageBoxConfirmationHeader,
+               MessageBoxButton.YesNo);
+            if (confirmationResult == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void menuItemAddToShoppingList_Click(object sender, RoutedEventArgs e)

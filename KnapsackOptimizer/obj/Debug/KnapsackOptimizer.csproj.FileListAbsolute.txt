@@ -15,6 +15,6 @@ C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\Kn
 C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackShoppingOptimizer\KnapsackOptimizer\obj\Debug\KnapsackOptimizer.pdb
 C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackOptimizer\bin\Debug\KnapsackOptimizer.dll
 C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackOptimizer\bin\Debug\KnapsackOptimizer.pdb
-C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackOptimizer\obj\Debug\KnapsackOptimizer.csprojResolveAssemblyReference.cache
 C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackOptimizer\obj\Debug\KnapsackOptimizer.dll
 C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackOptimizer\obj\Debug\KnapsackOptimizer.pdb
+C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackOptimizer\obj\Debug\KnapsackOptimizer.csprojResolveAssemblyReference.cache

@@ -4,13 +4,81 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KnapsackShoppingOptimizer.View"
+        xmlns:resx="clr-namespace:KnapsackShoppingOptimizer.Properties"
         mc:Ignorable="d"
         Title="ModalNewProduct" 
-        Height="300" 
-        Width="300"
+        MinHeight="500" 
+        MinWidth="400"
+        Height="500" 
+        Width="400"
         WindowStartupLocation="CenterOwner"
         Style="{DynamicResource ResourceKey=StyleModalWindow}">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="46" />
+        </Grid.RowDefinitions>
+        <!-- Header -->
+        <TextBlock x:Name="ModalHeader"
+                   Style="{DynamicResource ResourceKey=StyleTextBlockModalHeader}"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="5" 
+                   Text="{x:Static resx:Resources.ModalNewProductHeader}"/>
+
+        <!-- FORM -->
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    VerticalAlignment="Top">
+
+            <TextBox x:Name="TextBoxProductName"
+                     Style="{DynamicResource ResourceKey=StyleTextBoxForm}"
+                     Width="200"
+                     Margin="5"
+                     Text="{x:Static resx:Resources.ModalNewProductTextBoxName}"
+                     GotFocus="TextBoxProductName_GotFocus"
+                     LostFocus="TextBoxProductName_LostFocus"/>
+            <DataGrid x:Name="DataGridShops"
+                      Style="{DynamicResource DataGridProductsPreview}"
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Width="25"
+                                            IsReadOnly="False"/>
+                    <DataGridTextColumn Header="{x:Static resx:Resources.ShopPickerHeaderShopName}" 
+                                        Width="2*"
+                                        IsReadOnly="True"/>
+                    <DataGridTextColumn Header="{x:Static resx:Resources.ShopPickerHeaderPrice}"
+                                        Width="*"
+                                        IsReadOnly="False"/>
+                    <DataGridTextColumn Header="{x:Static resx:Resources.ShopPickerHeaderAmount}"
+                                        Width="*"
+                                        IsReadOnly="False"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <!-- Buttons at the bottom-->
+        <StackPanel Grid.Row="2" 
+                    Grid.Column="0"
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <RepeatButton x:Name="btnSaveNewProduct" 
+                          Style="{DynamicResource ResourceKey=BlueButton}" 
+                          Width="120"
+                          Margin="5"
+                          Content="Dodaj"
+                          Click="btnSaveNewProduct_Click"/>
+            <RepeatButton x:Name="btnCancel" 
+                          Style="{DynamicResource ResourceKey=BlueButton}" 
+                          Width="120"
+                          Margin="5"
+                          Content="Anuluj"
+                          Click="btnCancel_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

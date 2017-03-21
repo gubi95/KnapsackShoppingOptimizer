@@ -54,7 +54,7 @@ namespace KnapsackShoppingOptimizer.View
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            var confirmationResult = MessageBoxCenter.Show(this.Owner, 
+            var confirmationResult = MessageBoxCenter.Show(this, 
                 Properties.Resources.ModalNewShopCloseConfirmation,
                 Properties.Resources.MessageBoxConfirmationHeader, 
                 MessageBoxButton.YesNo);
