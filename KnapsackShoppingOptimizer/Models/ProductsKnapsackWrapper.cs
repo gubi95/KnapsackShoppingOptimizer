@@ -10,6 +10,6 @@ namespace KnapsackShoppingOptimizer
     {
         public decimal BestProfit { get; set; }
         public List<Product> ProductsToBuy { get; set; }
-        public List<ProductCategory> ProductCategories { get; set; }        
+        public List<Store> ProductCategories { get; set; }        
     }
 }

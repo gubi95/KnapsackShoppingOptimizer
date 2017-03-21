@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Kuba\Documents\Visual Studio 2015\Projects\ZSSK\KnapsackShoppingOptimizer\obj\Debug\
+C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackShoppingOptimizer\obj\Debug\
 KnapsackShoppingOptimizer
 none
 false
 DEBUG;TRACE
-C:\Users\Kuba\Documents\Visual Studio 2015\Projects\ZSSK\KnapsackShoppingOptimizer\App.xaml
-4-1981581979
+C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackShoppingOptimizer\App.xaml
+6-145272750
 
-15-957130539
-22-323922956
-Colors.xaml;ControlTemplates.xaml;MainWindow.xaml;Styles.xaml;
+171801766597
+162034273505
+Colors.xaml;ControlTemplates.xaml;MainWindow.xaml;Styles.xaml;View\ModalNewProduct.xaml;View\ModalNewShop.xaml;
 
-False
+True
 

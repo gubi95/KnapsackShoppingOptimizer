@@ -6,14 +6,18 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:KnapsackShoppingOptimizer"  
         mc:Ignorable="d"
-        Title="Optymalizwanie listy zakupowej" Height="600" Width="800">
+        Title="Optymalizwanie listy zakupowej"
+        Height="600" 
+        Width="800"
+        MinWidth="800"
+        MinHeight="600">
     <Window.Resources>
         <GridLength x:Key="DefaultRowHeight">46</GridLength>
     </Window.Resources>
     <Grid x:Name="gridMainContainter">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="330"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>   
             <RowDefinition Height="*"/>
@@ -35,7 +39,7 @@
                           Margin="10, 10, 10, 0"
                           Style="{DynamicResource ResourceKey=StyleComboBoxDefault}"
                           Width="150"/>
-                <Button x:Name="btnAddToShoppingList" 
+                <RepeatButton x:Name="btnAddToShoppingList" 
                         Style="{DynamicResource ResourceKey=BlueButton}" 
                         Content="Dodaj do Listy" 
                         HorizontalAlignment="Left" 
@@ -76,7 +80,7 @@
                           Margin="10, 10, 10, 0"
                           Style="{DynamicResource ResourceKey=StyleComboBoxDefault}"
                           Width="150"/>
-                <Button x:Name="btnCreateStore" 
+                <RepeatButton x:Name="btnCreateStore" 
                         Style="{DynamicResource ResourceKey=BlueButton}" 
                         Content="Dodaj sklep" 
                         HorizontalAlignment="Left" 
@@ -104,7 +108,7 @@
                 </DataGrid.ContextMenu>
             </DataGrid>
 
-            <Button x:Name="btnCreateProduct" 
+            <RepeatButton x:Name="btnCreateProduct" 
                 Grid.Row="2"
                 Style="{DynamicResource ResourceKey=BlueButton}" 
                 Content="Dodaj produkt" 
@@ -114,7 +118,7 @@
                 Click="btnCreateProduct_Click" />
         </Grid>
          
-        <Button x:Name="btnExit" 
+        <RepeatButton x:Name="btnExit" 
                 Grid.Column="1" 
                 Grid.Row="1"
                 Style="{DynamicResource ResourceKey=WhiteButton}" 

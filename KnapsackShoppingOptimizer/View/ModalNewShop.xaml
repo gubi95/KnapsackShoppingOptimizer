@@ -4,9 +4,62 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KnapsackShoppingOptimizer.View"
+        xmlns:resx="clr-namespace:KnapsackShoppingOptimizer.Properties"
         mc:Ignorable="d"
-        Title="ModalNewShow" Height="300" Width="300">
+        Title="ModalNewShow" 
+        Height="300" 
+        Width="300"
+        WindowStartupLocation="CenterOwner"
+        Style="{DynamicResource ResourceKey=StyleModalWindow}">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="46" />
+        </Grid.RowDefinitions>  
+        <!-- Header -->
+        <TextBlock x:Name="ModalHeader"
+                   Style="{DynamicResource ResourceKey=StyleTextBlockModalHeader}"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="5" 
+                   Text="Dodaj nowy sklep"/>
+
+        <!-- FORM -->
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    VerticalAlignment="Center">
+
+            <TextBox x:Name="TextBoxShopName"
+                     Style="{DynamicResource ResourceKey=StyleTextBoxForm}"
+                     Width="200"
+                     Margin="5"
+                     Text="{x:Static resx:Resources.ModalNewShopTextBoxName}"
+                     GotFocus="TextBoxShopName_GotFocus"
+                     LostFocus="TextBoxShopName_LostFocus"/>
+        </StackPanel>
+
+        <!-- Buttons at the bottom-->
+        <StackPanel Grid.Row="2" 
+                    Grid.Column="0"
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <RepeatButton x:Name="btnSaveNewProduct" 
+                          Style="{DynamicResource ResourceKey=BlueButton}" 
+                          Width="120"
+                          Margin="5"
+                          Content="Dodaj"
+                          Click="btnSaveNewProduct_Click"/>
+            <RepeatButton x:Name="btnCancel" 
+                          Style="{DynamicResource ResourceKey=BlueButton}" 
+                          Width="120"
+                          Margin="5"
+                          Content="Anuluj"
+                          Click="btnCancel_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

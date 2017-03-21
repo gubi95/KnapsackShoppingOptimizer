@@ -10,11 +10,12 @@
     <!-- Window -->
     <Style TargetType="Window" x:Key="StyleModalWindow" >
         <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="ResizeMode" Value="NoResize" />
     </Style>
     
     
     <!-- CONTROLS -->
-    <Style TargetType="{x:Type Button}" x:Key="BlueButton" >
+    <Style TargetType="{x:Type RepeatButton}" x:Key="BlueButton" >
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Background" Value="{DynamicResource BrushBlueButton}"/>
         <Setter Property="FontSize" Value="20" />
@@ -23,7 +24,7 @@
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Border CornerRadius="{StaticResource DefaultCornerRadius}" Background="{TemplateBinding Background}" Padding="10 4 10 6">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
@@ -37,7 +38,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="{x:Type Button}" x:Key="WhiteButton" >
+    <Style TargetType="{x:Type RepeatButton}" x:Key="WhiteButton" >
         <Setter Property="Foreground" Value="#666" />
         <Setter Property="Background" Value="White"/>
         <Setter Property="FontSize" Value="20" />
@@ -46,8 +47,12 @@
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border CornerRadius="{StaticResource DefaultCornerRadius}" Background="{TemplateBinding Background}" Padding="10 4 10 6" BorderThickness="1" BorderBrush="Gray">
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border CornerRadius="{StaticResource DefaultCornerRadius}" 
+                            Background="{TemplateBinding Background}" 
+                            Padding="10 4 10 6"
+                            BorderThickness="1" 
+                            BorderBrush="Gray">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                 </ControlTemplate>
@@ -119,5 +124,20 @@
         <Setter Property="FontSize" Value="20" />
         <Setter Property="FontFamily" Value="Trebuchet MS" />
         <Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="StyleTextBoxForm">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
+        <Setter Property="Foreground" Value="Gray" />
+    </Style>
+
+    <!-- TEXT BLOCKS -->
+    <Style TargetType="TextBlock" x:Key="StyleTextBlockModalHeader">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontFamily" Value="Lato" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 </ResourceDictionary>

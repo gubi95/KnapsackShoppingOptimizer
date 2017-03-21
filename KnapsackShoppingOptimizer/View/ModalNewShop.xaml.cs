@@ -23,5 +23,40 @@ namespace KnapsackShoppingOptimizer.View
         {
             InitializeComponent();
         }
+
+        private void TextBoxShopName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (TextBoxShopName.Text.Trim() == Properties.Resources.ModalNewShopTextBoxName)
+            {
+                TextBoxShopName.Text = string.Empty;
+                TextBoxShopName.Foreground = Brushes.Black;
+            }
+        }
+
+        private void TextBoxShopName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(string.IsNullOrWhiteSpace(TextBoxShopName.Text))
+            {
+                TextBoxShopName.Foreground = Brushes.Gray;
+                TextBoxShopName.Text = Properties.Resources.ModalNewShopTextBoxName;
+            }
+        }
+
+        private void btnSaveNewProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            var confirmationResult = MessageBox.Show(this, 
+                Properties.Resources.ModalNewShopTextBoxName,
+                Properties.Resources.MessageBoxConfirmationHeader, 
+                MessageBoxButton.YesNo);
+            if(confirmationResult == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
+        }
     }
 }
