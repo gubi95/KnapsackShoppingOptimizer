@@ -115,4 +115,3 @@ C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\Kn
 C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackShoppingOptimizer\obj\Debug\KnapsackShoppingOptimizer.g.resources
 C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackShoppingOptimizer\obj\Debug\KnapsackShoppingOptimizer.Properties.Resources.resources
 C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackShoppingOptimizer\obj\Debug\KnapsackShoppingOptimizer.csproj.GenerateResource.Cache
-C:\Users\Kuba\Documents\Visual Studio 2015\Projects\KnapsackShoppingOptimizer\KnapsackShoppingOptimizer\obj\Debug\KnapsackShoppingOptimizer.csprojResolveAssemblyReference.cache

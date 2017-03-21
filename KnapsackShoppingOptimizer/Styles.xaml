@@ -114,6 +114,44 @@
         </Setter>
     </Style>
 
+    <Style x:Key="DataGridShopsPicker" TargetType="{x:Type DataGrid}">
+        <Setter Property="CanUserResizeRows" Value="False"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="IsReadOnly" Value="False"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="CanUserReorderColumns" Value="False"/>
+        <Setter Property="CanUserResizeColumns" Value="False"/>
+        <Setter Property="CanUserSortColumns" Value="False"/>
+        <Setter Property="ColumnHeaderStyle" Value="{DynamicResource ColumnHeaderDefault}"/>
+        <Setter Property="RowHeaderWidth" Value="0"/>
+        <Setter Property="AlternatingRowBackground" Value="{DynamicResource BrushDataGridAlternatingColor}" />
+        <Setter Property="GridLinesVisibility" Value="Vertical" />
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource BrushDataGridVerticalLines}" />
+        <Setter Property="CellStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Style.Triggers>
+                        <Trigger  Property="IsSelected" Value="true">
+                            <Setter Property="Background" Value="{DynamicResource BrushDataGridSelection}" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Trigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+                                <Condition Binding="{Binding IsKeyboardFocusWithin, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}, Mode=FindAncestor}}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource BrushDataGridSelection}" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type ComboBox}" x:Key="StyleComboBoxDefault">
         <Setter Property="SelectedValuePath" Value="Content"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>

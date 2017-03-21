@@ -117,8 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MainWindowCloseConfirmation" xml:space="preserve">
+    <value>Czy na pewno chcesz zamknąć program?</value>
+  </data>
   <data name="MessageBoxConfirmationHeader" xml:space="preserve">
     <value>Potwierdzenie</value>
+  </data>
+  <data name="ModalNewProductCloseConfirmation" xml:space="preserve">
+    <value>Czy na pewno chcesz anulować dodawanie nowego produktu?</value>
+  </data>
+  <data name="ModalNewProductHeader" xml:space="preserve">
+    <value>Dodaj nowy produkt</value>
+  </data>
+  <data name="ModalNewProductTextBoxName" xml:space="preserve">
+    <value>Nazwa produktu</value>
   </data>
   <data name="ModalNewShopCloseConfirmation" xml:space="preserve">
     <value>Czy na pewno chcesz anulować dodawanie nowego sklepu?</value>
@@ -127,6 +139,15 @@
     <value>Dodaj nowy sklep</value>
   </data>
   <data name="ModalNewShopTextBoxName" xml:space="preserve">
+    <value>Nazwa sklepu</value>
+  </data>
+  <data name="ShopPickerHeaderAmount" xml:space="preserve">
+    <value>llość</value>
+  </data>
+  <data name="ShopPickerHeaderPrice" xml:space="preserve">
+    <value>Cena</value>
+  </data>
+  <data name="ShopPickerHeaderShopName" xml:space="preserve">
     <value>Nazwa sklepu</value>
   </data>
 </root>

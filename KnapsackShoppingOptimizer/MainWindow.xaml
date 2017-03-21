@@ -19,18 +19,16 @@
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>   
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{StaticResource ResourceKey=DefaultRowHeight}"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="{StaticResource ResourceKey=DefaultRowHeight}"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="gridShoppingList">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="{StaticResource ResourceKey=DefaultRowHeight}"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+        <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Left"
+                    Grid.Row="0"
+                    Grid.Column="0">
                 <TextBox x:Name="textBoxProductAmount"
                          Style="{DynamicResource StyleTextBoxAmount}"
                          Width="40"
@@ -48,34 +46,29 @@
                         Click="btnCreateStore_Click" />
             </StackPanel>
 
-            <DataGrid x:Name="dataGridShoppingLIst" 
+        <DataGrid x:Name="dataGridShoppingLIst" 
                       Grid.Row="1"
+                      Grid.Column="0"
                       Style="{DynamicResource ResourceKey=DataGridProductsPreview}"
                       Margin="10">
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem x:Name="menuItemDeleteShoppingProduct"
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="menuItemDeleteShoppingProduct"
                                   Header="Usuń z listy zakupów"
                                   Click="menuItemDeleteShoppingProduct_Click"/>
-                        <MenuItem x:Name="menuItemEditShoppingProduct"
+                    <MenuItem x:Name="menuItemEditShoppingProduct"
                                   Header="Edytuj" 
                                   Click="menuItemEditShoppingProduct_Click"/>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-            </DataGrid>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
 
-        </Grid>
-        
 
-        <Grid x:Name="gridProductsPreview" 
-              Grid.Column="1" 
-              Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="{StaticResource ResourceKey=DefaultRowHeight}"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="{StaticResource ResourceKey=DefaultRowHeight}"/>
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+      
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Left"
+                        Grid.Row="0"
+                        Grid.Column="1">
                 <ComboBox x:Name="comboBoxShops"
                           Margin="10, 10, 10, 0"
                           Style="{DynamicResource ResourceKey=StyleComboBoxDefault}"
@@ -88,44 +81,55 @@
                         VerticalAlignment="Bottom" 
                         Click="btnCreateStore_Click" />
             </StackPanel>
-            <DataGrid x:Name="dataGridProductsPreview" 
+        <DataGrid x:Name="dataGridProductsPreview" 
                       Grid.Row="1"
+                      Grid.Column="1"
                       Style="{DynamicResource ResourceKey=DataGridProductsPreview}"
                       Margin="10">
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem x:Name="menuItemAddToShoppingList"
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="menuItemAddToShoppingList"
                                   Header="Dodaj do listy zakupów"
                                   Click="menuItemAddToShoppingList_Click"/>
-                        <Separator />
-                        <MenuItem x:Name="menuItemEditProduct"
+                    <Separator />
+                    <MenuItem x:Name="menuItemEditProduct"
                                   Header="Edytuj" 
                                   Click="menuItemEditProduct_Click"/>
-                        <MenuItem x:Name="menuItemDeleteProduct"
+                    <MenuItem x:Name="menuItemDeleteProduct"
                                   Header="Usuń" 
                                   Click="menuItemDeleteProduct_Click"/>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-            </DataGrid>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
 
-            <RepeatButton x:Name="btnCreateProduct" 
+        <RepeatButton x:Name="btnOpimizeShoppingList" 
+                Grid.Column="0" 
                 Grid.Row="2"
                 Style="{DynamicResource ResourceKey=BlueButton}" 
-                Content="Dodaj produkt" 
-                HorizontalAlignment="Left" 
-                Margin="10,0,0,10" 
-                VerticalAlignment="Bottom" 
-                Click="btnCreateProduct_Click" />
-        </Grid>
-         
-        <RepeatButton x:Name="btnExit" 
-                Grid.Column="1" 
-                Grid.Row="1"
-                Style="{DynamicResource ResourceKey=WhiteButton}" 
-                Content="Wyjście" 
-                HorizontalAlignment="Right" 
-                Margin="0,0,10,10" 
-                VerticalAlignment="Bottom" 
+                Content="Optymalizuj" 
+                Margin="10,0,10,10"  
                 Click="btnExit_Click" />
+
+        <Grid Grid.Row="2"
+              Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+
+            <RepeatButton x:Name="btnCreateProduct" 
+                          Grid.Row="0"
+                          Style="{DynamicResource ResourceKey=BlueButton}" 
+                          Margin="10,0,0,10" 
+                          Content="Nowy produkt"
+                          Click="btnCreateProduct_Click" />
+            
+            <RepeatButton x:Name="btnExit"
+                          Style="{DynamicResource ResourceKey=WhiteButton}" 
+                          Grid.Column="1"
+                          Content="Wyjście" 
+                          Margin="5,0,10,10" 
+                          Click="btnExit_Click" />
+        </Grid>
     </Grid>
 </Window>
