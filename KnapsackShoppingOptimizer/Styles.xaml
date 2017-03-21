@@ -6,6 +6,13 @@
     <!-- CONSTANTS -->
     <CornerRadius x:Key="DefaultCornerRadius">5</CornerRadius>
     
+    
+    <!-- Window -->
+    <Style TargetType="Window" x:Key="StyleModalWindow" >
+        <Setter Property="WindowStyle" Value="None"/>
+    </Style>
+    
+    
     <!-- CONTROLS -->
     <Style TargetType="{x:Type Button}" x:Key="BlueButton" >
         <Setter Property="Foreground" Value="White" />

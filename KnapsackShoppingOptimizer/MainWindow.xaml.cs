@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KnapsackShoppingOptimizer.View;
 
 namespace KnapsackShoppingOptimizer
 {
@@ -38,7 +39,7 @@ namespace KnapsackShoppingOptimizer
 
         private void btnCreateProduct_Click(object sender, RoutedEventArgs e)
         {
-
+            new ModalNewProduct().ShowDialog(this);
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

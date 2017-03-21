@@ -24,7 +24,7 @@ namespace KnapsackShoppingOptimizer
 
                 if (!string.IsNullOrEmpty(strJson))
                 {
-                    this.ProductsKnapsackWrapper = new ProductsKnapsackWrapper();
+                    this.ProductsKnapsackWrapper = JsonConvert.DeserializeObject<ProductsKnapsackWrapper>(strJson);
                 }
                 else
                 {
