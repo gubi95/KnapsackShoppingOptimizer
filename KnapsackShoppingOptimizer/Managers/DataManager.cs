@@ -9,7 +9,7 @@ using System.Web;
 
 namespace KnapsackShoppingOptimizer
 {
-    public class ProductsManager
+    public class DataManager
     {
         private List<Product> BaseProducts { get; set; }
         private List<Store> Stores { get; set; }
