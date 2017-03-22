@@ -61,6 +61,15 @@ namespace KnapsackShoppingOptimizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Anuluj.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Czy na pewno chcesz zamknąć program?.
         /// </summary>
         public static string MainWindowCloseConfirmation {
@@ -97,7 +106,7 @@ namespace KnapsackShoppingOptimizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nazwa produktu.
+        ///   Looks up a localized string similar to dupa.
         /// </summary>
         public static string ModalNewProductTextBoxName {
             get {
@@ -124,11 +133,11 @@ namespace KnapsackShoppingOptimizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nazwa sklepu.
+        ///   Looks up a localized string similar to Nazwa:.
         /// </summary>
-        public static string ModalNewShopTextBoxName {
+        public static string ModalNewShopLblShopName {
             get {
-                return ResourceManager.GetString("ModalNewShopTextBoxName", resourceCulture);
+                return ResourceManager.GetString("ModalNewShopLblShopName", resourceCulture);
             }
         }
         

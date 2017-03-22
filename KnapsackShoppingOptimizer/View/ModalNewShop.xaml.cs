@@ -28,40 +28,24 @@ namespace KnapsackShoppingOptimizer.View
         {
             this.Owner = window;
             this.ShowDialog();
+
+            txtShopName.Text = "";
+            btnSaveNewProduct.IsEnabled = false;
         }
 
-        private void TextBoxShopName_GotFocus(object sender, RoutedEventArgs e)
+        private void txtShopName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (TextBoxShopName.Text.Trim() == Properties.Resources.ModalNewShopTextBoxName)
-            {
-                TextBoxShopName.Text = string.Empty;
-                TextBoxShopName.Foreground = Brushes.Black;
-            }
-        }
-
-        private void TextBoxShopName_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if(string.IsNullOrWhiteSpace(TextBoxShopName.Text))
-            {
-                TextBoxShopName.Foreground = Brushes.Gray;
-                TextBoxShopName.Text = Properties.Resources.ModalNewShopTextBoxName;
-            }
+            btnSaveNewProduct.IsEnabled = txtShopName.Text.Trim() != "";
         }
 
         private void btnSaveNewProduct_Click(object sender, RoutedEventArgs e)
         {
+
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            var confirmationResult = MessageBoxCenter.Show(this, 
-                Properties.Resources.ModalNewShopCloseConfirmation,
-                Properties.Resources.MessageBoxConfirmationHeader, 
-                MessageBoxButton.YesNo);
-            if(confirmationResult == MessageBoxResult.Yes)
-            {
-                this.Close();
-            }
+            this.Close();
         }
     }
 }

@@ -40,6 +40,35 @@
         </Style.Triggers>
     </Style>
 
+    <Style TargetType="{x:Type RepeatButton}" x:Key="BlueButtonSmall" >
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource BrushBlueButton}"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontFamily" Value="Trebuchet MS" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border CornerRadius="{StaticResource DefaultCornerRadius}" Background="{TemplateBinding Background}" Padding="0">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#0252D8"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="true">
+                <Setter Property="Background" Value="{DynamicResource BrushBlueButton}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" Value="{DynamicResource BrushBlueButtonDisabled}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="{x:Type RepeatButton}" x:Key="WhiteButton" >
         <Setter Property="Foreground" Value="#666" />
         <Setter Property="Background" Value="White"/>
@@ -167,16 +196,15 @@
     </Style>
 
     <Style TargetType="TextBox" x:Key="StyleTextBoxForm">
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
         <Setter Property="Foreground" Value="Gray" />
-        <Setter Property="Height" Value="46" />
+        <Setter Property="Height" Value="28" />        
     </Style>
 
     <!-- TEXT BLOCKS -->
-    <Style TargetType="TextBlock" x:Key="StyleTextBlockModalHeader">
-        <Setter Property="FontSize" Value="25"/>
+    <Style TargetType="TextBlock" x:Key="StyleTextBlockModalHeader">        
         <Setter Property="FontFamily" Value="Lato" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />

@@ -7,16 +7,16 @@
         xmlns:resx="clr-namespace:KnapsackShoppingOptimizer.Properties"
         mc:Ignorable="d"
         Title="ModalNewShow" 
-        Height="300" 
-        Width="300"
+        Height="130" 
+        Width="330"
         WindowStartupLocation="CenterOwner"
         Style="{DynamicResource ResourceKey=StyleModalWindow}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />            
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="46" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="46" />
         </Grid.RowDefinitions>  
@@ -24,41 +24,43 @@
         <TextBlock x:Name="ModalHeader"
                    Style="{DynamicResource ResourceKey=StyleTextBlockModalHeader}"
                    Grid.Row="0"
-                   Grid.Column="0"
-                   Margin="5" 
+                   Grid.Column="0"                   
+                   HorizontalAlignment="Center"
                    Text="{x:Static resx:Resources.ModalNewShopHeader}"/>
 
-        <!-- FORM -->
-        <StackPanel Orientation="Vertical"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    VerticalAlignment="Center">
+        <!-- FORM -->   
+        <TextBlock            
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="{x:Static resx:Resources.ModalNewShopLblShopName}"
+                Margin="10 14 0 0"/>
 
-            <TextBox x:Name="TextBoxShopName"
-                     Style="{DynamicResource ResourceKey=StyleTextBoxForm}"
-                     Width="200"
-                     Margin="5"
-                     Text="{x:Static resx:Resources.ModalNewShopTextBoxName}"
-                     GotFocus="TextBoxShopName_GotFocus"
-                     LostFocus="TextBoxShopName_LostFocus"/>
-        </StackPanel>
-
+        <TextBox x:Name="txtShopName"
+                 Grid.Row="1"
+                 Grid.Column="2"
+                 Style="{DynamicResource ResourceKey=StyleTextBoxForm}"
+                 Width="255"                                          
+                 Margin="0 0 10 0"                 
+                 TextChanged="txtShopName_TextChanged"/>
+        
         <!-- Buttons at the bottom-->
         <StackPanel Grid.Row="2" 
                     Grid.Column="0"
                     Orientation="Horizontal" 
-                    HorizontalAlignment="Right">
+                    HorizontalAlignment="Center"
+                    Height="35">
             <RepeatButton x:Name="btnSaveNewProduct" 
-                          Style="{DynamicResource ResourceKey=BlueButton}" 
-                          Width="120"
-                          Margin="5"
+                          Style="{DynamicResource ResourceKey=BlueButtonSmall}" 
+                          Width="80"
+                          Margin="0 0 5 7"
                           Content="Dodaj"
+                          IsEnabled="False"
                           Click="btnSaveNewProduct_Click"/>
             <RepeatButton x:Name="btnCancel" 
-                          Style="{DynamicResource ResourceKey=BlueButton}" 
-                          Width="120"
-                          Margin="5"
-                          Content="Anuluj"
+                          Style="{DynamicResource ResourceKey=BlueButtonSmall}" 
+                          Width="80"
+                          Margin="5 0 0 7"
+                          Content="{x:Static resx:Resources.Cancel}"
                           Click="btnCancel_Click"/>
         </StackPanel>
     </Grid>
