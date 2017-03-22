@@ -133,6 +133,15 @@ namespace KnapsackShoppingOptimizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Koszt wysyłki:.
+        /// </summary>
+        public static string ModalNewShopLblShipmentCost {
+            get {
+                return ResourceManager.GetString("ModalNewShopLblShipmentCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nazwa:.
         /// </summary>
         public static string ModalNewShopLblShopName {

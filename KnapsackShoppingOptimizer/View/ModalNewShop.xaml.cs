@@ -35,7 +35,12 @@ namespace KnapsackShoppingOptimizer.View
 
         private void txtShopName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            btnSaveNewProduct.IsEnabled = txtShopName.Text.Trim() != "";
+            btnSaveNewProduct.IsEnabled = txtShopName.Text.Trim() != "" && txtShipmentCost.Text.Trim() != "";
+        }
+
+        private void txtShipmentCost_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            btnSaveNewProduct.IsEnabled = txtShopName.Text.Trim() != "" && txtShipmentCost.Text.Trim() != "";
         }
 
         private void btnSaveNewProduct_Click(object sender, RoutedEventArgs e)
@@ -46,6 +51,6 @@ namespace KnapsackShoppingOptimizer.View
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
+        }            
     }
 }

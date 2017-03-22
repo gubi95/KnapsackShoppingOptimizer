@@ -141,6 +141,9 @@
   <data name="ModalNewShopHeader" xml:space="preserve">
     <value>Dodaj nowy sklep</value>
   </data>
+  <data name="ModalNewShopLblShipmentCost" xml:space="preserve">
+    <value>Koszt wysyłki:</value>
+  </data>
   <data name="ModalNewShopLblShopName" xml:space="preserve">
     <value>Nazwa:</value>
   </data>

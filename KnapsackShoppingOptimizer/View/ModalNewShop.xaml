@@ -7,7 +7,7 @@
         xmlns:resx="clr-namespace:KnapsackShoppingOptimizer.Properties"
         mc:Ignorable="d"
         Title="ModalNewShow" 
-        Height="130" 
+        Height="160" 
         Width="330"
         WindowStartupLocation="CenterOwner"
         Style="{DynamicResource ResourceKey=StyleModalWindow}">
@@ -17,7 +17,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="46" />
         </Grid.RowDefinitions>  
         <!-- Header -->
@@ -33,18 +34,32 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Text="{x:Static resx:Resources.ModalNewShopLblShopName}"
-                Margin="10 14 0 0"/>
+                Margin="10 9 0 0"/>
 
         <TextBox x:Name="txtShopName"
                  Grid.Row="1"
                  Grid.Column="2"
                  Style="{DynamicResource ResourceKey=StyleTextBoxForm}"
-                 Width="255"                                          
+                 Width="225"                                          
                  Margin="0 0 10 0"                 
                  TextChanged="txtShopName_TextChanged"/>
         
+        <TextBlock            
+                Grid.Row="2"
+                Grid.Column="1"
+                Text="{x:Static resx:Resources.ModalNewShopLblShipmentCost}"
+                Margin="10 9 0 0"/>
+
+        <TextBox x:Name="txtShipmentCost"
+                 Grid.Row="2"
+                 Grid.Column="1"
+                 Style="{DynamicResource ResourceKey=StyleTextBoxForm}"
+                 Width="225"                                          
+                 Margin="0 0 10 0"                 
+                 TextChanged="txtShipmentCost_TextChanged"/>
+        
         <!-- Buttons at the bottom-->
-        <StackPanel Grid.Row="2" 
+        <StackPanel Grid.Row="3" 
                     Grid.Column="0"
                     Orientation="Horizontal" 
                     HorizontalAlignment="Center"
