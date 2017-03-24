@@ -17,5 +17,7 @@ namespace KnapsackShoppingOptimizer
             string strMappedPath = Path.Combine(strBasePath, ("" + strRelativePath).Trim().Replace("/", "\\"));
             return strMappedPath;            
         }
+
+        public static DataManager DataManager;
     }
 }
