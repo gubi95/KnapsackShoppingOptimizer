@@ -10,13 +10,10 @@ namespace KnapsackShoppingOptimizer.Utils
 {
     class ShopEnumAlgorithm
     {
-
-        
-        
-
-        public static List<ShopEnumResult> Run(List<Product> shoppingList)
+        public static ShopEnumProducts Run(List<Product> shoppingList)
         {
-            var optimizedShoppingList = InitializeShoppingList(shoppingList);
+            var bestShoppingList = new ShopEnumProducts(shoppingList);
+            var currentShoppingList = new ShopEnumProducts(shoppingList);
             var stores = HelperMethods.DataManager.GetAllStores();
             var subsetMask = new int[stores.Count];
             subsetMask[0] = -1;
@@ -25,35 +22,28 @@ namespace KnapsackShoppingOptimizer.Utils
             {
                 for (var i = 0; i < stores.Count; i++)
                 {
-                    if(subsetMask[i] == 0) continue;
-                    foreach (var shopEnumResult in optimizedShoppingList)
+                    if (subsetMask[i] == 0) continue;
+                    foreach (var shopEnumPosition in currentShoppingList.ShopEnumPositions)
                     {
                         stores[i].Positions.ForEach(position =>
                         {
-                            if (position.BaseProduct != shopEnumResult.StorePosition.BaseProduct) return;
-                            if (position.Price >= shopEnumResult.StorePosition.Price) return;
-                            shopEnumResult.Store = stores[i];
-                            shopEnumResult.StorePosition = position;
+                            if (position.BaseProduct != shopEnumPosition.StorePosition.BaseProduct) return;
+                            if (position.Price >= shopEnumPosition.StorePosition.Price) return;
+                            shopEnumPosition.Store = stores[i];
+                            shopEnumPosition.StorePosition = position;
                         });
                     }
                 }
+                if (currentShoppingList.GetShoppingListValue() < bestShoppingList.GetShoppingListValue())
+                {
+                    var temp = currentShoppingList;
+                    currentShoppingList = bestShoppingList;
+                    bestShoppingList = temp;
+                }
+                currentShoppingList.Clear();
             }
-            return optimizedShoppingList;
+            return bestShoppingList;
         }
-
-        private static List<ShopEnumResult> InitializeShoppingList(List<Product> shoppingList)
-        {
-            var newShoppingList = new List<ShopEnumResult>();
-            foreach (var product in shoppingList)
-            {
-                var newShopEnumResult = new ShopEnumResult();
-                newShopEnumResult.StorePosition.BaseProduct = product;
-                newShopEnumResult.StorePosition.Price = decimal.MaxValue;
-                newShoppingList.Add(newShopEnumResult);
-            }
-            return newShoppingList;
-        }
-
         private static int GetNextPermutation(int[] subsetMask)
         {
             int carry = 1;

@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace KnapsackShoppingOptimizer.Models.AlgorithmModels
 {
-    class ShopEnumResult
+    class ShopEnumPosition
     {
         public Store Store { get; set; }
         public StorePosition StorePosition { get; set; }
+        public bool Found { get; set; }
+        
     }
 }
