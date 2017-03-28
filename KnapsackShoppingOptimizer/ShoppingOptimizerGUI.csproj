@@ -86,8 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\AlgorithmModels\ShopEnumResult.cs" />
     <Compile Include="Models\StorePosition.cs" />
     <Compile Include="Utils\MessageBoxCenter.cs" />
+    <Compile Include="Utils\ShopEnumAlgorithm.cs" />
     <Compile Include="View\ModalNewProduct.xaml.cs">
       <DependentUpon>ModalNewProduct.xaml</DependentUpon>
     </Compile>
