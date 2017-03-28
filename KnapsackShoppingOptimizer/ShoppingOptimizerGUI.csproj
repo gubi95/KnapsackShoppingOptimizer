@@ -86,6 +86,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Managers\ValidationManager.cs" />
     <Compile Include="Models\StorePosition.cs" />
     <Compile Include="Utils\MessageBoxCenter.cs" />
     <Compile Include="View\ModalNewProduct.xaml.cs">

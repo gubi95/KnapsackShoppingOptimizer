@@ -64,13 +64,13 @@
                     Orientation="Horizontal" 
                     HorizontalAlignment="Center"
                     Height="35">
-            <RepeatButton x:Name="btnSaveNewProduct" 
+            <RepeatButton x:Name="btnSaveNewStore" 
                           Style="{DynamicResource ResourceKey=BlueButtonSmall}" 
                           Width="80"
                           Margin="0 0 5 7"
                           Content="Dodaj"
                           IsEnabled="False"
-                          Click="btnSaveNewProduct_Click"/>
+                          Click="btnSaveNewStore_Click"/>
             <RepeatButton x:Name="btnCancel" 
                           Style="{DynamicResource ResourceKey=BlueButtonSmall}" 
                           Width="80"

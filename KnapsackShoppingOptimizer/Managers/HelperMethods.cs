@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Hosting;
-using System.IO;
+using System.IO;                         
 
 namespace KnapsackShoppingOptimizer
 {
@@ -16,6 +16,6 @@ namespace KnapsackShoppingOptimizer
             string strBasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\"));
             string strMappedPath = Path.Combine(strBasePath, ("" + strRelativePath).Trim().Replace("/", "\\"));
             return strMappedPath;            
-        }
+        }            
     }
 }

@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
+using KnapsackShoppingOptimizer.Managers;
 
 namespace KnapsackShoppingOptimizer.View
 {
@@ -30,27 +32,44 @@ namespace KnapsackShoppingOptimizer.View
             this.ShowDialog();
 
             txtShopName.Text = "";
-            btnSaveNewProduct.IsEnabled = false;
+            btnSaveNewStore.IsEnabled = false;
         }
 
         private void txtShopName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            btnSaveNewProduct.IsEnabled = txtShopName.Text.Trim() != "" && txtShipmentCost.Text.Trim() != "";
+            btnSaveNewStore.IsEnabled = txtShopName.Text.Trim() != "" && txtShipmentCost.Text.Trim() != "";
         }
 
         private void txtShipmentCost_TextChanged(object sender, TextChangedEventArgs e)
         {
-            btnSaveNewProduct.IsEnabled = txtShopName.Text.Trim() != "" && txtShipmentCost.Text.Trim() != "";
+            btnSaveNewStore.IsEnabled = txtShopName.Text.Trim() != "" && txtShipmentCost.Text.Trim() != "";
         }
 
-        private void btnSaveNewProduct_Click(object sender, RoutedEventArgs e)
+        private void btnSaveNewStore_Click(object sender, RoutedEventArgs e)
         {
+            bool bIsShopNameValid = ValidationManager.IsNotEmptyValueValid(txtShopName.Text);
+            bool bIsShipmentCostValid = ValidationManager.IsNotEmptyValueValid(txtShipmentCost.Text) && ValidationManager.IsCashValueValid(txtShipmentCost.Text.Replace(",", "."));
+            bool bIsEntireFormValid = bIsShopNameValid && bIsShipmentCostValid;
 
+            if (!bIsShopNameValid)
+            {
+                MessageBox.Show("Proszę wpisać nazwę sklepu.");
+            }
+
+            if (!bIsShipmentCostValid)
+            {
+                MessageBox.Show("Kwota wysyłki musi być w formacie XX,XX");
+            }
+
+            if (bIsEntireFormValid)
+            {
+                decimal dShipmentCost = decimal.Parse(txtShipmentCost.Text.Replace(".", ","));                
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }            
+        }
     }
 }
