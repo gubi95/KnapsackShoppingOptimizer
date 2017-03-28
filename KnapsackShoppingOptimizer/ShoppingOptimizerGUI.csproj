@@ -86,9 +86,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+<<<<<<< HEAD
     <Compile Include="Managers\ValidationManager.cs" />
+=======
+    <Compile Include="Models\AlgorithmModels\ShopEnumResult.cs" />
+>>>>>>> 4f32fba8539abc76f923c7adffbf921784b29516
     <Compile Include="Models\StorePosition.cs" />
     <Compile Include="Utils\MessageBoxCenter.cs" />
+    <Compile Include="Utils\ShopEnumAlgorithm.cs" />
     <Compile Include="View\ModalNewProduct.xaml.cs">
       <DependentUpon>ModalNewProduct.xaml</DependentUpon>
     </Compile>

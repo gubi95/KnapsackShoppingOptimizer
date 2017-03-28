@@ -16,6 +16,12 @@ namespace KnapsackShoppingOptimizer
             string strBasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\"));
             string strMappedPath = Path.Combine(strBasePath, ("" + strRelativePath).Trim().Replace("/", "\\"));
             return strMappedPath;            
+<<<<<<< HEAD
         }            
+=======
+        }
+
+        public static DataManager DataManager;
+>>>>>>> 4f32fba8539abc76f923c7adffbf921784b29516
     }
 }

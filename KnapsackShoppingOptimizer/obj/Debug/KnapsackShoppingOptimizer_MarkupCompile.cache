@@ -12,8 +12,13 @@ DEBUG;TRACE
 D:\GitRepos\ShoppingOptimizer\KnapsackShoppingOptimizer\App.xaml
 6-145272750
 
+<<<<<<< HEAD
 14-1525033869
 17-1610958471
+=======
+131760186627
+17899320182
+>>>>>>> 4f32fba8539abc76f923c7adffbf921784b29516
 Colors.xaml;ControlTemplates.xaml;MainWindow.xaml;Styles.xaml;View\ModalNewProduct.xaml;View\ModalNewShop.xaml;
 
 False
