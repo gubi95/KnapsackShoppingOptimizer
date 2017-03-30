@@ -63,7 +63,22 @@ namespace KnapsackShoppingOptimizer.View
 
             if (bIsEntireFormValid)
             {
-                decimal dShipmentCost = decimal.Parse(txtShipmentCost.Text.Replace(".", ","));                
+                decimal dShipmentCost = decimal.Parse(txtShipmentCost.Text.Replace(",", "."));
+
+                HelperMethods.DataManager.CreateStore(new Store()
+                {
+                    StoreID = Guid.NewGuid(),
+                    ShipmentCost = dShipmentCost,
+                    Name = txtShopName.Text,
+                    Positions = new List<StorePosition>()
+                });
+
+                if (this.Owner is MainWindow)
+                {
+                    ((MainWindow)this.Owner).BindDDLShops();
+                }
+
+                this.Close();
             }
         }
 

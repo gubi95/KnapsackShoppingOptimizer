@@ -29,7 +29,10 @@ namespace KnapsackShoppingOptimizer
 
         private void FormLoad(object sender, RoutedEventArgs e)
         {
-            
+            // this should be called only here and only once
+            HelperMethods.DataManager.ReadFromFile();
+
+            BindDDLShops();
         }  
 
         private void btnCreateStore_Click(object sender, RoutedEventArgs e)
@@ -77,6 +80,16 @@ namespace KnapsackShoppingOptimizer
         private void menuItemEditShoppingProduct_Click(object sender, RoutedEventArgs e)
         {
 
+        }        
+
+        public void BindDDLShops()
+        {
+            ddlShops.Items.Clear();
+            List<Store> listStore = HelperMethods.DataManager.GetAllStores();
+            foreach (Store objStore in listStore)
+            {
+                ddlShops.Items.Add(new KeyValuePair<string, string>(objStore.StoreID.ToString() , objStore.Name)); 
+            }
         }
     }
 }

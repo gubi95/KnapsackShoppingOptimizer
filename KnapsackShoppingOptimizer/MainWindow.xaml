@@ -7,10 +7,10 @@
         xmlns:local="clr-namespace:KnapsackShoppingOptimizer"  
         mc:Ignorable="d"
         Title="Optymalizwanie listy zakupowej"
-        Height="600" 
-        Width="800"
-        MinWidth="800"
-        MinHeight="600">
+        Height="800" 
+        Width="1000"
+        MinWidth="1000"
+        MinHeight="800">
     <Window.Resources>
         <GridLength x:Key="DefaultRowHeight">46</GridLength>
     </Window.Resources>
@@ -66,21 +66,25 @@
 
       
             <StackPanel Orientation="Horizontal" 
-                        HorizontalAlignment="Left"
+                        HorizontalAlignment="Stretch"
                         Grid.Row="0"
-                        Grid.Column="1">
-                <ComboBox x:Name="comboBoxShops"
-                          Margin="10, 10, 10, 0"
+                        Grid.Column="1"                        >
+            <TextBlock x:Name="lblShops"
+                       Text="Sklepy:"
+                       Margin="10 18 0 0"/>
+            <ComboBox x:Name="ddlShops"
+                          Margin="10 12 10 0"
                           Style="{DynamicResource ResourceKey=StyleComboBoxDefault}"
-                          Width="150"/>
-                <RepeatButton x:Name="btnCreateStore" 
+                          Width="190"
+                          SelectedValuePath="Key"
+                          DisplayMemberPath="Value"/>
+            <RepeatButton x:Name="btnCreateStore" 
                         Style="{DynamicResource ResourceKey=BlueButton}" 
                         Content="Dodaj sklep" 
-                        HorizontalAlignment="Left" 
-                        Margin="10,10,10,0" 
-                        VerticalAlignment="Bottom" 
-                        Click="btnCreateStore_Click" />
-            </StackPanel>
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom"                               
+                        Click="btnCreateStore_Click"/>
+        </StackPanel>
         <DataGrid x:Name="dataGridProductsPreview" 
                       Grid.Row="1"
                       Grid.Column="1"

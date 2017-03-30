@@ -181,10 +181,10 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type ComboBox}" x:Key="StyleComboBoxDefault">
-        <Setter Property="SelectedValuePath" Value="Content"/>
+    <Style TargetType="{x:Type ComboBox}" x:Key="StyleComboBoxDefault">        
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Background" Value="White"/>
+        <Setter Property="Height" Value="33" />
         <Setter Property="Template" Value="{DynamicResource ComboBoxDefaultControlTemplate}"/>
     </Style>
 

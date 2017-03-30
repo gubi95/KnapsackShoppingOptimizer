@@ -62,7 +62,8 @@ namespace KnapsackShoppingOptimizer
         public void CreateStore(Store objStore)
         {
             this.RepairModelsIfNulls();
-            this.Stores.Add(objStore);                        
+            this.Stores.Add(objStore);
+            this.WriteToFile();                      
         }
 
         public void EditStore(Store objStore)
@@ -73,7 +74,8 @@ namespace KnapsackShoppingOptimizer
             if (nStoreToEditIndex != -1)
             {
                 this.Stores[nStoreToEditIndex] = objStore;
-            }                        
+            }
+            this.WriteToFile();
         }
 
         public void DeleteStore(Store objStore)
@@ -85,6 +87,7 @@ namespace KnapsackShoppingOptimizer
             {
                 this.Stores.RemoveAt(nStoreToDeleteIndex);
             }
+            this.WriteToFile();
         }
 
         #endregion
@@ -107,6 +110,7 @@ namespace KnapsackShoppingOptimizer
         {
             this.RepairModelsIfNulls();
             this.BaseProducts.Add(objProduct);
+            this.WriteToFile();
         }
 
         public void EditProduct(Product objProduct)
@@ -118,6 +122,7 @@ namespace KnapsackShoppingOptimizer
             {
                 this.BaseProducts[nProductIndexToEdit] = objProduct;
             }
+            this.WriteToFile();
         }
 
         public void DeleteProduct(Product objProduct)
@@ -129,6 +134,7 @@ namespace KnapsackShoppingOptimizer
             {
                 this.BaseProducts.RemoveAt(nProductIndexToDelete);
             }
+            this.WriteToFile();
         }
 
         #endregion
@@ -144,6 +150,7 @@ namespace KnapsackShoppingOptimizer
             {
                 this.Stores[nStoreIndex].Positions.Add(objStorePosition);
             }
+            this.WriteToFile();
         }
 
         public void DeletePositionFromStore(Store objStore, StorePosition objStorePosition)
@@ -159,6 +166,7 @@ namespace KnapsackShoppingOptimizer
                     this.Stores[nStoreIndexToEdit].Positions.RemoveAt(nPositionIndexToDelete);
                 }
             }
+            this.WriteToFile();
         }               
 
         #endregion
@@ -198,6 +206,11 @@ namespace KnapsackShoppingOptimizer
             {
                 this.ModWrapper = new ModelsWrapper();
             }
+
+            this.Stores = this.ModWrapper.Stores;
+            this.BaseProducts = this.ModWrapper.BaseProducts;
+
+            this.RepairModelsIfNulls();
         }
 
         public void WriteToFile()

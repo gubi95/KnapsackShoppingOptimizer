@@ -18,6 +18,6 @@ namespace KnapsackShoppingOptimizer
             return strMappedPath;            
         }
 
-        public static DataManager DataManager;
+        public static DataManager DataManager = new DataManager();
     }
 }
