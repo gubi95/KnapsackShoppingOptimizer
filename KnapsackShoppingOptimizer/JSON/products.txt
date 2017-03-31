@@ -1,0 +1,1 @@
+{"BaseProducts":[],"Stores":[{"StoreID":"d00db6a3-95cd-4467-a381-62f7762a87b8","Name":"Nowy","Positions":[],"ShipmentCost":12.00,"ShipmentCostFormatted":"$12.00"},{"StoreID":"414ede4c-3f07-425f-af43-37a899eb4d56","Name":"asdasdasdad","Positions":[],"ShipmentCost":12.00,"ShipmentCostFormatted":"$12.00"}]}
