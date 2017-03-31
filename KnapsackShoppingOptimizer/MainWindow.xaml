@@ -73,11 +73,12 @@
                        Text="Sklepy:"
                        Margin="10 18 0 0"/>
             <ComboBox x:Name="ddlShops"
-                          Margin="10 12 10 0"
-                          Style="{DynamicResource ResourceKey=StyleComboBoxDefault}"
-                          Width="190"
-                          SelectedValuePath="Key"
-                          DisplayMemberPath="Value"/>
+                      Margin="10 12 10 0"
+                      Style="{DynamicResource ResourceKey=StyleComboBoxDefault}"
+                      Width="190"
+                      SelectedValuePath="Key"
+                      DisplayMemberPath="Value" 
+                     />
             <RepeatButton x:Name="btnCreateStore" 
                         Style="{DynamicResource ResourceKey=BlueButton}" 
                         Content="Dodaj sklep" 
