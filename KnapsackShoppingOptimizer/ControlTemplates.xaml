@@ -281,10 +281,11 @@
             </ToggleButton>
             <ContentPresenter x:Name="contentPresenter" 
                               ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                               Content="{TemplateBinding SelectionBoxItem}" 
-                              ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" 
+                              ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                              IsHitTestVisible="False" Margin="{TemplateBinding Padding}" 
+                              IsHitTestVisible="false" Margin="{TemplateBinding Padding}"
                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
         </Grid>

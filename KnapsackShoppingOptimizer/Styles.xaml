@@ -185,7 +185,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="Height" Value="33" />
-        <Setter Property="Template" Value="{DynamicResource ComboBoxDefaultControlTemplate}"/>
+        <Setter Property="Template" Value="{DynamicResource ComboBoxDefaultControlTemplate}" />
     </Style>
 
     <Style TargetType="TextBox" x:Key="StyleTextBoxAmount">
