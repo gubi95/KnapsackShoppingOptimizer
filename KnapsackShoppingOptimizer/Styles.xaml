@@ -197,6 +197,7 @@
 
     <Style TargetType="TextBox" x:Key="StyleTextBoxForm">
         <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Template" Value="{DynamicResource TextBoxBaseControlTemplate}"/>
         <Setter Property="Foreground" Value="Gray" />
@@ -208,5 +209,6 @@
         <Setter Property="FontFamily" Value="Lato" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="18" />
     </Style>
 </ResourceDictionary>

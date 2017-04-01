@@ -89,6 +89,7 @@
     <Compile Include="Managers\ValidationManager.cs" />
     <Compile Include="Models\AlgorithmModels\ShopEnumPosition.cs" />
     <Compile Include="Models\AlgorithmModels\ShopEnumProducts.cs" />
+    <Compile Include="Models\ShoppingListItem.cs" />
     <Compile Include="Models\StorePosition.cs" />
     <Compile Include="Utils\MessageBoxCenter.cs" />
     <Compile Include="Utils\ShopEnumAlgorithm.cs" />
@@ -97,6 +98,9 @@
     </Compile>
     <Compile Include="View\ModalNewShop.xaml.cs">
       <DependentUpon>ModalNewShop.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ModalOptimizedShoppingList.xaml.cs">
+      <DependentUpon>ModalOptimizedShoppingList.xaml</DependentUpon>
     </Compile>
     <Page Include="Colors.xaml">
       <SubType>Designer</SubType>
@@ -127,6 +131,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ModalNewShop.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ModalOptimizedShoppingList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

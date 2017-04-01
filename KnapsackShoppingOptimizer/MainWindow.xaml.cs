@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KnapsackShoppingOptimizer.Models;
 using KnapsackShoppingOptimizer.View;
 
 namespace KnapsackShoppingOptimizer
@@ -77,11 +78,6 @@ namespace KnapsackShoppingOptimizer
 
         }
 
-        private void menuItemEditShoppingProduct_Click(object sender, RoutedEventArgs e)
-        {
-
-        }        
-
         public void BindDDLShops()
         {
             ddlShops.Items.Clear();
@@ -90,6 +86,21 @@ namespace KnapsackShoppingOptimizer
             {
                 ddlShops.Items.Add(new KeyValuePair<string, string>(objStore.StoreID.ToString() , objStore.Name)); 
             }
+        }
+
+        public void BindCbProducts()
+        {
+            cbProducts.Items.Clear();
+            List<Product> products = HelperMethods.DataManager.GetAllProducts();
+            products.ForEach(
+                product =>
+                    cbProducts.Items.Add(new KeyValuePair<string, string>(product.ProductID.ToString(), product.Name)));
+
+        }
+
+        private void BtnOpimizeShoppingList_OnClick(object sender, RoutedEventArgs e)
+        {
+            new ModalOptimizedShoppingList().ShowDialog(this);
         }
     }
 }
