@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KnapsackShoppingOptimizer.Models;
 using KnapsackShoppingOptimizer.View;
+using Xceed.Wpf.Toolkit;
 
 namespace KnapsackShoppingOptimizer
 {
@@ -108,7 +109,18 @@ namespace KnapsackShoppingOptimizer
 
         private void BtnAddToShoppingList_OnClick(object sender, RoutedEventArgs e)
         {
-            Product product = HelperMethods.DataManager.GetProductByID(((KeyValuePair<Guid, string>) cbProducts.SelectedItem).Key);
+            if (cbProducts.SelectedItem == null || string.IsNullOrWhiteSpace(tBProductAmount.Text))
+            {
+                return;
+            }
+
+            var product = HelperMethods.DataManager.GetProductByID(((KeyValuePair<Guid, string>) cbProducts.SelectedItem).Key);
+            int quantity;
+            var parsingSuccess = int.TryParse(tBProductAmount.Text, out quantity);
+            if (parsingSuccess)
+            {
+                _shoppingList.Add(new ShoppingListItem());
+            }
         }
     }
 }
