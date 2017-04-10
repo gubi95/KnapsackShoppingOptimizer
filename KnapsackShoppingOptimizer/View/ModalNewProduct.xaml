@@ -19,6 +19,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="46" />
+            <RowDefinition Height="36" />
             <RowDefinition Height="*" />
             <RowDefinition Height="46" />
         </Grid.RowDefinitions>
@@ -29,54 +30,60 @@
                    Grid.Column="0"
                    Margin="5" 
                    Text="{x:Static resx:Resources.ModalNewProductHeader}"/>
-
         <!-- FORM -->
-        <StackPanel Orientation="Vertical"
+        <StackPanel Orientation="Horizontal"
                     Grid.Row="1"
                     Grid.Column="0"
                     VerticalAlignment="Top">
-
-            <TextBox x:Name="TextBoxProductName"
+            <TextBlock x:Name="lblProductName"
+                       Text="Nazwa produktu:" 
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="10 3 0 0"/>
+            <TextBox x:Name="txtProductName"
                      Style="{DynamicResource ResourceKey=StyleTextBoxForm}"
-                     Width="200"
-                     Margin="5"
-                     Text="{x:Static resx:Resources.ModalNewProductTextBoxName}"
-                     GotFocus="TextBoxProductName_GotFocus"
-                     LostFocus="TextBoxProductName_LostFocus"/>
-            <DataGrid x:Name="DataGridShops"
+                     Width="280"                     
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Margin="10 0 0 0"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    VerticalAlignment="Top">
+
+            <DataGrid x:Name="gridProducts"
                       Style="{DynamicResource DataGridProductsPreview}"
-                      AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Width="25"
-                                            IsReadOnly="False"/>
+                      AutoGenerateColumns="False"
+                      CellEditEnding="gridProducts_CellEditEnding">
+                <DataGrid.Columns>                    
                     <DataGridTextColumn Header="{x:Static resx:Resources.ShopPickerHeaderShopName}" 
                                         Width="2*"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Binding="{Binding ShopName}"/>
                     <DataGridTextColumn Header="{x:Static resx:Resources.ShopPickerHeaderPrice}"
                                         Width="*"
-                                        IsReadOnly="False"/>
-                    <DataGridTextColumn Header="{x:Static resx:Resources.ShopPickerHeaderAmount}"
-                                        Width="*"
-                                        IsReadOnly="False"/>
+                                        IsReadOnly="False"
+                                        Binding="{Binding Price}"/>                    
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
 
         <!-- Buttons at the bottom-->
-        <StackPanel Grid.Row="2" 
+        <StackPanel Grid.Row="3" 
                     Grid.Column="0"
                     Orientation="Horizontal" 
-                    HorizontalAlignment="Right">
+                    HorizontalAlignment="Center">
             <RepeatButton x:Name="btnSaveNewProduct" 
-                          Style="{DynamicResource ResourceKey=BlueButton}" 
-                          Width="120"
-                          Margin="5"
+                          Style="{DynamicResource ResourceKey=BlueButtonSmall}" 
+                          Width="80"
+                          Margin="0 5 5 10"
                           Content="Dodaj"
                           Click="btnSaveNewProduct_Click"/>
             <RepeatButton x:Name="btnCancel" 
-                          Style="{DynamicResource ResourceKey=BlueButton}" 
-                          Width="120"
-                          Margin="5"
+                          Style="{DynamicResource ResourceKey=BlueButtonSmall}" 
+                          Width="80"
+                          Margin="0 5 5 10"
                           Content="Anuluj"
                           Click="btnCancel_Click"/>
         </StackPanel>

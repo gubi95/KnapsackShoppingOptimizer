@@ -53,12 +53,20 @@ namespace KnapsackShoppingOptimizer.View
 
             if (!bIsShopNameValid)
             {
-                MessageBox.Show("Proszę wpisać nazwę sklepu.");
+                MessageBox.Show("Proszę wpisać nazwę sklepu.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             if (!bIsShipmentCostValid)
             {
-                MessageBox.Show("Kwota wysyłki musi być w formacie XX,XX");
+                MessageBox.Show("Kwota wysyłki musi być w formacie XX,XX", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            List<Store> listStore = HelperMethods.DataManager.GetAllStores();
+
+            if (listStore.Find(x => ("" + x.Name).ToLower().Trim() == ("" + txtShopName.Text).Trim().ToLower()) != null)
+            {
+                MessageBox.Show("Sklep z podaną nazwą już istnieje!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                bIsEntireFormValid = false;   
             }
 
             if (bIsEntireFormValid)
