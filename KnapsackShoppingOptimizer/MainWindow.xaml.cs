@@ -25,6 +25,12 @@ namespace KnapsackShoppingOptimizer
     {
         private List<ShoppingListItem> _shoppingList = new List<ShoppingListItem>();
 
+        private class ProductsDataGridItem
+        {
+            public string ProductName { get; set; }
+            public string Price { get; set; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -88,7 +94,7 @@ namespace KnapsackShoppingOptimizer
             List<Store> listStore = HelperMethods.DataManager.GetAllStores();
             foreach (Store objStore in listStore)
             {
-                ddlShops.Items.Add(new KeyValuePair<string, string>(objStore.StoreID.ToString() , objStore.Name)); 
+                ddlShops.Items.Add(new KeyValuePair<Guid, string>(objStore.StoreID, objStore.Name)); 
             }
         }
 
@@ -120,6 +126,34 @@ namespace KnapsackShoppingOptimizer
             if (parsingSuccess)
             {
                 _shoppingList.Add(new ShoppingListItem(product, quantity));
+            }
+        }
+
+        private void gridProducts_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+
+        }
+
+        private void ddlShops_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            KeyValuePair<Guid, string> objKeyValuePair = (KeyValuePair<Guid, string>) ddlShops.SelectedItem;
+
+            Store objStore = HelperMethods.DataManager.GetStoreByStoreID(objKeyValuePair.Key);
+
+            if (objStore != null)
+            {
+                List<ProductsDataGridItem> listProductsDataGridItem = new List<ProductsDataGridItem>();
+
+                foreach (StorePosition objStorePosition in objStore.Positions)
+                {
+                    listProductsDataGridItem.Add(new ProductsDataGridItem()
+                    {
+                        ProductName = objStorePosition.Name,
+                        Price = objStorePosition.Price.ToString("F").Replace(".", ","),
+                    });
+                }
+
+                gridProducts.ItemsSource = listProductsDataGridItem;
             }
         }
     }

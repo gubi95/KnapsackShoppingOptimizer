@@ -52,7 +52,7 @@
                   Grid.Row="1"
                   Grid.Column="0"
                   Style="{DynamicResource ResourceKey=DataGridProductsPreview}"
-                  Margin="10,0,10,10" 
+                  Margin="10,10,10,10" 
                   Height="657" 
                   VerticalAlignment="Bottom"
                   DataContext=""
@@ -66,9 +66,26 @@
             </DataGrid.ContextMenu>
         </DataGrid>
 
+        <DataGrid x:Name="gridProducts"
+                  Grid.Column="1"
+                  Grid.Row="1"
+                  Margin="10,10,10,10"
+                      Style="{DynamicResource DataGridProductsPreview}"
+                      AutoGenerateColumns="False"
+                      CellEditEnding="gridProducts_CellEditEnding">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nazwa produktu" 
+                                        Width="2*"
+                                        IsReadOnly="True"
+                                        Binding="{Binding ProductName}"/>
+                <DataGridTextColumn Header="Cena"
+                                        Width="*"
+                                        IsReadOnly="False"
+                                        Binding="{Binding Price}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
-      
-            <StackPanel Orientation="Horizontal" 
+        <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Stretch"
                         Grid.Row="0"
                         Grid.Column="1"                        >
@@ -80,7 +97,8 @@
                       Style="{DynamicResource ResourceKey=StyleComboBoxDefault}"
                       Width="190"
                       SelectedValuePath="Key"
-                      DisplayMemberPath="Value" 
+                      DisplayMemberPath="Value"
+                      SelectionChanged="ddlShops_SelectionChanged"
                      />
             <RepeatButton x:Name="btnCreateStore" 
                         Style="{DynamicResource ResourceKey=BlueButton}" 
@@ -89,26 +107,6 @@
                         VerticalAlignment="Bottom"                               
                         Click="btnCreateStore_Click"/>
         </StackPanel>
-        <DataGrid x:Name="dgProductsPreview" 
-                      Grid.Row="1"
-                      Grid.Column="1"
-                      Style="{DynamicResource ResourceKey=DataGridProductsPreview}"
-                      Margin="10">
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem x:Name="menuItemAddToShoppingList"
-                                  Header="Dodaj do listy zakupów"
-                                  Click="menuItemAddToShoppingList_Click"/>
-                    <Separator />
-                    <MenuItem x:Name="menuItemEditProduct"
-                                  Header="Edytuj" 
-                                  Click="menuItemEditProduct_Click"/>
-                    <MenuItem x:Name="menuItemDeleteProduct"
-                                  Header="Usuń" 
-                                  Click="menuItemDeleteProduct_Click"/>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
-        </DataGrid>
 
         <RepeatButton x:Name="btnOpimizeShoppingList" 
                 Grid.Column="0" 

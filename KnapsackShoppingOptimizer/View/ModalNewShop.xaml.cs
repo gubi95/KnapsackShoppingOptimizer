@@ -68,17 +68,29 @@ namespace KnapsackShoppingOptimizer.View
                 MessageBox.Show("Sklep z podaną nazwą już istnieje!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 bIsEntireFormValid = false;   
             }
-
+            
             if (bIsEntireFormValid)
             {
-                decimal dShipmentCost = decimal.Parse(txtShipmentCost.Text.Replace(",", "."));
+                decimal dShipmentCost = decimal.Parse(txtShipmentCost.Text.Replace(".", ","));
+
+                List<Product> listProduct = HelperMethods.DataManager.GetAllProducts();
+                List<StorePosition> listStorePosition = new List<StorePosition>();
+
+                foreach (Product objProduct in listProduct)
+                {
+                    listStorePosition.Add(new StorePosition()
+                    {
+                        BaseProduct = objProduct,
+                        Price = 0.0M
+                    });
+                }
 
                 HelperMethods.DataManager.CreateStore(new Store()
                 {
                     StoreID = Guid.NewGuid(),
                     ShipmentCost = dShipmentCost,
                     Name = txtShopName.Text,
-                    Positions = new List<StorePosition>()
+                    Positions = listStorePosition
                 });
 
                 if (this.Owner is MainWindow)
