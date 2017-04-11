@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KnapsackOptimizer.ShopEnumAlgorithm.Model;
+using KnapsackShoppingOptimizer;
 
-namespace KnapsackShoppingOptimizer.Models.AlgorithmModels
+namespace KnapsackOptimizer.ShopEnumAlgorithm.Model
 {
     class ShopEnumProducts
     {
@@ -36,8 +38,5 @@ namespace KnapsackShoppingOptimizer.Models.AlgorithmModels
         {
             ShopEnumPositions.ForEach(position => position.Found = false);
         }
-        
-
-        
     }
 }

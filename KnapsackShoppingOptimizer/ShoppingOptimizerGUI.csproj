@@ -87,8 +87,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Managers\ValidationManager.cs" />
-    <Compile Include="Models\AlgorithmModels\ShopEnumPosition.cs" />
-    <Compile Include="Models\AlgorithmModels\ShopEnumProducts.cs" />
     <Compile Include="Models\ShoppingListItem.cs" />
     <Compile Include="Models\StorePosition.cs" />
     <Compile Include="Utils\MessageBoxCenter.cs" />
