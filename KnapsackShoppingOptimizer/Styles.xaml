@@ -109,7 +109,7 @@
         <Setter Property="CanUserResizeRows" Value="False"/>
         <Setter Property="CanUserAddRows" Value="False"/>
         <Setter Property="CanUserDeleteRows" Value="False"/>
-        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="IsReadOnly" Value="False"/>
         <Setter Property="SelectionMode" Value="Single"/>
         <Setter Property="CanUserReorderColumns" Value="False"/>
         <Setter Property="CanUserResizeColumns" Value="False"/>
