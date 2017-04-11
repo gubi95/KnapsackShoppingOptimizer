@@ -16,5 +16,9 @@ namespace KnapsackShoppingOptimizer.Models
             Product = product;
             Quantity = quantity;
         }
+
+        public ShoppingListItem()
+        {
+        }
     }
 }

@@ -119,7 +119,7 @@ namespace KnapsackShoppingOptimizer
             var parsingSuccess = int.TryParse(tBProductAmount.Text, out quantity);
             if (parsingSuccess)
             {
-                _shoppingList.Add(new ShoppingListItem());
+                _shoppingList.Add(new ShoppingListItem(product, quantity));
             }
         }
     }
