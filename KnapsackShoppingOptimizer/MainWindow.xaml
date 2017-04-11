@@ -45,14 +45,18 @@
                         HorizontalAlignment="Left" 
                         Margin="10,10,10,0" 
                         VerticalAlignment="Bottom" 
-                        Click="btnCreateStore_Click" />
+                        Click="BtnAddToShoppingList_OnClick" />
             </StackPanel>
 
         <DataGrid x:Name="dgShoppingList" 
-                      Grid.Row="1"
-                      Grid.Column="0"
-                      Style="{DynamicResource ResourceKey=DataGridProductsPreview}"
-                      Margin="10">
+                  Grid.Row="1"
+                  Grid.Column="0"
+                  Style="{DynamicResource ResourceKey=DataGridProductsPreview}"
+                  Margin="10,0,10,10" 
+                  Height="657" 
+                  VerticalAlignment="Bottom"
+                  DataContext=""
+                  ItemsSource="{Binding _shoppingList}">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem x:Name="menuItemDeleteShoppingProduct"

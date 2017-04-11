@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KnapsackShoppingOptimizer.Models;
 using KnapsackShoppingOptimizer.View;
+using Xceed.Wpf.Toolkit;
 
 namespace KnapsackShoppingOptimizer
 {
@@ -22,6 +23,8 @@ namespace KnapsackShoppingOptimizer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<ShoppingListItem> _shoppingList = new List<ShoppingListItem>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,8 +35,9 @@ namespace KnapsackShoppingOptimizer
         {
             // this should be called only here and only once
             HelperMethods.DataManager.ReadFromFile();
-
+            BindCbProducts();
             BindDDLShops();
+            dgShoppingList.DataContext = this;
         }  
 
         private void btnCreateStore_Click(object sender, RoutedEventArgs e)
@@ -94,13 +98,29 @@ namespace KnapsackShoppingOptimizer
             List<Product> products = HelperMethods.DataManager.GetAllProducts();
             products.ForEach(
                 product =>
-                    cbProducts.Items.Add(new KeyValuePair<string, string>(product.ProductID.ToString(), product.Name)));
+                    cbProducts.Items.Add(new KeyValuePair<Guid, string>(product.ProductID, product.Name)));
 
         }
 
         private void BtnOpimizeShoppingList_OnClick(object sender, RoutedEventArgs e)
         {
             new ModalOptimizedShoppingList().ShowDialog(this);
+        }
+
+        private void BtnAddToShoppingList_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (cbProducts.SelectedItem == null || string.IsNullOrWhiteSpace(tBProductAmount.Text))
+            {
+                return;
+            }
+
+            var product = HelperMethods.DataManager.GetProductByID(((KeyValuePair<Guid, string>) cbProducts.SelectedItem).Key);
+            int quantity;
+            var parsingSuccess = int.TryParse(tBProductAmount.Text, out quantity);
+            if (parsingSuccess)
+            {
+                _shoppingList.Add(new ShoppingListItem(product, quantity));
+            }
         }
     }
 }
