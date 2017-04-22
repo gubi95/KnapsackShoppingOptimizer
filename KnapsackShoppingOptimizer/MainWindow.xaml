@@ -23,30 +23,7 @@
             <RowDefinition Height="{StaticResource ResourceKey=DefaultRowHeight}"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="{StaticResource ResourceKey=DefaultRowHeight}"/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Orientation="Horizontal" 
-                    HorizontalAlignment="Left"
-                    Grid.Row="0"
-                    Grid.Column="0">
-                <TextBox x:Name="tBProductAmount"
-                         Style="{DynamicResource StyleTextBoxAmount}"
-                         Width="40"
-                         Margin="10,10,0,0" />
-                <ComboBox x:Name="cbProducts"
-                          Margin="10, 10, 10, 0"
-                          Style="{DynamicResource ResourceKey=StyleComboBoxDefault}"
-                          Width="150"
-                          SelectedValuePath="Key"
-                          DisplayMemberPath="Value" />
-                <RepeatButton x:Name="btnAddToShoppingList" 
-                        Style="{DynamicResource ResourceKey=BlueButton}" 
-                        Content="Dodaj do Listy" 
-                        HorizontalAlignment="Left" 
-                        Margin="10,10,10,0" 
-                        VerticalAlignment="Bottom" 
-                        Click="BtnAddToShoppingList_OnClick" />
-            </StackPanel>
+        </Grid.RowDefinitions>       
 
         <DataGrid x:Name="dgShoppingList" 
                   Grid.Row="1"
@@ -60,8 +37,8 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem x:Name="menuItemDeleteShoppingProduct"
-                                  Header="Usuń z listy zakupów"
-                                  Click="menuItemDeleteShoppingProduct_Click"/>
+                                Header="Usuń z listy zakupów"
+                                Click="menuItemDeleteShoppingProduct_Click"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
@@ -88,7 +65,24 @@
         <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Stretch"
                         Grid.Row="0"
-                        Grid.Column="1"                        >
+                        Grid.Column="0">
+
+            <TextBlock x:Name="lblShoppingLists"
+                       Text="Listy zakupowe:"
+                       Margin="10 18 0 0"/>
+            <ComboBox x:Name="ddlShoppingLists"
+                      Margin="10 12 10 0"
+                      Style="{DynamicResource ResourceKey=StyleComboBoxDefault}"
+                      Width="190"
+                      SelectedValuePath="Key"
+                      DisplayMemberPath="Value"
+                      SelectionChanged="ddlShoppingLists_SelectionChanged"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Stretch"
+                        Grid.Row="0"
+                        Grid.Column="1">
             <TextBlock x:Name="lblShops"
                        Text="Sklepy:"
                        Margin="10 18 0 0"/>
@@ -98,8 +92,8 @@
                       Width="190"
                       SelectedValuePath="Key"
                       DisplayMemberPath="Value"
-                      SelectionChanged="ddlShops_SelectionChanged"
-                     />
+                      SelectionChanged="ddlShops_SelectionChanged"/>
+            
             <RepeatButton x:Name="btnCreateStore" 
                         Style="{DynamicResource ResourceKey=BlueButton}" 
                         Content="Dodaj sklep" 
@@ -108,13 +102,29 @@
                         Click="btnCreateStore_Click"/>
         </StackPanel>
 
-        <RepeatButton x:Name="btnOpimizeShoppingList" 
+        <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Stretch"
+                    Grid.Row="2"
+                    Grid.Column="0">
+            
+            <RepeatButton x:Name="btnCreateShoppingList" 
+                        Style="{DynamicResource ResourceKey=BlueButton}" 
+                        Content="Utwórz listę zakupową" 
+                        HorizontalAlignment="Left" 
+                        Margin="10 0 0 10" 
+                        VerticalAlignment="Stretch" 
+                        Click="btnCreateShoppingList_Click" />
+            
+            <RepeatButton x:Name="btnOpimizeShoppingList" 
                 Grid.Column="0" 
                 Grid.Row="2"
                 Style="{DynamicResource ResourceKey=BlueButton}" 
                 Content="Optymalizuj" 
-                Margin="10,0,10,10"  
+                HorizontalAlignment="Right" 
+                Margin="10 0 0 10" 
+                VerticalAlignment="Stretch"                          
                 Click="BtnOpimizeShoppingList_OnClick" />
+        </StackPanel>
 
         <Grid Grid.Row="2"
               Grid.Column="1">

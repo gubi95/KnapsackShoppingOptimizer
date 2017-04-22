@@ -13,13 +13,14 @@ namespace KnapsackShoppingOptimizer
     {
         private List<Product> BaseProducts { get; set; }
         private List<Store> Stores { get; set; }
+        private List<ShoppingList> ShoppingLists { get; set; }
 
         private class ModelsWrapper
         {
             public List<Product> BaseProducts { get; set; }
             public List<Store> Stores { get; set; }
+            public List<ShoppingList> ShoppingLists { get; set; }
         }
-
 
         private void RepairModelsIfNulls()
         {
@@ -41,6 +42,11 @@ namespace KnapsackShoppingOptimizer
                         this.Stores[i].Positions = new List<StorePosition>();
                     }
                 }
+            }
+
+            if (this.ShoppingLists == null)
+            {
+                this.ShoppingLists = new List<ShoppingList>();
             }
         }
 
@@ -167,7 +173,24 @@ namespace KnapsackShoppingOptimizer
                 }
             }
             this.WriteToFile();
-        }               
+        }
+
+        #endregion
+
+        #region --shopping lists managament--
+
+        public List<ShoppingList> GetAllShoppingLists()
+        {
+            this.RepairModelsIfNulls();
+            return this.ShoppingLists;            
+        }
+
+        public void CreateShoppingList(ShoppingList objShoppingList)
+        {
+            this.RepairModelsIfNulls();
+            this.ShoppingLists.Add(objShoppingList);
+            this.WriteToFile();
+        }
 
         #endregion
 
@@ -183,7 +206,8 @@ namespace KnapsackShoppingOptimizer
             this.ModWrapper = new ModelsWrapper()
             {
                 BaseProducts = this.BaseProducts,
-                Stores = this.Stores
+                Stores = this.Stores,
+                ShoppingLists = this.ShoppingLists
             };
         }
 
@@ -209,6 +233,7 @@ namespace KnapsackShoppingOptimizer
 
             this.Stores = this.ModWrapper.Stores;
             this.BaseProducts = this.ModWrapper.BaseProducts;
+            this.ShoppingLists = this.ModWrapper.ShoppingLists;
 
             this.RepairModelsIfNulls();
         }

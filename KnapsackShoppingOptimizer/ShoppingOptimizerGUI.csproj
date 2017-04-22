@@ -87,10 +87,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Managers\ValidationManager.cs" />
-    <Compile Include="Models\ShoppingListItem.cs" />
+    <Compile Include="Models\ShoppingList.cs" />
     <Compile Include="Models\StorePosition.cs" />
     <Compile Include="Utils\MessageBoxCenter.cs" />
     <Compile Include="Utils\ShopEnumAlgorithm.cs" />
+    <Compile Include="View\ModalNewShoppingList.xaml.cs">
+      <DependentUpon>ModalNewShoppingList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ModalNewProduct.xaml.cs">
       <DependentUpon>ModalNewProduct.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,10 @@
     <Page Include="Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ModalNewShoppingList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\ModalNewProduct.xaml">
       <SubType>Designer</SubType>

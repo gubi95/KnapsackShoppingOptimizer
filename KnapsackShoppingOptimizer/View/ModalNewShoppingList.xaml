@@ -1,0 +1,97 @@
+﻿<Window x:Class="KnapsackShoppingOptimizer.View.ModalNewShoppingList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KnapsackShoppingOptimizer.View"
+        xmlns:resx="clr-namespace:KnapsackShoppingOptimizer.Properties"
+        mc:Ignorable="d"
+        Title="ModalNewProduct" 
+        MinHeight="500" 
+        MinWidth="400"
+        Height="500" 
+        Width="400"
+        WindowStartupLocation="CenterOwner"
+        Style="{DynamicResource ResourceKey=StyleModalWindow}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46" />
+            <RowDefinition Height="36" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="46" />
+        </Grid.RowDefinitions>
+        <!-- Header -->
+        <TextBlock x:Name="ModalHeader"
+                   Style="{DynamicResource ResourceKey=StyleTextBlockModalHeader}"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="5" 
+                   Text="Tworzenie listy zakupowej"/>
+        <!-- FORM -->
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    VerticalAlignment="Top">
+            <TextBlock Text="Nazwa list zakupowej:" 
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="10 3 0 0"/>
+            <TextBox x:Name="txtShoppingListName"
+                     Style="{DynamicResource ResourceKey=StyleTextBoxForm}"
+                     Width="250"                     
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Margin="10 0 0 0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    VerticalAlignment="Top">
+
+            <DataGrid x:Name="gridSelectedProducts"
+                      Style="{DynamicResource DataGridProductsPreview}"
+                      AutoGenerateColumns="False"                        
+                      CellEditEnding="gridSelectedProducts_CellEditEnding">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn 
+                                        Header="Wybierz" 
+                                        Width="*"
+                                        IsReadOnly="False"
+                                        Binding="{Binding Selected}"/>
+                    <DataGridTextColumn Header="Produkt" 
+                                        Width="2*"
+                                        IsReadOnly="True"
+                                        Binding="{Binding ProductName}"/>
+                    <DataGridTextColumn Header="Ilość"
+                                        Width="*"
+                                        IsReadOnly="False"
+                                        Binding="{Binding Quantity}"/>                    
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <!-- Buttons at the bottom-->
+        <StackPanel Grid.Row="3" 
+                    Grid.Column="0"
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center">
+            <RepeatButton x:Name="btnSaveNeShoppingList" 
+                          Style="{DynamicResource ResourceKey=BlueButtonSmall}" 
+                          Width="80"
+                          Margin="0 5 5 10"
+                          Content="Dodaj"
+                          Click="btnSaveNeShoppingList_Click"/>
+            <RepeatButton x:Name="btnCancel" 
+                          Style="{DynamicResource ResourceKey=BlueButtonSmall}" 
+                          Width="80"
+                          Margin="0 5 5 10"
+                          Content="Anuluj"
+                          Click="btnCancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

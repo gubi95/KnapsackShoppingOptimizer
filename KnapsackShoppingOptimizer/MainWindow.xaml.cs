@@ -12,9 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using KnapsackShoppingOptimizer.Models;
 using KnapsackShoppingOptimizer.View;
-using Xceed.Wpf.Toolkit;
 
 namespace KnapsackShoppingOptimizer
 {
@@ -23,8 +21,6 @@ namespace KnapsackShoppingOptimizer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<ShoppingListItem> _shoppingList = new List<ShoppingListItem>();
-
         private class ProductsDataGridItem
         {
             public string ProductName { get; set; }
@@ -41,8 +37,8 @@ namespace KnapsackShoppingOptimizer
         {
             // this should be called only here and only once
             HelperMethods.DataManager.ReadFromFile();
-            BindCbProducts();
             BindDDLShops();
+            BindDDLShoppingLists();
             dgShoppingList.DataContext = this;
         }  
 
@@ -98,36 +94,21 @@ namespace KnapsackShoppingOptimizer
             }
         }
 
-        public void BindCbProducts()
+        public void BindDDLShoppingLists()
         {
-            cbProducts.Items.Clear();
-            List<Product> products = HelperMethods.DataManager.GetAllProducts();
-            products.ForEach(
-                product =>
-                    cbProducts.Items.Add(new KeyValuePair<Guid, string>(product.ProductID, product.Name)));
-
+            ddlShoppingLists.Items.Clear();
+            List<ShoppingList> listShoppingList = HelperMethods.DataManager.GetAllShoppingLists();
+            foreach (ShoppingList objShoppingList in listShoppingList)
+            {
+                ddlShoppingLists.Items.Add(new KeyValuePair<Guid, string>(objShoppingList.ShoppingListID, objShoppingList.Name));
+            }
         }
 
         private void BtnOpimizeShoppingList_OnClick(object sender, RoutedEventArgs e)
         {
             new ModalOptimizedShoppingList().ShowDialog(this);
-        }
-
-        private void BtnAddToShoppingList_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (cbProducts.SelectedItem == null || string.IsNullOrWhiteSpace(tBProductAmount.Text))
-            {
-                return;
-            }
-
-            var product = HelperMethods.DataManager.GetProductByID(((KeyValuePair<Guid, string>) cbProducts.SelectedItem).Key);
-            int quantity;
-            var parsingSuccess = int.TryParse(tBProductAmount.Text, out quantity);
-            if (parsingSuccess)
-            {
-                _shoppingList.Add(new ShoppingListItem(product, quantity));
-            }
-        }
+        }  
+        
 
         private void gridProducts_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
@@ -155,6 +136,16 @@ namespace KnapsackShoppingOptimizer
 
                 gridProducts.ItemsSource = listProductsDataGridItem;
             }
+        }
+
+        private void btnCreateShoppingList_Click(object sender, RoutedEventArgs e)
+        {
+            new ModalNewShoppingList().ShowDialog(this);
+        }
+
+        private void ddlShoppingLists_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
