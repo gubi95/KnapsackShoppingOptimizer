@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using KnapsackShoppingOptimizer;
+using KnapsackOptimizer.Model;
+using KnapsackOptimizer.Model.Dto;
 
 namespace KnapsackOptimizer.ProductEnumAlgorithm.Model
 {
     class ProductEnumProducts
     {
-        public Dictionary<StorePosition, Store> PositionDictionary { get; set; }
+        public Dictionary<StorePositionDto, StoreDto> PositionDictionary { get; set; }
 
         public decimal GetCost()
         {
             return GetProductsPrice() + GetShippingCost();
         }
 
-        public void initialize(List<Store> stores, List<StorePosition> positions)
+        public void initialize(List<StoreDto> stores, List<StorePositionDto> positions)
         {
             //TODO
             PositionDictionary.Clear();
-            foreach (var product in StorePo)
+          //  foreach (var product in StorePosition)
             {
-                PositionDictionary.Add(product, stores[0]);
+              //  PositionDictionary.Add(product, stores[0]);
             }
         }
 

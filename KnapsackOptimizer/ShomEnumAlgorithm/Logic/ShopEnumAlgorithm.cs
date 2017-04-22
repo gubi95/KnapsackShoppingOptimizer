@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KnapsackOptimizer.Model;
+using KnapsackOptimizer.Model.Dto;
 using KnapsackOptimizer.ShomEnumAlgorithm.Model;
-using KnapsackShoppingOptimizer;
+
 
 namespace KnapsackOptimizer.ShomEnumAlgorithm.Logic
 {
     class ShopEnumAlgorithm
     {
-        public static ShopEnumProducts Run(List<Product> shoppingList)
+        public static ShopEnumProducts Run(Dictionary<Guid, int> shoppingList, List<StoreDto> stores)
         {
             var bestShoppingList = new ShopEnumProducts(shoppingList);
             var currentShoppingList = new ShopEnumProducts(shoppingList);
-            var stores = HelperMethods.DataManager.GetAllStores();
+
             var subsetMask = new int[stores.Count];
             subsetMask[0] = -1;
 

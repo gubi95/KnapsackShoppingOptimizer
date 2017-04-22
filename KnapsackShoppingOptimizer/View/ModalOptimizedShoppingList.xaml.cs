@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using KnapsackOptimizer.Controller;
+using KnapsackOptimizer.Model;
+using KnapsackShoppingOptimizer.Utils;
 
 namespace KnapsackShoppingOptimizer.View
 {
@@ -19,8 +22,12 @@ namespace KnapsackShoppingOptimizer.View
     /// </summary>
     public partial class ModalOptimizedShoppingList : Window
     {
-        public ModalOptimizedShoppingList()
+
+        //private ShoppingList
+        public ModalOptimizedShoppingList(ShoppingList shoppingList, Algorithm algorithm)
         {
+            var stores = ModelConverter.getStoreDtoList(HelperMethods.DataManager.GetAllStores());
+            Dictionary<Guid, Guid> productIdToStoreIdDictionary = OptimizationController.Optimize(stores, shoppingList.ProductIdToAmountDictionary, algorithm);
             InitializeComponent();
         }
 

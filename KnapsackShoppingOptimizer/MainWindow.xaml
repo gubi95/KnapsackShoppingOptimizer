@@ -114,16 +114,30 @@
                         Margin="10 0 0 10" 
                         VerticalAlignment="Stretch" 
                         Click="btnCreateShoppingList_Click" />
-            
+
             <RepeatButton x:Name="btnOpimizeShoppingList" 
-                Grid.Column="0" 
-                Grid.Row="2"
-                Style="{DynamicResource ResourceKey=BlueButton}" 
-                Content="Optymalizuj" 
-                HorizontalAlignment="Right" 
-                Margin="10 0 0 10" 
-                VerticalAlignment="Stretch"                          
-                Click="BtnOpimizeShoppingList_OnClick" />
+                          Style="{DynamicResource ResourceKey=BlueButtonOptimize}" 
+                          Content="Optymalizuj" 
+                          HorizontalAlignment="Right" 
+                          Margin="10 0 0 10" 
+                          VerticalAlignment="Stretch"                          
+                          Click="BtnOpimizeShoppingList_OnClick" />
+            <GroupBox Header="Alogorytm"
+                      VerticalAlignment="Stretch"
+                      Margin="10,-5,0,10">
+                <StackPanel VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <RadioButton x:Name="rbShopEnum"
+                                 GroupName="AlgorithTypeGroup" 
+                                 Content="Shop-enum" 
+                                 IsChecked="True"
+                                 Margin="5, 0"/>
+                    <RadioButton x:Name="rbProductEnum"
+                                 GroupName="AlgorithTypeGroup"
+                                 Content="Product-enum" 
+                                 IsChecked="False"/>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
 
         <Grid Grid.Row="2"
