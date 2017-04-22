@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using KnapsackOptimizer.ShopEnumAlgorithm.Model;
+using KnapsackOptimizer.ShomEnumAlgorithm.Model;
 using KnapsackShoppingOptimizer;
 
 namespace KnapsackOptimizer.ShomEnumAlgorithm.Logic

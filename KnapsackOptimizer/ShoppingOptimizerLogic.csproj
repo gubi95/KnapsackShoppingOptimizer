@@ -41,6 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Knapsack.cs" />
+    <Compile Include="ProductEnumAlgorithm\Logic\ProductEnumAlgorithm.cs" />
+    <Compile Include="ProductEnumAlgorithm\Model\ProductEnumMap.cs" />
+    <Compile Include="ProductEnumAlgorithm\Model\ProductEnumProducts.cs" />
+    <Compile Include="ProductEnumAlgorithm\Model\ProductStorePair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShomEnumAlgorithm\Logic\ShopEnumAlgorithm.cs" />
     <Compile Include="ShomEnumAlgorithm\Model\ShopEnumPosition.cs" />
@@ -54,8 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ProductEnumAlgorithm\Benchmark\" />
-    <Folder Include="ProductEnumAlgorithm\Logic\" />
-    <Folder Include="ProductEnumAlgorithm\Model\" />
     <Folder Include="ShomEnumAlgorithm\Benchmark\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
