@@ -40,7 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\OptimizationController.cs" />
     <Compile Include="Knapsack.cs" />
+    <Compile Include="Model\Algorithms.cs" />
+    <Compile Include="Model\Dto\ProductDTO.cs" />
+    <Compile Include="Model\Dto\ShoppingListDTO.cs" />
+    <Compile Include="Model\Dto\StoreDTO.cs" />
+    <Compile Include="Model\Dto\StorePositionDTO.cs" />
     <Compile Include="ProductEnumAlgorithm\Logic\ProductEnumAlgorithm.cs" />
     <Compile Include="ProductEnumAlgorithm\Model\ProductEnumMap.cs" />
     <Compile Include="ProductEnumAlgorithm\Model\ProductEnumProducts.cs" />
@@ -49,12 +55,6 @@
     <Compile Include="ShomEnumAlgorithm\Logic\ShopEnumAlgorithm.cs" />
     <Compile Include="ShomEnumAlgorithm\Model\ShopEnumPosition.cs" />
     <Compile Include="ShomEnumAlgorithm\Model\ShopEnumProducts.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KnapsackShoppingOptimizer\ShoppingOptimizerGUI.csproj">
-      <Project>{00974262-89D5-4261-84B3-1CFE0C35CB73}</Project>
-      <Name>ShoppingOptimizerGUI</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ProductEnumAlgorithm\Benchmark\" />

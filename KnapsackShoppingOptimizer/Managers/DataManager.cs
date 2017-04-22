@@ -179,6 +179,11 @@ namespace KnapsackShoppingOptimizer
 
         #region --shopping lists managament--
 
+        public ShoppingList GetShoppingListById(Guid id)
+        {
+            return ShoppingLists.Find(s => s.ShoppingListID.Equals(id));
+        }
+
         public List<ShoppingList> GetAllShoppingLists()
         {
             this.RepairModelsIfNulls();

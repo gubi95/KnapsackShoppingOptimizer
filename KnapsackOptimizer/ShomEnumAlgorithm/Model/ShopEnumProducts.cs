@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using KnapsackShoppingOptimizer;
 
 namespace KnapsackOptimizer.ShomEnumAlgorithm.Model
 {
@@ -8,13 +8,13 @@ namespace KnapsackOptimizer.ShomEnumAlgorithm.Model
     {
         public List<ShopEnumPosition> ShopEnumPositions { get; set; }
 
-        public ShopEnumProducts(List<Product> shoppingList)
+        public ShopEnumProducts(Dictionary<Guid, int> shoppingList)
         {
             this.ShopEnumPositions = new List<ShopEnumPosition>();
             foreach (var product in shoppingList)
             {
                 var shopEnumPosition = new ShopEnumPosition();
-                shopEnumPosition.StorePosition.BaseProduct = product;
+               // shopEnumPosition.StorePosition.BaseProduct = product;
                 shopEnumPosition.StorePosition.Price = decimal.MaxValue;
                 shopEnumPosition.Found = false;
                 ShopEnumPositions.Add(shopEnumPosition);

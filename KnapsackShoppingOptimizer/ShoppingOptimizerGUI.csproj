@@ -90,6 +90,7 @@
     <Compile Include="Models\ShoppingList.cs" />
     <Compile Include="Models\StorePosition.cs" />
     <Compile Include="Utils\MessageBoxCenter.cs" />
+    <Compile Include="Utils\ModelConverter.cs" />
     <Compile Include="View\ModalNewShoppingList.xaml.cs">
       <DependentUpon>ModalNewShoppingList.xaml</DependentUpon>
     </Compile>
@@ -175,7 +176,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\KnapsackOptimizer\ShoppingOptimizerLogic.csproj">
+      <Project>{18bd103f-8214-466c-a3fd-c1560fbc9aea}</Project>
+      <Name>ShoppingOptimizerLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

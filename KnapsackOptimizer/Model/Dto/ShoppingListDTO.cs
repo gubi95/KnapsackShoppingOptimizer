@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KnapsackShoppingOptimizer
+namespace KnapsackOptimizer.Model.Dto
 {
-    public class ShoppingList
+    public class ShoppingListDto
     {
         public Guid ShoppingListID { get; set; }
         public string Name { get; set; }

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KnapsackOptimizer.Model;
+using KnapsackOptimizer.Model.Dto;
 using KnapsackOptimizer.ProductEnumAlgorithm.Model;
-using KnapsackShoppingOptimizer;
 
 namespace KnapsackOptimizer.ProductEnumAlgorithm.Logic
 {
-    class ProductEnumAlgorithm
+    static class ProductEnumAlgorithm
     {
-        public ProductEnumProducts Run(List<Product> shoppingList)
+        public static ProductEnumProducts Run(Dictionary<Guid, int> shoppingList, List<StoreDto> stores)
         {
-            var stores = HelperMethods.DataManager.GetAllStores();
          
             var productEnumProducts = new ProductEnumProducts();
             foreach (var product in shoppingList)

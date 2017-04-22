@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using KnapsackOptimizer.Model;
 
-
-namespace KnapsackOptimizer.ProductEnumAlgorithm.Model
+namespace KnapsackOptimizer.Model
 {
-    class ProductEnumMap
+    public enum Algorithm
     {
-
+        ProductEnum,
+        ShopEnum
     }
 }

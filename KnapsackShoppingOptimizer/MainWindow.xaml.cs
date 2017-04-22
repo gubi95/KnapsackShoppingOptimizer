@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KnapsackShoppingOptimizer.View;
+using KnapsackOptimizer.Model;
 
 namespace KnapsackShoppingOptimizer
 {
@@ -21,6 +23,8 @@ namespace KnapsackShoppingOptimizer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ShoppingList _shoppingList;
+
         private class ProductsDataGridItem
         {
             public string ProductName { get; set; }
@@ -29,6 +33,7 @@ namespace KnapsackShoppingOptimizer
 
         public MainWindow()
         {
+            _shoppingList = new ShoppingList();
             InitializeComponent();
             this.Loaded += FormLoad;
         }
@@ -106,7 +111,16 @@ namespace KnapsackShoppingOptimizer
 
         private void BtnOpimizeShoppingList_OnClick(object sender, RoutedEventArgs e)
         {
-            new ModalOptimizedShoppingList().ShowDialog(this);
+            Algorithm algorithm = (rbShopEnum.IsChecked ?? false) ? Algorithm.ShopEnum : Algorithm.ProductEnum; 
+
+            if (ddlShoppingLists.SelectedIndex == -1)
+            {
+                return;
+            }
+            var objKeyValuePair = (KeyValuePair<Guid, string>) ddlShoppingLists.SelectedItem;
+            var shoppingList = HelperMethods.DataManager.GetShoppingListById(objKeyValuePair.Key);
+           
+            new ModalOptimizedShoppingList(shoppingList, algorithm).ShowDialog(this);
         }  
         
 

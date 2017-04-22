@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using KnapsackShoppingOptimizer.Managers;
 using System.Collections;
+using Xceed.Wpf.Toolkit;
+using MessageBox = System.Windows.MessageBox;
 
 namespace KnapsackShoppingOptimizer.View
 {
@@ -40,7 +42,7 @@ namespace KnapsackShoppingOptimizer.View
 
         private void btnSaveNeShoppingList_Click(object sender, RoutedEventArgs e)
         {
-            if (("" + txtShoppingListName.Text).Trim() == "")
+            if (string.IsNullOrWhiteSpace(txtShoppingListName.Text))
             {
                 MessageBox.Show("Nieprawidłowa nazwa listy zakupowej!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -64,17 +66,17 @@ namespace KnapsackShoppingOptimizer.View
                 return;
             }
 
-            List<Guid> listProductsIDs = new List<Guid>();
+            Dictionary<Guid, int> productIdToAmountDictionary = new Dictionary<Guid, int>();
             List<Product> listProduct = HelperMethods.DataManager.GetAllProducts();
 
 
             foreach (ProductDataGridItem objProductDataGridItem in listProductDataGridItemSelected)
             {
                 Product objProduct = listProduct.Find(x => x.Name.Equals(objProductDataGridItem.ProductName));
-
-                if (objProduct != null)
+                bool amountParsingOk = int.TryParse(objProductDataGridItem.Quantity, out int amount);
+                if (objProduct != null && amountParsingOk)
                 {
-                    listProductsIDs.Add(objProduct.ProductID);                    
+                    productIdToAmountDictionary.Add(objProduct.ProductID, amount);                    
                 }
             }
 
@@ -82,7 +84,7 @@ namespace KnapsackShoppingOptimizer.View
             {
                 ShoppingListID = Guid.NewGuid(),
                 Name = ("" + txtShoppingListName.Text).Trim(),
-                BaseProductIDs = listProductsIDs
+                ProductIdToAmountDictionary = productIdToAmountDictionary
             };
 
             HelperMethods.DataManager.CreateShoppingList(objShoppingList);

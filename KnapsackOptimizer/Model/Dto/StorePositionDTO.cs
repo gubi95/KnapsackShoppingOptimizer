@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KnapsackShoppingOptimizer
+namespace KnapsackOptimizer.Model.Dto
 {
-    public class StorePosition
+    public class StorePositionDto
     {
-        public Product BaseProduct { get; set; }    
+        public ProductDto BaseProduct { get; set; }    
         public decimal Price { get; set; }
         public int Amount { get; set; }
 
