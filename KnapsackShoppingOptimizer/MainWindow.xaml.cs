@@ -109,7 +109,8 @@ namespace KnapsackShoppingOptimizer
 
         private void BtnOpimizeShoppingList_OnClick(object sender, RoutedEventArgs e)
         {
-          //  new ModalOptimizedShoppingList(dgShoppingList.ItemsSource).ShowDialog(this);
+
+            new ModalOptimizedShoppingList(ddlShoppingLists.).ShowDialog(this);
         }  
         
 
