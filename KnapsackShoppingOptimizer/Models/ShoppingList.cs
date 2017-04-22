@@ -11,6 +11,6 @@ namespace KnapsackShoppingOptimizer
         public Guid ShoppingListID { get; set; }
         public string Name { get; set; }
 
-        public List<Guid> BaseProductIDs { get; set; }
+        public Dictionary<Guid, int> ProductIdToAmountDictionary { get; set; }
     }
 }

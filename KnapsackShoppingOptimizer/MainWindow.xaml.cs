@@ -21,6 +21,8 @@ namespace KnapsackShoppingOptimizer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ShoppingList _shoppingList;
+
         private class ProductsDataGridItem
         {
             public string ProductName { get; set; }
@@ -29,6 +31,7 @@ namespace KnapsackShoppingOptimizer
 
         public MainWindow()
         {
+            _shoppingList = new ShoppingList();
             InitializeComponent();
             this.Loaded += FormLoad;
         }
@@ -106,7 +109,7 @@ namespace KnapsackShoppingOptimizer
 
         private void BtnOpimizeShoppingList_OnClick(object sender, RoutedEventArgs e)
         {
-            new ModalOptimizedShoppingList().ShowDialog(this);
+          //  new ModalOptimizedShoppingList(dgShoppingList.ItemsSource).ShowDialog(this);
         }  
         
 
