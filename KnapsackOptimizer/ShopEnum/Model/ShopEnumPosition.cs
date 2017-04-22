@@ -1,7 +1,6 @@
-﻿using KnapsackOptimizer.Model;
-using KnapsackOptimizer.Model.Dto;
+﻿using KnapsackOptimizer.Model.Dto;
 
-namespace KnapsackOptimizer.ShomEnumAlgorithm.Model
+namespace KnapsackOptimizer.ShopEnum.Model
 {
     class ShopEnumPosition
     {

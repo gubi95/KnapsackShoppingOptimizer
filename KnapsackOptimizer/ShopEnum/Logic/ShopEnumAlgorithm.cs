@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using KnapsackOptimizer.Model;
 using KnapsackOptimizer.Model.Dto;
-using KnapsackOptimizer.ShomEnumAlgorithm.Model;
+using KnapsackOptimizer.ShopEnum.Model;
 
-
-namespace KnapsackOptimizer.ShomEnumAlgorithm.Logic
+namespace KnapsackOptimizer.ShopEnum.Logic
 {
     class ShopEnumAlgorithm
     {
-        public static ShopEnumProducts Run(Dictionary<Guid, int> shoppingList, List<StoreDto> stores)
+        public static OptimizedShoppingList Run(Dictionary<Guid, int> shoppingList, List<StoreDto> stores)
         {
             var bestShoppingList = new ShopEnumProducts(shoppingList);
             var currentShoppingList = new ShopEnumProducts(shoppingList);
@@ -44,7 +40,7 @@ namespace KnapsackOptimizer.ShomEnumAlgorithm.Logic
                 }
                 currentShoppingList.Clear();
             }
-            return bestShoppingList;
+            return null;
         }
         private static int GetNextPermutation(int[] subsetMask)
         {

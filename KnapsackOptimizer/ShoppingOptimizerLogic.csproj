@@ -43,22 +43,23 @@
     <Compile Include="Controller\OptimizationController.cs" />
     <Compile Include="Knapsack.cs" />
     <Compile Include="Model\Algorithms.cs" />
+    <Compile Include="Model\OptimizedShoppingList.cs" />
     <Compile Include="Model\Dto\ProductDTO.cs" />
     <Compile Include="Model\Dto\ShoppingListDTO.cs" />
     <Compile Include="Model\Dto\StoreDTO.cs" />
     <Compile Include="Model\Dto\StorePositionDTO.cs" />
-    <Compile Include="ProductEnumAlgorithm\Logic\ProductEnumAlgorithm.cs" />
-    <Compile Include="ProductEnumAlgorithm\Model\ProductEnumMap.cs" />
-    <Compile Include="ProductEnumAlgorithm\Model\ProductEnumProducts.cs" />
-    <Compile Include="ProductEnumAlgorithm\Model\ProductStorePair.cs" />
+    <Compile Include="ProductEnum\Logic\ProductEnumAlgorithm.cs" />
+    <Compile Include="ProductEnum\Model\ProductEnumMap.cs" />
+    <Compile Include="ProductEnum\Model\ProductEnumProducts.cs" />
+    <Compile Include="ProductEnum\Model\ProductStorePair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShomEnumAlgorithm\Logic\ShopEnumAlgorithm.cs" />
-    <Compile Include="ShomEnumAlgorithm\Model\ShopEnumPosition.cs" />
-    <Compile Include="ShomEnumAlgorithm\Model\ShopEnumProducts.cs" />
+    <Compile Include="ShopEnum\Logic\ShopEnumAlgorithm.cs" />
+    <Compile Include="ShopEnum\Model\ShopEnumPosition.cs" />
+    <Compile Include="ShopEnum\Model\ShopEnumProducts.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ProductEnumAlgorithm\Benchmark\" />
-    <Folder Include="ShomEnumAlgorithm\Benchmark\" />
+    <Folder Include="ProductEnum\Benchmark\" />
+    <Folder Include="ShopEnum\Benchmark\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

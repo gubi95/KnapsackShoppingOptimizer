@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KnapsackOptimizer.ShomEnumAlgorithm.Model
+namespace KnapsackOptimizer.ShopEnum.Model
 {
     class ShopEnumProducts
     {

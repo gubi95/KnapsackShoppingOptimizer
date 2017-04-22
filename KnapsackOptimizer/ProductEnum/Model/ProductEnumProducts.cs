@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KnapsackOptimizer.Model;
 using KnapsackOptimizer.Model.Dto;
 
-namespace KnapsackOptimizer.ProductEnumAlgorithm.Model
+namespace KnapsackOptimizer.ProductEnum.Model
 {
     class ProductEnumProducts
     {
