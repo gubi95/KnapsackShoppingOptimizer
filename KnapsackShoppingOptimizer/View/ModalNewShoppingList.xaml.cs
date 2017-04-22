@@ -14,7 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using KnapsackShoppingOptimizer.Managers;
 using System.Collections;
-using Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
 
 namespace KnapsackShoppingOptimizer.View
@@ -73,10 +72,12 @@ namespace KnapsackShoppingOptimizer.View
             foreach (ProductDataGridItem objProductDataGridItem in listProductDataGridItemSelected)
             {
                 Product objProduct = listProduct.Find(x => x.Name.Equals(objProductDataGridItem.ProductName));
-                bool amountParsingOk = int.TryParse(objProductDataGridItem.Quantity, out int amount);
-                if (objProduct != null && amountParsingOk)
+                int nAmount = -1;
+                bool amountParsingOk = int.TryParse(objProductDataGridItem.Quantity, out nAmount);
+
+                if (objProduct != null && amountParsingOk && nAmount > 0)
                 {
-                    productIdToAmountDictionary.Add(objProduct.ProductID, amount);                    
+                    productIdToAmountDictionary.Add(objProduct.ProductID, nAmount);                    
                 }
             }
 
