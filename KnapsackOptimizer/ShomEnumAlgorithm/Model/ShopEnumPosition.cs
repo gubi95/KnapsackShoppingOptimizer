@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KnapsackShoppingOptimizer;
+﻿using KnapsackShoppingOptimizer;
 
-namespace KnapsackOptimizer.ShopEnumAlgorithm.Model
+namespace KnapsackOptimizer.ShomEnumAlgorithm.Model
 {
     class ShopEnumPosition
     {
         public Store Store { get; set; }
         public StorePosition StorePosition { get; set; }
-        public bool Found { get; set; }      
+        public bool Found { get; set; }
     }
 }

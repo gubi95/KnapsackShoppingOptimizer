@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KnapsackOptimizer.ShopEnumAlgorithm.Model;
 using KnapsackShoppingOptimizer;
 
-namespace KnapsackOptimizer.ShopEnumAlgorithm.Model
+namespace KnapsackOptimizer.ShomEnumAlgorithm.Model
 {
     class ShopEnumProducts
     {
@@ -27,7 +23,7 @@ namespace KnapsackOptimizer.ShopEnumAlgorithm.Model
 
         public decimal GetShoppingListValue()
         {
-            if(ShopEnumPositions.Any(position => !position.Found)) return decimal.MaxValue;
+            if (ShopEnumPositions.Any(position => !position.Found)) return decimal.MaxValue;
             var shipmentCost = ShopEnumPositions.Select(position => position.Store).Distinct().Sum(store => store.ShipmentCost);
             var productsCost = ShopEnumPositions.Select(position => position.StorePosition.Price).Sum();
 
