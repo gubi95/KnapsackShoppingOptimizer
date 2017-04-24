@@ -47,18 +47,12 @@ namespace KnapsackOptimizer.ShopEnum.Model
 
         public OptimizedShoppingList ToOptimizedShoppingList(TimeSpan elapsed)
         {
-            var optimizedList = new OptimizedShoppingList
+            return new OptimizedShoppingList
             {
                 TotalPrice = Cost,
                 TimeElapsed = elapsed,
-                ProductIdToStoreIDictionary = new Dictionary<Guid, Guid>(ShopEnumPositions.Count)
+                Products = ShopEnumPositions
             };
-            ShopEnumPositions.ForEach(position =>
-            {
-                optimizedList.ProductIdToStoreIDictionary.Add(position.ProductId, position.Store.StoreID);
-            });
-
-            return optimizedList;
         }
     }
 }

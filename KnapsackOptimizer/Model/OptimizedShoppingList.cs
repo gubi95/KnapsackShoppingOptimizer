@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KnapsackOptimizer.ShopEnum.Model;
 
 namespace KnapsackOptimizer.Model
 {
     public class OptimizedShoppingList
     {
-        public Dictionary<Guid, Guid> ProductIdToStoreIDictionary { get; set; }
+        public List<ShopEnumPosition> Products { get; set; }
         public TimeSpan TimeElapsed { get; set; }
         public decimal TotalPrice { get; set; }
     }

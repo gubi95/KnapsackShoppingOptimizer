@@ -54,7 +54,7 @@
     <Compile Include="ProductEnum\Model\ProductStorePair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShopEnum\Logic\ShopEnumAlgorithm.cs" />
-    <Compile Include="ShopEnum\Model\ShopEnumPosition.cs" />
+    <Compile Include="Model\ShoppingListPosition.cs" />
     <Compile Include="ShopEnum\Model\ShopEnumProducts.cs" />
   </ItemGroup>
   <ItemGroup>

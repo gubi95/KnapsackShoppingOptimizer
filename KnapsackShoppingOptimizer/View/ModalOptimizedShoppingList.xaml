@@ -8,13 +8,14 @@
         mc:Ignorable="d"
         Title="ModalOptimizedShoppingList" 
         Height="500"
-        Width="400"
+        Width="500"
         WindowStartupLocation="CenterOwner"
         Style="{DynamicResource ResourceKey=StyleModalWindow}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
             <RowDefinition Height="20" />
             <RowDefinition Height="20" />
             <RowDefinition Height="40" />
@@ -28,13 +29,26 @@
         <ScrollViewer Grid.Row="1"
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Auto">
-            <DataGrid Style="{DynamicResource DataGridProductsPreview}"
-                      >
+            <DataGrid x:Name="dgShoppingList" 
+                      Style="{DynamicResource DataGridProductsPreview}"
+                      AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Sklep" Width="100" />
-                    <DataGridTextColumn Header="Produkt"  Width="200" />
-                    <DataGridTextColumn Header="Ilość" Width="50" />
-                    <DataGridTextColumn Header="Cena" Width="50" />
+                    <DataGridTextColumn Header="Sklep" 
+                                        Width="200"
+                                        IsReadOnly="True"
+                                        Binding="{Binding Store}"/>
+                    <DataGridTextColumn Header="Produkt" 
+                                        Width="200"
+                                        IsReadOnly="True"
+                                        Binding="{Binding Product}"/>
+                    <DataGridTextColumn Header="Ilość"
+                                        Width="45" 
+                                        IsReadOnly="True"
+                                        Binding="{Binding Amount}"/>
+                    <DataGridTextColumn Header="Cena"
+                                        Width="45" 
+                                        IsReadOnly="True"
+                                        Binding="{Binding Price}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
@@ -58,6 +72,17 @@
         </StackPanel>
 
         <StackPanel Grid.Row="4" 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0"
+                    Orientation="Horizontal">
+            <TextBlock Text="Wykorzystując algorytm " 
+                       FontSize="9"/>
+            <TextBlock x:Name="TextBlockAlgorithm" 
+                       FontSize="9"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" 
                     Grid.Column="0"
                     Orientation="Horizontal" 
                     HorizontalAlignment="Center"

@@ -3,7 +3,7 @@ using KnapsackOptimizer.Model.Dto;
 
 namespace KnapsackOptimizer.ShopEnum.Model
 {
-    internal class ShopEnumPosition
+    public class ShopEnumPosition
     {
         public StoreDto Store { get; set; }
         public Guid ProductId { get; set; }
