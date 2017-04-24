@@ -24,8 +24,9 @@ namespace KnapsackShoppingOptimizer.View
     {
 
         //private ShoppingList
-        public ModalOptimizedShoppingList(ShoppingList shoppingList, Algorithm algorithm)
+        public ModalOptimizedShoppingList(Guid shoppingListId, Algorithm algorithm)
         {
+            var shoppingList = HelperMethods.DataManager.GetShoppingListById(shoppingListId);
             var stores = ModelConverter.getStoreDtoList(HelperMethods.DataManager.GetAllStores());
             var productIdToStoreIdDictionary = OptimizationController.Optimize(stores, shoppingList.ProductIdToAmountDictionary, algorithm);
             InitializeComponent();

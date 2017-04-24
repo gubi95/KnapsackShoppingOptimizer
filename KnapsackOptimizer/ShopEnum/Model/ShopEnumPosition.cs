@@ -1,11 +1,13 @@
-﻿using KnapsackOptimizer.Model.Dto;
+﻿using System;
+using KnapsackOptimizer.Model.Dto;
 
 namespace KnapsackOptimizer.ShopEnum.Model
 {
-    class ShopEnumPosition
+    internal class ShopEnumPosition
     {
         public StoreDto Store { get; set; }
-        public StorePositionDto StorePosition { get; set; }
-        public bool Found { get; set; }
+        public Guid ProductId { get; set; }
+        public decimal Price { get; set; }
+        public int Amount { get; set; }
     }
 }

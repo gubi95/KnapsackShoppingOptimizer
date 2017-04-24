@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using KnapsackOptimizer.Model;
 using KnapsackOptimizer.Model.Dto;
 using KnapsackOptimizer.ShopEnum.Model;
@@ -10,7 +11,10 @@ namespace KnapsackOptimizer.ShopEnum.Logic
     {
         public static OptimizedShoppingList Run(Dictionary<Guid, int> shoppingList, List<StoreDto> stores)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             var bestShoppingList = new ShopEnumProducts(shoppingList);
+            bestShoppingList.ComputeCost();
             var currentShoppingList = new ShopEnumProducts(shoppingList);
 
             var subsetMask = new int[stores.Count];
@@ -21,18 +25,20 @@ namespace KnapsackOptimizer.ShopEnum.Logic
                 for (var i = 0; i < stores.Count; i++)
                 {
                     if (subsetMask[i] == 0) continue;
-                    foreach (var shopEnumPosition in currentShoppingList.ShopEnumPositions)
+                    currentShoppingList.ShopEnumPositions.ForEach(shopEnumPosition =>
                     {
                         stores[i].Positions.ForEach(position =>
                         {
-                            if (position.BaseProduct != shopEnumPosition.StorePosition.BaseProduct) return;
-                            if (position.Price >= shopEnumPosition.StorePosition.Price) return;
+                            if (position.BaseProduct.ProductID != shopEnumPosition.ProductId) return;
+                            if (position.Price >= shopEnumPosition.Price) return;
                             shopEnumPosition.Store = stores[i];
-                            shopEnumPosition.StorePosition = position;
+                            shopEnumPosition.ProductId = position.BaseProduct.ProductID;
+                            shopEnumPosition.Price = position.Price;
                         });
-                    }
+                    });
                 }
-                if (currentShoppingList.GetShoppingListValue() < bestShoppingList.GetShoppingListValue())
+                currentShoppingList.ComputeCost();
+                if (currentShoppingList.Cost < bestShoppingList.Cost)
                 {
                     var temp = currentShoppingList;
                     currentShoppingList = bestShoppingList;
@@ -40,7 +46,8 @@ namespace KnapsackOptimizer.ShopEnum.Logic
                 }
                 currentShoppingList.Clear();
             }
-            return null;
+            stopwatch.Stop();
+            return bestShoppingList.ToOptimizedShoppingList(stopwatch.Elapsed);
         }
         private static int GetNextPermutation(int[] subsetMask)
         {

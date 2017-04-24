@@ -9,7 +9,7 @@ namespace KnapsackOptimizer.Model
     public class OptimizedShoppingList
     {
         public Dictionary<Guid, Guid> ProductIdToStoreIDictionary { get; set; }
-        public long TimeElapsed { get; set; }
+        public TimeSpan TimeElapsed { get; set; }
         public decimal TotalPrice { get; set; }
     }
 }

@@ -118,9 +118,8 @@ namespace KnapsackShoppingOptimizer
                 return;
             }
             var objKeyValuePair = (KeyValuePair<Guid, string>) ddlShoppingLists.SelectedItem;
-            var shoppingList = HelperMethods.DataManager.GetShoppingListById(objKeyValuePair.Key);
-           
-            new ModalOptimizedShoppingList(shoppingList, algorithm).ShowDialog(this);
+            
+            new ModalOptimizedShoppingList(objKeyValuePair.Key, algorithm).ShowDialog(this);
         }  
         
 
