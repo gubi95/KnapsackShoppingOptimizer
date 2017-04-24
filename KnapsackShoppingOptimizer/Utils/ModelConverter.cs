@@ -28,7 +28,8 @@ namespace KnapsackShoppingOptimizer.Utils
             {
                 ShipmentCost = store.ShipmentCost,
                 Name = store.Name,
-                StoreID = store.StoreID
+                StoreID = store.StoreID,
+                Positions = new List<StorePositionDto>()
             };
             store.Positions.ForEach(p =>
             {

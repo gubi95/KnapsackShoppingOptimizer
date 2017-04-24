@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -31,8 +32,17 @@ namespace KnapsackShoppingOptimizer
             public string Price { get; set; }
         }
 
+        private class ShoppingListDataGridItem
+        {
+            public string ProductName { get; set; }
+            public string Amount { get; set; }
+        }
+
         public MainWindow()
         {
+            var culture = new CultureInfo("pl-PL");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
+            System.Threading.Thread.CurrentThread.CurrentCulture = culture;
             _shoppingList = new ShoppingList();
             InitializeComponent();
             this.Loaded += FormLoad;
@@ -118,9 +128,8 @@ namespace KnapsackShoppingOptimizer
                 return;
             }
             var objKeyValuePair = (KeyValuePair<Guid, string>) ddlShoppingLists.SelectedItem;
-            var shoppingList = HelperMethods.DataManager.GetShoppingListById(objKeyValuePair.Key);
-           
-            new ModalOptimizedShoppingList(shoppingList, algorithm).ShowDialog(this);
+            
+            new ModalOptimizedShoppingList(objKeyValuePair.Key, algorithm).ShowDialog(this);
         }  
         
 
@@ -137,6 +146,8 @@ namespace KnapsackShoppingOptimizer
 
             if (objStore != null)
             {
+                TextBlockShippingCost.Text = objStore.ShipmentCostFormatted;
+
                 List<ProductsDataGridItem> listProductsDataGridItem = new List<ProductsDataGridItem>();
 
                 foreach (StorePosition objStorePosition in objStore.Positions)
@@ -159,7 +170,22 @@ namespace KnapsackShoppingOptimizer
 
         private void ddlShoppingLists_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var objKeyValuePair = (KeyValuePair<Guid, string>)ddlShoppingLists.SelectedItem;
+            var shoppingList = HelperMethods.DataManager.GetShoppingListById(objKeyValuePair.Key);
 
+            if (shoppingList == null) return;
+            var shoppingListDataGridItems = new List<ShoppingListDataGridItem>();
+
+            foreach (KeyValuePair<Guid, int> shoppingListPosition in shoppingList.ProductIdToAmountDictionary)
+            {
+                shoppingListDataGridItems.Add(new ShoppingListDataGridItem
+                {
+                    ProductName = HelperMethods.DataManager.GetProductByID(shoppingListPosition.Key).Name,
+                    Amount = shoppingListPosition.Value.ToString()
+                });
+            }
+
+            dgShoppingList.ItemsSource = shoppingListDataGridItems;
         }
     }
 }
