@@ -75,7 +75,7 @@ namespace KnapsackShoppingOptimizer.View
                     objStoreToEdit.Positions.Add(new StorePosition()
                     {
                         BaseProduct = objNewProduct,
-                        Price = decimal.Parse(objProductsDataGridItem.Price.Replace(",", "."))
+                        Price = decimal.Parse(objProductsDataGridItem.Price.Replace(".",","))
                     });
 
                     HelperMethods.DataManager.EditStore(objStoreToEdit);

@@ -64,6 +64,24 @@ namespace KnapsackShoppingOptimizer.View
                     Price = product.Price.ToString("C")
                 });
             });
+
+            dgShoppingListItems.Add(new ShoppingListDataGridItem
+            {
+                Store = "",
+                Product ="",
+                Amount = "",
+                Price = ""
+            });
+            foreach (var storeDto in optimizedShoppingList.Products.Select(p=>p.Store).Distinct())
+            {
+                dgShoppingListItems.Add(new ShoppingListDataGridItem
+                {
+                    Store = storeDto.Name,
+                    Product = "Wysyłka",
+                    Amount = "1",
+                    Price = storeDto.ShipmentCostFormatted
+                });
+            }
             dgShoppingList.ItemsSource = dgShoppingListItems;
         }
 

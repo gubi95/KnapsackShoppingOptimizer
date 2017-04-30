@@ -170,6 +170,7 @@ namespace KnapsackShoppingOptimizer
 
         private void ddlShoppingLists_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ddlShoppingLists.SelectedIndex == -1) return;
             var objKeyValuePair = (KeyValuePair<Guid, string>)ddlShoppingLists.SelectedItem;
             var shoppingList = HelperMethods.DataManager.GetShoppingListById(objKeyValuePair.Key);
 
@@ -189,3 +190,4 @@ namespace KnapsackShoppingOptimizer
         }
     }
 }
+ 
