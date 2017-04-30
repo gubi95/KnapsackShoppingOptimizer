@@ -9,7 +9,7 @@ namespace KnapsackOptimizer.ShopEnum.Logic
 {
     class ShopEnumAlgorithm
     {
-        public static OptimizedShoppingList Run(Dictionary<Guid, int> shoppingList, List<StoreDto> stores)
+        public OptimizedShoppingList Run(Dictionary<Guid, int> shoppingList, List<StoreDto> stores)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();

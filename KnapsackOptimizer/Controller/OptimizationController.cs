@@ -19,7 +19,7 @@ namespace KnapsackOptimizer.Controller
             switch (algorithm)
             {
                 case Algorithm.ShopEnum:
-                    return ShopEnumAlgorithm.Run(shoppingList, stores);
+                    return new ShopEnumAlgorithm().Run(shoppingList, stores);
                 case Algorithm.ProductEnum:
                     return ProductEnumAlgorithm.Run(shoppingList, stores);
                 default:

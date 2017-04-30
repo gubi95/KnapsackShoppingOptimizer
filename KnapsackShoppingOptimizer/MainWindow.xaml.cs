@@ -30,6 +30,7 @@ namespace KnapsackShoppingOptimizer
         {
             public string ProductName { get; set; }
             public string Price { get; set; }
+            public string Amount { get; set; }
         }
 
         private class ShoppingListDataGridItem
@@ -135,7 +136,7 @@ namespace KnapsackShoppingOptimizer
 
         private void gridProducts_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-
+            //TODO Save
         }
 
         private void ddlShops_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -156,6 +157,7 @@ namespace KnapsackShoppingOptimizer
                     {
                         ProductName = objStorePosition.Name,
                         Price = objStorePosition.Price.ToString("F").Replace(".", ","),
+                        Amount = objStorePosition.Amount.ToString()
                     });
                 }
 
