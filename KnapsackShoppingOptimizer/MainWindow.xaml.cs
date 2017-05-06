@@ -136,7 +136,35 @@ namespace KnapsackShoppingOptimizer
 
         private void gridProducts_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            //TODO Save
+
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                DataGridBoundColumn objDataGridBoundColumn = e.Column as DataGridBoundColumn;
+                if (objDataGridBoundColumn != null)
+                {
+                    int nRowIndex = e.Row.GetIndex();
+                    TextBox objTextBox = e.EditingElement as TextBox;
+                    string strNewValue = "" + objTextBox.Text;
+                    string oldValue = strNewValue;
+                    string strBindingName = (objDataGridBoundColumn.Binding as Binding).Path.Path;
+                    switch (strBindingName)
+                    {
+                        case "Amount":
+                            break;
+                        case "Price":
+                            if (!decimal.TryParse(strNewValue, out decimal newPrice))
+                            {
+                                MessageBox.Show("Nieprawidłowa ilość!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                                objTextBox.Text = oldValue;
+                            }
+                            break;
+                            default:
+                                break;
+                    }
+
+
+                }
+            }
         }
 
         private void ddlShops_SelectionChanged(object sender, SelectionChangedEventArgs e)

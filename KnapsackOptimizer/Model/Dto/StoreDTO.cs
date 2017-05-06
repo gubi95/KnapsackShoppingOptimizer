@@ -18,5 +18,17 @@ namespace KnapsackOptimizer.Model.Dto
                 return this.ShipmentCost.ToString("C");
             }
         }
+
+        public StorePositionDto findStorePositionById(Guid productId)
+        {
+            foreach (var position in Positions)
+            {
+                if (position.BaseProduct.ProductID == productId)
+                {
+                    return position;
+                }
+            }
+            return null;
+        }
     }
 }
