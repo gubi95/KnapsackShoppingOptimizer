@@ -14,7 +14,7 @@ namespace KnapsackOptimizer.ProductEnum.Logic
         {
             var productStorePairs = InitializeProductStoreList(shoppingList, stores);
             var bestPrice = ComputePriceSum(productStorePairs);
-            var bestSet = InitializeShoppingList();
+          //  var bestSet = InitializeShoppingList();
             for (var i = shoppingList.Count-1; i >= 0; i--)
             {
                 for (var j = i; j < shoppingList.Count; j++)
@@ -37,7 +37,7 @@ namespace KnapsackOptimizer.ProductEnum.Logic
 
         private static object InitializeShoppingList(List<ProductStorePair> products)
         {
-            List<>
+           // List<>
             throw new NotImplementedException();
         }
 
