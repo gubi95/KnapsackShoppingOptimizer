@@ -50,7 +50,7 @@ namespace KnapsackShoppingOptimizer.View
         private void FillForm(OptimizedShoppingList optimizedShoppingList, Algorithm algorithm)
         {
             TextBlockSumPrice.Text = optimizedShoppingList.TotalPrice == decimal.MaxValue ? "–" : optimizedShoppingList.TotalPrice.ToString("C");
-            TextBlockTime.Text = optimizedShoppingList.TimeElapsed.Milliseconds + "ms";
+            TextBlockTime.Text = optimizedShoppingList.TimeElapsed.TotalMilliseconds + "ms";
             TextBlockAlgorithm.Text = algorithm.ToString();
 
             var dgShoppingListItems = new List<ShoppingListDataGridItem>();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using KnapsackOptimizer.Model;
 using KnapsackOptimizer.Model.Dto;
 
@@ -10,8 +11,7 @@ namespace KnapsackOptimizer.ShopEnum.Logic
     {
         public OptimizedShoppingList Run(Dictionary<Guid, int> shoppingList, List<StoreDto> stores)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
+            Stopwatch stopwatch = Stopwatch.StartNew();
             var bestShoppingList = new AlgorithmShoppingList(shoppingList);
             bestShoppingList.ComputeCost();
             var currentShoppingList = new AlgorithmShoppingList(shoppingList);
@@ -30,6 +30,7 @@ namespace KnapsackOptimizer.ShopEnum.Logic
                         {
                             if (position.BaseProduct.ProductID != shopEnumPosition.ProductId) return;
                             if (position.Price >= shopEnumPosition.Price) return;
+                            if (position.Amount < shopEnumPosition.Amount) return;
                             shopEnumPosition.Store = stores[i];
                             shopEnumPosition.ProductId = position.BaseProduct.ProductID;
                             shopEnumPosition.Price = position.Price;
@@ -46,7 +47,9 @@ namespace KnapsackOptimizer.ShopEnum.Logic
                 currentShoppingList.Clear();
             }
             stopwatch.Stop();
-            return bestShoppingList.ToOptimizedShoppingList(stopwatch.Elapsed);
+            var stopwatchElapsed = stopwatch.Elapsed;
+            stopwatch = null;
+            return bestShoppingList.ToOptimizedShoppingList(stopwatchElapsed);
         }
         private int GetNextPermutation(int[] subsetMask)
         {

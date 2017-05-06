@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using KnapsackOptimizer.Model;
 using KnapsackOptimizer.Model.Dto;
 
@@ -14,8 +15,7 @@ namespace KnapsackOptimizer.ProductEnum.Logic
         private AlgorithmShoppingList BestSolution;
         public OptimizedShoppingList Run(Dictionary<Guid, int> shoppingList, List<StoreDto> stores)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
+            Stopwatch stopwatch = Stopwatch.StartNew();
             BestSolution = new AlgorithmShoppingList(shoppingList);    
             var shopEnumProducts = new AlgorithmShoppingList(shoppingList);
             Permutate(shopEnumProducts, stores, 0);
