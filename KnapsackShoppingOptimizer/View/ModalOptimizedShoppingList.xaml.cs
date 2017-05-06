@@ -49,7 +49,7 @@ namespace KnapsackShoppingOptimizer.View
 
         private void FillForm(OptimizedShoppingList optimizedShoppingList, Algorithm algorithm)
         {
-            TextBlockSumPrice.Text = optimizedShoppingList.TotalPrice.ToString("C");
+            TextBlockSumPrice.Text = optimizedShoppingList.TotalPrice == decimal.MaxValue ? "–" : optimizedShoppingList.TotalPrice.ToString("C");
             TextBlockTime.Text = optimizedShoppingList.TimeElapsed.Milliseconds + "ms";
             TextBlockAlgorithm.Text = algorithm.ToString();
 
@@ -58,10 +58,10 @@ namespace KnapsackShoppingOptimizer.View
             {
                 dgShoppingListItems.Add(new ShoppingListDataGridItem
                 {
-                    Store = product.Store.Name,
                     Product = HelperMethods.DataManager.GetProductByID(product.ProductId).Name,
+                    Store = (product.Store == null )? "Nie znaleziono" : product.Store.Name,
                     Amount = product.Amount.ToString(),
-                    Price = product.Price.ToString("C")
+                    Price = (product.Store == null) ? "x" : product.Price.ToString("C")
                 });
             });
 
@@ -74,6 +74,7 @@ namespace KnapsackShoppingOptimizer.View
             });
             foreach (var storeDto in optimizedShoppingList.Products.Select(p=>p.Store).Distinct())
             {
+                if (storeDto == null) continue;
                 dgShoppingListItems.Add(new ShoppingListDataGridItem
                 {
                     Store = storeDto.Name,

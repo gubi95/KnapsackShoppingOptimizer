@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using KnapsackOptimizer.Model;
 using KnapsackOptimizer.Model.Dto;
-using KnapsackOptimizer.ShopEnum.Model;
 
 namespace KnapsackOptimizer.ShopEnum.Logic
 {
-    class ShopEnumAlgorithm
+    public class ShopEnumAlgorithm
     {
         public OptimizedShoppingList Run(Dictionary<Guid, int> shoppingList, List<StoreDto> stores)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            var bestShoppingList = new ShopEnumProducts(shoppingList);
+            var bestShoppingList = new AlgorithmShoppingList(shoppingList);
             bestShoppingList.ComputeCost();
-            var currentShoppingList = new ShopEnumProducts(shoppingList);
+            var currentShoppingList = new AlgorithmShoppingList(shoppingList);
 
             var subsetMask = new int[stores.Count];
             subsetMask[0] = -1;
@@ -25,7 +24,7 @@ namespace KnapsackOptimizer.ShopEnum.Logic
                 for (var i = 0; i < stores.Count; i++)
                 {
                     if (subsetMask[i] == 0) continue;
-                    currentShoppingList.ShopEnumPositions.ForEach(shopEnumPosition =>
+                    currentShoppingList.Products.ForEach(shopEnumPosition =>
                     {
                         stores[i].Positions.ForEach(position =>
                         {
@@ -49,7 +48,7 @@ namespace KnapsackOptimizer.ShopEnum.Logic
             stopwatch.Stop();
             return bestShoppingList.ToOptimizedShoppingList(stopwatch.Elapsed);
         }
-        private static int GetNextPermutation(int[] subsetMask)
+        private int GetNextPermutation(int[] subsetMask)
         {
             int carry = 1;
             int index = 0;
