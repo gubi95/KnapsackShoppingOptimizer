@@ -8,29 +8,30 @@
         mc:Ignorable="d"
         Title="Optymalizwanie listy zakupowej"
         Height="800" 
-        Width="1000"
-        MinWidth="1000"
+        Width="1200"
+        MinWidth="1200"
         MinHeight="800">
     <Window.Resources>
         <GridLength x:Key="DefaultRowHeight">46</GridLength>
     </Window.Resources>
     <Grid x:Name="gridMainContainter">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="{StaticResource ResourceKey=DefaultRowHeight}"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="{StaticResource ResourceKey=DefaultRowHeight}"/>
-        </Grid.RowDefinitions>       
+        </Grid.RowDefinitions>
 
         <DataGrid x:Name="dgShoppingList" 
                   Grid.Row="1"
                   Grid.Column="0"
                   Style="{DynamicResource DataGridProductsPreview}"
                   AutoGenerateColumns="False"
-                  Margin="10,10,10,10" >
+                  Margin="10,10,10,10"
+                  CellEditEnding="dgShoppingList_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nazwa produktu" 
                                     Width="2*"
@@ -38,8 +39,23 @@
                                     Binding="{Binding ProductName}"/>
                 <DataGridTextColumn Header="Ilość"
                                     Width="*"
-                                    IsReadOnly="True"
+                                    IsReadOnly="False"
                                     Binding="{Binding Amount}"/>
+
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.Header>Usuń</DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                x:Name="btnDeleteShoppingListProduct"
+                                Style="{DynamicResource ResourceKey = DataGridRedDeleteButton}"
+                                Width="50"
+                                Content="Usuń"
+                                Click="btnDeleteShoppingListProduct_Click" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
             </DataGrid.Columns>
 
             <DataGrid.ContextMenu>
@@ -57,38 +73,38 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="20" />
             </Grid.RowDefinitions>
-            
 
-        <DataGrid x:Name="gridProducts"
+
+            <DataGrid x:Name="gridProducts"
                   Margin="10,10,10,10"
                   Style="{DynamicResource DataGridProductsPreview}"
                   AutoGenerateColumns="False"
                   CellEditEnding="gridProducts_CellEditEnding">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Nazwa produktu" 
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nazwa produktu" 
                                     Width="2*"
                                     IsReadOnly="True"
                                     Binding="{Binding ProductName}"/>
-                <DataGridTextColumn Header="Cena"
+                    <DataGridTextColumn Header="Cena"
                                     Width="*"
                                     IsReadOnly="False"
                                     Binding="{Binding Price}"/>
-                <DataGridTextColumn Header="Ilość"
+                    <DataGridTextColumn Header="Ilość"
                                     Width="*"
                                     IsReadOnly="False"
                                     Binding="{Binding Amount}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <StackPanel Grid.Row="1" 
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Grid.Row="1" 
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Margin="0,0,10,0"
                     Orientation="Horizontal">
-            <TextBlock Text="Kosz wysyłki:  "
+                <TextBlock Text="Kosz wysyłki:  "
                        FontSize="14"/>
-            <TextBlock x:Name="TextBlockShippingCost"
+                <TextBlock x:Name="TextBlockShippingCost"
                        FontSize="14"/>
-        </StackPanel>
+            </StackPanel>
 
         </Grid>
         <StackPanel Orientation="Horizontal" 
@@ -106,6 +122,13 @@
                       SelectedValuePath="Key"
                       DisplayMemberPath="Value"
                       SelectionChanged="ddlShoppingLists_SelectionChanged"/>
+
+            <RepeatButton x:Name="btnDeleteShoppingList" 
+                        Style="{DynamicResource ResourceKey=BlueButton}" 
+                        Content="Usuń listę zakupową" 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Top"                               
+                        Click="btnDeleteShoppingList_Click" Margin="0,13,0,0"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" 
@@ -122,20 +145,29 @@
                       SelectedValuePath="Key"
                       DisplayMemberPath="Value"
                       SelectionChanged="ddlShops_SelectionChanged"/>
-            
+
+            <RepeatButton x:Name="btnDeleteShop" 
+                        Style="{DynamicResource ResourceKey=BlueButton}" 
+                        Content="Usuń sklep" 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom" 
+                        Margin="0, 0, 10, 0"
+                        Click="btnDeleteShop_Click"/>
+
             <RepeatButton x:Name="btnCreateStore" 
                         Style="{DynamicResource ResourceKey=BlueButton}" 
                         Content="Dodaj sklep" 
-                        HorizontalAlignment="Right" 
+                        HorizontalAlignment="Right"                        
                         VerticalAlignment="Bottom"                               
                         Click="btnCreateStore_Click"/>
+
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" 
                     HorizontalAlignment="Stretch"
                     Grid.Row="2"
                     Grid.Column="0">
-            
+
             <RepeatButton x:Name="btnCreateShoppingList" 
                         Style="{DynamicResource ResourceKey=BlueButton}" 
                         Content="Utwórz listę zakupową" 
@@ -182,7 +214,7 @@
                           Margin="10,0,0,10" 
                           Content="Nowy produkt"
                           Click="btnCreateProduct_Click" />
-            
+
             <RepeatButton x:Name="btnExit"
                           Style="{DynamicResource ResourceKey=WhiteButton}" 
                           Grid.Column="1"

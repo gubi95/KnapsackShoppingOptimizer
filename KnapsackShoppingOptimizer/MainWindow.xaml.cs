@@ -131,44 +131,98 @@ namespace KnapsackShoppingOptimizer
             var objKeyValuePair = (KeyValuePair<Guid, string>) ddlShoppingLists.SelectedItem;
             
             new ModalOptimizedShoppingList(objKeyValuePair.Key, algorithm).ShowDialog(this);
-        }  
-        
+        }
+
 
         private void gridProducts_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-
             if (e.EditAction == DataGridEditAction.Commit)
             {
                 DataGridBoundColumn objDataGridBoundColumn = e.Column as DataGridBoundColumn;
                 if (objDataGridBoundColumn != null)
-                {
-                    int nRowIndex = e.Row.GetIndex();
+                {                       
                     TextBox objTextBox = e.EditingElement as TextBox;
-                    string strNewValue = "" + objTextBox.Text;
-                    string oldValue = strNewValue;
-                    string strBindingName = (objDataGridBoundColumn.Binding as Binding).Path.Path;
-                    switch (strBindingName)
+
+                    // get selected store
+                    Guid objStoreID = ((KeyValuePair<Guid, string>)ddlShops.SelectedItem).Key;
+                    Store objStore = HelperMethods.DataManager.GetStoreByStoreID(objStoreID);
+
+                    // get currently edited store position and update it if validation success
+                    string strProductName = ((ProductsDataGridItem)e.Row.DataContext).ProductName;
+                    StorePosition objStorePosition = objStore.Positions.Find(x => x.Name.Equals(strProductName));
+
+                    switch ((objDataGridBoundColumn.Binding as Binding).Path.Path)
                     {
                         case "Amount":
-                            break;
-                        case "Price":
-                            if (!decimal.TryParse(strNewValue, out decimal newPrice))
+                            int nNewAmount = -1;
+                            if (!int.TryParse("" + objTextBox.Text, out nNewAmount) || nNewAmount < 1)
                             {
                                 MessageBox.Show("Nieprawidłowa ilość!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                                objTextBox.Text = oldValue;
+                                objTextBox.Text = "1";
+                            }
+                            else
+                            {
+                                objStorePosition.Amount = nNewAmount;
+                                HelperMethods.DataManager.EditStore(objStore);                                
                             }
                             break;
-                            default:
-                                break;
+                        case "Price":
+                            decimal newPrice;
+                            if (!decimal.TryParse("" + objTextBox.Text, out newPrice) || newPrice <= 0.00M)
+                            {
+                                MessageBox.Show("Nieprawidłowa cena!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                                objTextBox.Text = "1,00";
+                            }
+                            else
+                            {
+                                objStorePosition.Price = newPrice;
+                                HelperMethods.DataManager.EditStore(objStore);
+                            }
+                            break;                        
                     }
+                }
+            }
+        }
 
+        private void dgShoppingList_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                DataGridBoundColumn objDataGridBoundColumn = e.Column as DataGridBoundColumn;
+                if (objDataGridBoundColumn != null)
+                {                       
+                    TextBox objTextBox = e.EditingElement as TextBox;
 
+                    // get selected shopping list
+                    Guid objShoppingListID = ((KeyValuePair<Guid, string>)ddlShoppingLists.SelectedItem).Key;
+                    ShoppingList objShoppingList = HelperMethods.DataManager.GetShoppingListById(objShoppingListID);
+
+                    // get currently edited shopping list product and update it if validation success
+                    string strProductName = ((ShoppingListDataGridItem)e.Row.DataContext).ProductName;
+                    Guid objProductID = HelperMethods.DataManager.GetAllProducts().Find(x => x.Name.Equals(strProductName)).ProductID;                    
+
+                    if ((objDataGridBoundColumn.Binding as Binding).Path.Path == "Amount")
+                    {
+                        int nNewAmount = -1;
+                        if (!int.TryParse("" + objTextBox.Text, out nNewAmount) || nNewAmount < 1)
+                        {
+                            MessageBox.Show("Nieprawidłowa ilość!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                            objTextBox.Text = "1";
+                        }
+                        else
+                        {
+                            objShoppingList.ProductIdToAmountDictionary[objProductID] = nNewAmount;
+                            HelperMethods.DataManager.EditShoppingList(objShoppingList);
+                        }
+                    }
                 }
             }
         }
 
         private void ddlShops_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ddlShops.SelectedIndex == -1) return;
+
             KeyValuePair<Guid, string> objKeyValuePair = (KeyValuePair<Guid, string>) ddlShops.SelectedItem;
 
             Store objStore = HelperMethods.DataManager.GetStoreByStoreID(objKeyValuePair.Key);
@@ -198,7 +252,7 @@ namespace KnapsackShoppingOptimizer
             new ModalNewShoppingList().ShowDialog(this);
         }
 
-        private void ddlShoppingLists_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SetShoppingListDataGrid()
         {
             if (ddlShoppingLists.SelectedIndex == -1) return;
             var objKeyValuePair = (KeyValuePair<Guid, string>)ddlShoppingLists.SelectedItem;
@@ -218,6 +272,63 @@ namespace KnapsackShoppingOptimizer
 
             dgShoppingList.ItemsSource = shoppingListDataGridItems;
         }
+
+        private void ddlShoppingLists_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetShoppingListDataGrid();
+        }
+
+        private void btnDeleteShoppingList_Click(object sender, RoutedEventArgs e)
+        {
+            if (ddlShoppingLists.SelectedIndex != -1)
+            {
+                Guid objShoppingListID = ((KeyValuePair<Guid, string>)ddlShoppingLists.SelectedItem).Key;
+                HelperMethods.DataManager.DeleteShoppingList(objShoppingListID);
+                this.BindDDLShoppingLists();
+
+                if (ddlShoppingLists.Items.Count > 0)
+                {
+                    ddlShoppingLists.SelectedIndex = 0;
+                }
+                else
+                {
+                    dgShoppingList.ItemsSource = null;                    
+                }
+            }
+        } 
+
+        private void btnDeleteShop_Click(object sender, RoutedEventArgs e)
+        {
+            if(ddlShops.SelectedIndex != -1)
+            {
+                Guid objShopID = ((KeyValuePair<Guid, string>)ddlShops.SelectedItem).Key;
+                HelperMethods.DataManager.DeleteStore(objShopID);
+                this.BindDDLShops();
+
+                if (ddlShops.Items.Count > 0)
+                {
+                    ddlShops.SelectedIndex = 0;
+                }
+                else
+                {
+                    gridProducts.ItemsSource = null;
+                }
+            }
+        }
+
+        private void btnDeleteShoppingListProduct_Click(object sender, RoutedEventArgs e)
+        {
+            Guid objShoppingListID = ((KeyValuePair<Guid, string>)ddlShoppingLists.SelectedItem).Key;
+            string strProductName = ((ShoppingListDataGridItem)((Button)sender).DataContext).ProductName;
+
+            ShoppingList objShoppingList = HelperMethods.DataManager.GetShoppingListById(objShoppingListID);
+
+            Guid objProductIDToDelete = HelperMethods.DataManager.GetAllProducts().Find(x => x.Name.Equals(strProductName)).ProductID;
+            objShoppingList.ProductIdToAmountDictionary.Remove(objProductIDToDelete);
+
+            HelperMethods.DataManager.EditShoppingList(objShoppingList);
+
+            SetShoppingListDataGrid();
+        }
     }
 }
- 

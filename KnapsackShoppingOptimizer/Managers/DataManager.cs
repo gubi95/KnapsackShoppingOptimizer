@@ -84,16 +84,24 @@ namespace KnapsackShoppingOptimizer
             this.WriteToFile();
         }
 
-        public void DeleteStore(Store objStore)
+        private void DeleteStoreAtIndex(int nIndex)
         {
-            this.RepairModelsIfNulls();
-            int nStoreToDeleteIndex = this.Stores.FindIndex(x => x.StoreID == objStore.StoreID);
-
-            if (nStoreToDeleteIndex != -1)
+            this.RepairModelsIfNulls();    
+            if (nIndex >= 0 && nIndex < this.Stores.Count)
             {
-                this.Stores.RemoveAt(nStoreToDeleteIndex);
+                this.Stores.RemoveAt(nIndex);
             }
             this.WriteToFile();
+        }
+
+        public void DeleteStore(Guid objStoreID)
+        {
+            this.DeleteStoreAtIndex(this.Stores.FindIndex(x => x.StoreID == objStoreID));
+        }
+
+        public void DeleteStore(Store objStore)
+        {
+            this.DeleteStoreAtIndex(this.Stores.FindIndex(x => x.StoreID == objStore.StoreID));
         }
 
         #endregion
@@ -195,6 +203,37 @@ namespace KnapsackShoppingOptimizer
             this.RepairModelsIfNulls();
             this.ShoppingLists.Add(objShoppingList);
             this.WriteToFile();
+        }
+
+        public void EditShoppingList(ShoppingList objShoppingList)
+        {
+            this.RepairModelsIfNulls();
+            int nShoppingListIndex = this.ShoppingLists.FindIndex(x => x.ShoppingListID == objShoppingList.ShoppingListID);
+            if (nShoppingListIndex != -1)
+            {
+                this.ShoppingLists[nShoppingListIndex] = objShoppingList;
+            }                                                                                                              
+            this.WriteToFile();
+        }
+
+        private void DeleteShoppingListAtIndex(int nIndex)
+        {
+            this.RepairModelsIfNulls();
+            if (nIndex >= 0 && nIndex < this.ShoppingLists.Count)
+            {
+                this.ShoppingLists.RemoveAt(nIndex);
+                this.WriteToFile();
+            }
+        }
+
+        public void DeleteShoppingList(Guid objShoppingListID)
+        {                           
+            this.DeleteShoppingListAtIndex(this.ShoppingLists.FindIndex(x => x.ShoppingListID == objShoppingListID));
+        }
+
+        public void DeleteShoppingList(ShoppingList objShoppingList)
+        {               
+            this.DeleteShoppingListAtIndex(this.ShoppingLists.FindIndex(x => x.ShoppingListID == objShoppingList.ShoppingListID));
         }
 
         #endregion
