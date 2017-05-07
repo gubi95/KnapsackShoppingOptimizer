@@ -1,40 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using KnapsackOptimizer.Model;
 
-namespace KnapsackOptimizer.ShopEnum.Model
+namespace KnapsackOptimizer.Model
 {
-    internal class ShopEnumProducts
+    internal class AlgorithmShoppingList
     {
-        public List<ShopEnumPosition> ShopEnumPositions { get; set; }
+        public List<ShoppingListPosition> Products { get; set; }
         public decimal Cost { get; set; }
 
-        public ShopEnumProducts(Dictionary<Guid, int> shoppingList)
+        public AlgorithmShoppingList(Dictionary<Guid, int> shoppingList)
         {
-            ShopEnumPositions = new List<ShopEnumPosition>();
+            Cost = Decimal.MaxValue;
+            Products = new List<ShoppingListPosition>();
             foreach (var product in shoppingList)
             {
-                var shopEnumPosition = new ShopEnumPosition
+                var shoppingListPosition = new ShoppingListPosition()
                 {
                     ProductId = product.Key,
                     Amount = product.Value,
                     Price = decimal.MaxValue
                 };
         
-                ShopEnumPositions.Add(shopEnumPosition);
+                Products.Add(shoppingListPosition);
             }
         }
 
         public bool ComputeCost()
         {
-            if (ShopEnumPositions.Any(position => position.Price == decimal.MaxValue))
+            if (Products.Any(position => position.Price == decimal.MaxValue))
             {
                 Cost =  decimal.MaxValue;
                 return false;
             }
-            var shipmentCost = ShopEnumPositions.Select(position => position.Store).Distinct().Sum(store => store.ShipmentCost);
-            var productsCost = ShopEnumPositions.Select(position => position.Price).Sum();
+            var shipmentCost = Products.Select(position => position.Store).Distinct().Sum(store => store.ShipmentCost);
+            var productsCost = Products.Select(position => position.Price).Sum();
 
             Cost = shipmentCost + productsCost;
             return true;
@@ -42,7 +42,7 @@ namespace KnapsackOptimizer.ShopEnum.Model
 
         public void Clear()
         {
-            ShopEnumPositions.ForEach(position => position.Price = decimal.MaxValue);
+            Products.ForEach(position => position.Price = decimal.MaxValue);
         }
 
         public OptimizedShoppingList ToOptimizedShoppingList(TimeSpan elapsed)
@@ -51,7 +51,7 @@ namespace KnapsackOptimizer.ShopEnum.Model
             {
                 TotalPrice = Cost,
                 TimeElapsed = elapsed,
-                Products = ShopEnumPositions
+                Products = Products
             };
         }
     }

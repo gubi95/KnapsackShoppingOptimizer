@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
@@ -21,7 +22,7 @@ namespace KnapsackOptimizer.Controller
                 case Algorithm.ShopEnum:
                     return new ShopEnumAlgorithm().Run(shoppingList, stores);
                 case Algorithm.ProductEnum:
-                    return ProductEnumAlgorithm.Run(shoppingList, stores);
+                    return new ProductEnumAlgorithm().Run(shoppingList, stores);
                 default:
                     return null;
             }
