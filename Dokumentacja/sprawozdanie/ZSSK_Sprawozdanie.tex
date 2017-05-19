@@ -1,0 +1,113 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{polish}
+
+\usepackage[margin=1 in, includefoot]{geometry}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage[space]{grffile}
+\usepackage{xcolor, listings}
+\lstset{
+basicstyle=\footnotesize\ttfamily,
+numbers=left,
+numberstyle=\tiny,
+numbersep=5pt,
+tabsize=2,
+extendedchars=true,
+breaklines=true,
+commentstyle=\color{green},
+keywordstyle=\color{blue},
+identifierstyle=\color{black},
+showspaces=false,
+showstringspaces=false,
+}
+%nowa strona przed kazdym section
+\let\oldsection\section
+\renewcommand\section{\clearpage\oldsection}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\huge{\textsc{Politechnika Wrocławska\\Wydział Elektroniki}}
+\line(1,0){400}\\
+[1 cm]
+\textsc{\Huge {Zarządzanie w Systemach i Sieciach Komputerowych}}\\
+[0.5 cm]
+\textsc{\Large {Optymalizacja listy zakupów pod względem ceny}}\\
+\end{center}
+\vfill
+\vfill
+\hspace{0.5 cm}
+\begin{minipage}[t]{.4\textwidth}%
+\flushleft
+\textsc{\Large{Autorzy :}}\\
+\Large{Rafał Gubała }\\
+\Large{Jakub Małyjasiak 218168}
+\end{minipage}%
+\begin{minipage}[t]{.5\textwidth}%
+\flushright
+\textsc{\Large{Prowadzący :}}\\
+\Large{dr inż. Robert Wójcik}\\
+\end{minipage}%
+\vfill
+\begin{center}
+\normalsize{Wrocław 2017}
+\end{center}
+\end{titlepage}
+
+\tableofcontents 
+\listoffigures
+
+\section{Wstęp}
+\subsection{Cel projektu}
+\subsection{Zakres projektu}
+
+\section{Sformułowanie problemu}
+\subsection{Podstawowe założenia}
+\subsection{OpisWariantów problemu}
+\subsubsection{Problem decyzyjny}
+\subsubsection{Problem optymalizacyjny}
+\subsection{Zastosowane algorytmy}
+\subsection{Analiza złożoności obliczeniowej algorytmów}
+
+\section{Projekt aplikacji}
+\subsection{Wykorzystywane technologie i narzędzia projektowania}
+\subsection{Struktura programu}
+\subsection{Koncepcja działania algorytmów}
+\subsubsection{Algorytm SHOP-ENUM}
+\subsubsection{Algorytm PRODUCT-ENUM}
+\subsection{Diagram klas}
+\subsection{Struktura danych wejściowych}
+\subsection{Struktura wyników}
+
+\section{Implementacja systemu}
+\subsection{Wybrane klasy}
+\subsection{Realizacja algorytmów wyznaczania rozwiązań}
+\subsection{Metoda odczytu danych wejściowych}
+\subsection{Metoda prezentacji i zapisu wyników}
+
+\section{Testowanie poprawności i ocena rozwiązań}
+\subsection{Weryfikacja poprawności działania algorytmów - przykłady}
+\subsubsection{Algorytm SHOP-ENUM}
+\subsubsection{Algorytm PRODUCT-ENUM}
+\subsection{Analiza czasów wykonania algorytmów}
+\subsection{Wnioski z testów i badań}
+
+\section{Podsumowanie}
+ 
+\begin{thebibliography}{9}
+
+\bibitem{greene}
+  Greene Jennifer, Stellman Andrew 
+  \emph{C\#. Rusz głową!}.
+  Helion,
+  2014.
+
+  \end{thebibliography}
+\end{document}

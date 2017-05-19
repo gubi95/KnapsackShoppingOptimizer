@@ -13,7 +13,9 @@
 *.userosscache
 *.sln.docstates
 *.csv
-
+Dokumentacja/sprawozdanie/*
+!Dokumentacja/sprawozdanie/*.tex
+!Dokumentacja/sprawozdanie/img/
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
