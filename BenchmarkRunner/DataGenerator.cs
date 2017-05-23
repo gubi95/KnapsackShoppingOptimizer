@@ -16,6 +16,11 @@ namespace BenchmarkRunner
 
         public static BenchData doGenerate(int shopCount, int productCount, int listLength)
         {
+            if (listLength > productCount)
+            {
+                return null;
+            }
+
             var random = new Random();
             var products = new List<ProductDto>();
             var stores = new List<StoreDto>();
