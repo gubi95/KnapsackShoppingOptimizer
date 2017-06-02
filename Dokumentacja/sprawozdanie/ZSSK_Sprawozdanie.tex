@@ -13,6 +13,7 @@
 \usepackage{multirow}
 \usepackage[space]{grffile}
 \usepackage{xcolor, listings}
+\usepackage{mathtools}
 \lstset{
 basicstyle=\footnotesize\ttfamily,
 numbers=left,
@@ -27,6 +28,7 @@ identifierstyle=\color{black},
 showspaces=false,
 showstringspaces=false,
 }
+\lstdefinestyle{sharpc}{language=[Sharp]C, frame=lr, rulecolor=\color{blue!80!black}}
 %nowa strona przed kazdym section
 \let\oldsection\section
 \renewcommand\section{\clearpage\oldsection}
@@ -66,10 +68,23 @@ showstringspaces=false,
 
 \section{Wstęp}
 \subsection{Cel projektu}
+\large
+Celem projektu było opracowanie i stworzenie aplikacji na platformę Windows implementującą algorytmy optymalizujące listy zakupowe pod względem ceny produktów z różnych sklepów.
 \subsection{Zakres projektu}
-
+\large
+Założenie projektowe obejmowały stworzenie aplikacji okienkowej posiadającej następujące funkcjonalności:
+\begin{itemize}
+\item Dodawanie, edycja oraz usuwanie sklepów
+\item Dodawanie, edycja oraz usuwanie produktów
+\item Tworzenie list zakupowych z wybranymi produktami
+\item Optymalizacja list zakupowych algorytmami \textbf{Shop-Enum} oraz \textbf{Product-Enum}
+\item Mierzenie czasu wykonywania się poszczególnych algorytmów
+\item Zapisywanie i wczytywanie wprowadzonych danych
+\end{itemize}
 \section{Sformułowanie problemu}
 \subsection{Podstawowe założenia}
+\large
+Rozwiązywany problem dotyczy zakupów internetowych i zminimalizowania kosztów poniesionych przy zakupie wybranych produktów w wybranych sklepach. Pojedyncza osoba szuka określonego zestawu produktów $N = \{1,...,n\}$ w $m$ sklepach. Każdy sklep posiada swój koszt wysyłki $d_i$ oraz każdy podzbiór produktów $N_i$ może być skojarzony z wieloma sklepami. Oprócz tego, każdy produkt należący do wybranego podzbioru $N_i$ posiada swoją cenę $c_{ji}$, gdzie $j \in N_i$ Rozwiązaniem problemu jest znalezienie takiego zestawu produktów z co najmniej jednego sklepu, aby sumaryczna wartość zakupów była jak najmniejsza.
 \subsection{Opis wariantów problemu}
 \subsubsection{Problem decyzyjny}
 \subsubsection{Problem optymalizacyjny}
@@ -78,7 +93,18 @@ showstringspaces=false,
 
 \section{Projekt aplikacji}
 \subsection{Wykorzystywane technologie i narzędzia projektowania}
+Do stworzenie projektu zostały użyte następujące technologie i narzędzia:
+\begin{itemize}
+\item Język programowania: C\#
+\item Środowisko programistyczne: Visual Studio 2015, Visual Studio 2017
+\item XAML - język opisu interfejsu użytkownika
+\item Inne: WPF, NewtonSoft: JSON.Net
+\end{itemize}
 \subsection{Struktura programu}
+W projekcie został zastosowany wzorzec obiektowy. Aplikacja została napisana z rozdzieleniem interfejsu użytkownika oraz logiki samych algorytmów minimalizujących w postaci odrębnych modułów (projektów w solucji). Zabieg ten miał na celu wyodrębnić moduł algorytmiczny, aby można go było łatwo przenieść w przyszłości do innego projektu np. w postaci skompilowanej biblioteki.
+\begin{flushleft}
+Program zapisuje dane do pliku tekstowego w popularnym formacie JSON. Umożliwia to łatwy odczyt i parsowanie tekstu do obiektów w programie. Jest to symulacja bazy danych. Obsługa danych została zrealizowana jako wzorzec fabryki, każda encja posiada swoją fabrykę z metodami takimi jak: \textit{getAll}, \textit{getByID}, \textit{create}, \textit{update} oraz \textit{delete}.
+\end{flushleft}
 \subsection{Koncepcja działania algorytmów}
 \subsubsection{Algorytm SHOP-ENUM}
 \subsubsection{Algorytm PRODUCT-ENUM}
@@ -89,8 +115,67 @@ showstringspaces=false,
 \section{Implementacja systemu}
 \subsection{Wybrane klasy}
 \subsubsection{ShoppingList}
+\lstset{style=sharpc}
+\begin{lstlisting}
+public class ShoppingList
+{
+    public Guid ShoppingListID { get; set; }
+    public string Name { get; set; }
+		public Dictionary<Guid, int> ProductIdToAmountDictionary { get; set; }
+}
+\end{lstlisting}
+\begin{flushleft}
+Powyższa klasa reprezentuje listę zakupową. Posiada ona 3 pola: 
+\begin{itemize}
+\item \textit{ShoppingListID}: identyfikator zrealizowany za pomocą klasy \textbf{Guid} (zapewnia to bardzo dużą losowość)
+\item \textit{Name}: nazwa list zakupowej
+\item \textit{ProductIdToAmountDictionary}: słownik przyporządkowujący identyfikator produktu na liście do jego ilości
+\end{itemize}
+\end{flushleft}
 \subsubsection{Store}
+\lstset{style=sharpc}
+\begin{lstlisting}
+public class Store
+{           
+		public Guid StoreID { get; set; }
+    public string Name { get; set; }
+    public List<StorePosition> Positions { get; set; }
+    public decimal ShipmentCost { get; set; }
+    public string ShipmentCostFormatted
+    {
+    		get
+        {
+        		return this.ShipmentCost.ToString("C");
+        }
+     }
+}
+\end{lstlisting}
+\begin{flushleft}
+Powyższa klasa reprezentuje sklep. Posiada ona 5 pól: 
+\begin{itemize}
+\item \textit{StoreID}: identyfikator zrealizowany za pomocą klasy \textbf{Guid} 
+\item \textit{Name}: nazwa sklepu
+\item \textit{Positions}: lista przechowujące pozycje (produkty) sklepowe
+\item \textit{ShipmentCost}: cena wysyłki
+\item \textit{ShipmentCostFormatted}: sformatowana cena wysyłki, np. "15,00 zł"
+\end{itemize}
+\end{flushleft}
 \subsubsection{Product}
+\lstset{style=sharpc}
+\begin{lstlisting}
+public class Product
+{     
+		public Guid ProductID { get; set; }      
+    public string Name { get; set; }        
+}
+\end{lstlisting}
+\begin{flushleft}
+Powyższa klasa reprezentuje produkt. Posiada ona 2 pola: 
+\begin{itemize}
+\item \textit{ProductID}: identyfikator zrealizowany za pomocą klasy \textbf{Guid} 
+\item \textit{Name}: nazwa produktu
+\end{itemize}
+\end{flushleft}
 \subsection{Realizacja algorytmów wyznaczania rozwiązań}
 \subsubsection{Algorytm SHOP-ENUM}
 \subsubsection{Algorytm PRODUCT-ENUM}
@@ -106,7 +191,7 @@ showstringspaces=false,
 \subsection{Wnioski z testów i badań}
 
 \section{Podsumowanie}
- 
+Reasumując, wykonując ten projekt nauczyliśmy się wielu rzeczy. Przede wszystkim poznaliśmy ciekawe i praktyczne algorytmy do rozwiązywanego przez nas problemu, a także rozwinęliśmy swoją wiedzę na temat .NET oraz tworzenia aplikacji okienkowych z użyciem technologii XAML. Ważnym elementem naszej pracy była również zdolność komunikacji oraz pójścia na kompromis w niektórych sytuacjach. Ważna okazała się również synchronizacja pracy i planowanie kolejnych zadań w taki sposób, aby nie przeszkadzać sobie nawzajem.
 \begin{thebibliography}{9}
 
 \bibitem{greene}
