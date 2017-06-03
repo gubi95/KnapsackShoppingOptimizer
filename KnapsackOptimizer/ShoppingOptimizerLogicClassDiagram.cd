@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="KnapsackOptimizer.Model.Dto.ProductDto">
+    <Position X="2.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Dto\ProductDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KnapsackOptimizer.Model.Dto.ShoppingListDto">
+    <Position X="5.5" Y="0.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAEAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Model\Dto\ShoppingListDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KnapsackOptimizer.Model.Dto.StoreDto">
+    <Position X="6.25" Y="2.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAgAAAAAAQAABAAAAAAAAQAAAAAABA=</HashCode>
+      <FileName>Model\Dto\StoreDTO.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Positions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="KnapsackOptimizer.Model.Dto.StorePositionDto">
+    <Position X="2" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAASAAEAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Dto\StorePositionDTO.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="BaseProduct" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
