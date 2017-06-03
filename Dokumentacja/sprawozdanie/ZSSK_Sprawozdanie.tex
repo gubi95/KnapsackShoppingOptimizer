@@ -7,7 +7,7 @@
 
 \usepackage[margin=1 in, includefoot]{geometry}
 \pagenumbering{arabic}
-\setcounter{page}{1}
+\setcounter{page}{2}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{multirow}
@@ -87,9 +87,50 @@ Założenie projektowe obejmowały stworzenie aplikacji okienkowej posiadającej
 Rozwiązywany problem dotyczy zakupów internetowych i zminimalizowania kosztów poniesionych przy zakupie wybranych produktów w wybranych sklepach. Pojedyncza osoba szuka określonego zestawu produktów $N = \{1,...,n\}$ w $m$ sklepach. Każdy sklep posiada swój koszt wysyłki $d_i$ oraz każdy podzbiór produktów $N_i$ może być skojarzony z wieloma sklepami. Oprócz tego, każdy produkt należący do wybranego podzbioru $N_i$ posiada swoją cenę $c_{ji}$, gdzie $j \in N_i$ Rozwiązaniem problemu jest znalezienie takiego zestawu produktów z co najmniej jednego sklepu, aby sumaryczna wartość zakupów była jak najmniejsza.
 \subsection{Opis wariantów problemu}
 \subsubsection{Problem decyzyjny}
+W przypadku obu algorytmów problem decyzyjny sprowadza się do pytania, czy istnieje podzbiór produktów $N_i$ i odpowiadający mu zbiór sklepów $M_i$, dla którego sumaryczny koszt zakupu będzie równy $k$. Rozwiązanie owego problemu będzie polegało na przeszukaniu zbioru wszystkich sklepów w poszukiwaniu produktów w podzbioru $N_i$. Jeśli wszystkie produkty udało się znaleźć, to sumując ceny wszystkich przedmiotów z cenami wysyłki w odpowiednich sklepach możemy udzielić odpowiedzi na postawione pytanie.
 \subsubsection{Problem optymalizacyjny}
+Mając na uwadze sformułowany wcześniej problem decyzyjny możemy prosto sformułować odpowiadający mu problem optymalizacyjny. W tym przypadku brzmi on: \textit{Ile wynosi najniższy koszt zakupu przedmiotów ze zbioru $N_i$ w zadanym zbiorze sklepów.} Warto zauważyć, że problem w istocie nie jest trywialny. Ważną komplikacją jest fakt, że pod uwagę trzeba wziąć koszt wysyłki danego produktu, co sprawia, że proste przeszukanie sklepów w celu znalezienia najtańszych ofert dla danego produktu nie ma sensu. Czasami bardziej opłacalne może okazać się kupienie droższego produktu, jeśli pozwoli to uniknąć poniesienia kosztów wysyłki w innym sklepie. 
 \subsection{Zastosowane algorytmy}
+Posiłkując się materiałami zawartymi w [3] do rozwiązania problemu wykorzystaliśmy algorytmy \textit{SHOP-ENUM} oraz \textit{PRODUCT-ENUM}. Oba pozwalają znaleźć optymalne rozwiązanie, ale dzieje się to kosztem złożoności obliczeniowej.
+
+Podstawowym założeniem algorytmu \textit{SHOP-ENUM} jest skupienie się na sklepach, zamiast na produktach. Zakładamy tutaj, że analizie poddamy każdy możliwy podzbiór sklepów, co pozwoli w trywialny sposób przeszukać kolekcję w celu znalezienia najtańszej oferty na dany produkt z punktu widzenia pojedynczej iteracji. Jest to możliwe dzięki temu, że koszt wysyłki nie gra tutaj roli. Ze względu na to, że analizie zostanie poddany każdy podzbiór sklepów, czyli każda możliwa kombinacja kosztów wysyłki, możemy w naiwny sposób szukać podzbioru produktów o najniższej cenie. Koszt wysyłki zwiększa ową cenę o odpowiednią wartość i w ten sposób otrzymujemy rezultat działania algorytmu.
+\vspace{0.5 cm}
+\lstset{style=sharpc}
+\begin{lstlisting}
+foreach permutation of stores
+		foreach product in shoppingList
+			cheapestProduct <- stores.findCheapest(product)
+			resultList.add(cheapestProduct)
+		
+		if resultList.Cost < bestSolution.Cost then
+			bestSolution <- resultList
+\end{lstlisting}
+\vspace{0.5 cm}
+
+Algorytm \textit{PRODUCT-ENUM} to przeciwieństwo wspomnianego wcześniej algorytmu \textit{SHOP-ENUM}. Tutaj uwagę skupia się na produktach. Podstawą algorytmu jest założenie, że tym razem zamiast analizować każdy możliwy podzbiór sklepów, stworzymy każdą pożliwą kombinację produktów. Pseudokod trafnie obrazuje ten zamysł:
+
+\vspace{0.5 cm}
+\lstset{style=sharpc}
+\begin{lstlisting}
+Permutate(shoppingList, stores, itemIndex) {
+	if itemIndex < shoppingList.Count then
+		foreach store in stores 
+			product <-  store.findProduct(shoppingList[itemIndex])
+			if product.Amount < shoppingList[itemIndex].Amount then continue
+			shoppingList[itemIndex].setNewPrice(product.Price)
+			shoppingList[itemIndex].setNewStore(product.Store)
+		
+			Permutate(shoppingList, stores, itemIndex + 1)
+	else
+		if shoppingList.Cost < bestSolution.Cost then
+			bestSolution <- shoppingList
+}
+\end{lstlisting}
+\vspace{0.5 cm}
+Widać tutaj jasno, że naszym zamiarem będzie stworzenie każdej możliwej kombinacji produktów, jak już wcześniej wspomniano. W praktyce oznacza to wykorzystanie rekurencji, która pozwoli na każdej pozycji na liście zakupów przeanalizować wariant, w którym produkt bierzemy kolejno z każdego sklepu, w którym jest dostępny
 \subsection{Analiza złożoności obliczeniowej algorytmów}
+\subsubsection{Algorytm SHOP-ENUM}
+\subsubsection{Algorytm PRODUCT-ENUM}
 
 \section{Projekt aplikacji}
 \subsection{Wykorzystywane technologie i narzędzia projektowania}
