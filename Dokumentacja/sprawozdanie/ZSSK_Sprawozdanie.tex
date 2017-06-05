@@ -130,8 +130,19 @@ Permutate(shoppingList, stores, itemIndex) {
 Widać tutaj jasno, że naszym zamiarem będzie stworzenie każdej możliwej kombinacji produktów, jak już wcześniej wspomniano. W praktyce oznacza to wykorzystanie rekurencji, która pozwoli na każdej pozycji na liście zakupów przeanalizować wariant, w którym produkt bierzemy kolejno z każdego sklepu, w którym jest dostępny
 \subsection{Analiza złożoności obliczeniowej algorytmów}
 \subsubsection{Algorytm SHOP-ENUM}
+Zauważmy, że skoro algorytm bazuje na utworzeniu wszystkich możliwych kombinacji analizowanych sklepów ze zbioru $\{1,...,m\}$, to wszystkich możliwych kombinacji będzie $2^m$. Następnie należy znaleźć najtańszą ofertę na dany produkt, co w przypadku przechowywania sklepów na liście można otrzymać w czasie $O(m)$, jeśli m to ilość przeszukiwanych produktów. Mamy zatem $2^mm$. Operację wyszukiwania należy powtórzyć dla każdego produktu na liście zakupów, której długość możemy oznaczyć jako $n$. Mamy zatem ostatecznie
+\begin{equation}
+O(nm2^m)
+\end{equation}
+Dużą poprawę można byłoby osiągnąć, gdyby oferty produktów były przechowywane w kopcu. Wtedy operacja znalezienie najtańczej oferty, zakładając, że będzie to kopiec minimalny względem ceny, udałoby się wykonać w stałym czasie, a złożoność spadłaby do:
+\begin{equation}
+O(n2^m)
+\end{equation}
 \subsubsection{Algorytm PRODUCT-ENUM}
-
+Algorytm \textit{PRODUCT-ENUM}, jak już wcześniej stwierdzono, polega na przeanalizowaniu każdego możliwego zbioru produktów. Jeśli oznaczymy ilość produktów na liście jako $n$, czyli produkty stworzą podzbiór $S = \{S_1,...,S_n\}$, a ilość sklepów przez $m$, to zauważymy, że istnieje $m^n$ takich kombinacji. Daje to złożoność równą $O(m^n)$. Na tym etapie, w przeciwieństwie do algorytmu \textit{SHOP-ENUM}, nie mamy jeszcze żadnej informacji o cenie produktów. Jeśli, jak już ustaliliśmy, podzbiór składa się z $n$ elementów, to dodając ten etap do dotychczasowej złożoności otrzymujemy:
+\begin{equation}
+O(nm^n)
+\end{equation}
 \section{Projekt aplikacji}
 \subsection{Wykorzystywane technologie i narzędzia projektowania}
 Do stworzenie projektu zostały użyte następujące technologie i narzędzia:
@@ -147,8 +158,11 @@ W projekcie został zastosowany wzorzec obiektowy. Aplikacja została napisana z
 Program zapisuje dane do pliku tekstowego w popularnym formacie JSON. Umożliwia to łatwy odczyt i parsowanie tekstu do obiektów w programie. Jest to symulacja bazy danych. Obsługa danych została zrealizowana jako wzorzec fabryki, każda encja posiada swoją fabrykę z metodami takimi jak: \textit{getAll}, \textit{getByID}, \textit{create}, \textit{update} oraz \textit{delete}.
 \end{flushleft}
 \subsection{Koncepcja działania algorytmów}
+Oba algorytmy, jak już wcześniej wspomniano, zostaną umieszczone w osobnym module, co pozwoli lepiej odseparować logikę od widoku oraz wykorzystać skompilowany kod w innych projektach. Dla uproszczenia zostaną wprowadzone dodatkowe obiekty, które lepiej pasują do realizacji algorytmów. 
 \subsubsection{Algorytm SHOP-ENUM}
+W przypadku tegoż algorytmu konieczne jest znalezienie sposobu na szybkie i oszczędne generowanie kolejnych podzbiorów analizowanych sklepów. Rozwiążemy to tworząc osobną strukturę – tablicę zmiennych logicznych, lub liczb całkowitych takich, ze $x \in \{0, 1\}$ – która będzie stanowiła swego rodzaju maskę bitową. Załóżmy, że  mamy zbiór $\{a, b, c, d\}$ sklepów, a na danym etapie analizie mają podlegać jedynie sklepy \textit{a} oraz \textit{d}. Wtedy maska będzie miała postać $[1, 0, 0, 1]$. Stosują odpowiednie algorytmy możemy regularnie przesuwać maskę uzyskując wszystkie możliwe kombinacje. Następnie konieczne będzie wyszukanie najtańszej oferty sprzedaży danego produktu w dostępnych w danej iteracji sklepach. Do przechowywania danych wykorzystujemy nieposortowane listy – każdy sklep ma listę dostępnych w nim produktów, więc konieczne będzie przejrzenie kolejno wszystkich elementów listy i znalezienie tego, który zawiera najniższą cenę. Cena ta może zostać odrazu dodana do końcowej sumy, co pozwoli uniknąć kolejnego iterowania po liscie zakupów.
 \subsubsection{Algorytm PRODUCT-ENUM}
+Ze względu na konieczność wygenerowania każdej możliwej kombinacji produkt – sklep najprostszym wyjściem jest zastosowanie rekurencji. Implementacja będzie musiała umożliwiać "rozgałęzianie" na każdej pozycji listy zakupów dla wszystkich sklepów, w których dany produkt jest dostępny i jeśli zostanie osiągnięty ostatni poziom drzewa, obliczyć ceny i zwrócić najkorzystniejszą. Takie rozwiązanie będzie miało znaczną złożoność pamięciową, ponieważ wskutek rekursji powstanie drzewo o $n$–poziomach, a każdy węzeł będzie miał maksymalnie $m$–rozgałęzień, gdzie $n$ - ilość produktów na liście, a $m$ - ilość sklepów. Daje to $m^n$ węzłów końcowych.
 \subsection{Diagram klas}
 \subsection{Struktura danych wejściowych}
 \subsection{Struktura wyników}
@@ -162,7 +176,7 @@ public class ShoppingList
 {
     public Guid ShoppingListID { get; set; }
     public string Name { get; set; }
-		public Dictionary<Guid, int> ProductIdToAmountDictionary { get; set; }
+	public Dictionary<Guid, int> ProductIdToAmountDictionary { get; set; }
 }
 \end{lstlisting}
 \begin{flushleft}

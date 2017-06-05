@@ -11,10 +11,10 @@ namespace BenchmarkRunner
     class OptimizerBench
     {
         private static readonly string _path = "output.csv";
-        private static readonly int[] _shopCounts = {10, 100, 300, 500, 700};
-        private static readonly int[] _productCounts = {50, 200};
-        private static readonly int[] _shoppingListLengths = {10, 50};
-        private const int _repetitions = 20;
+        private static readonly int[] _shopCounts = { 8, 12, 15, 20};
+        private static readonly int[] _productCounts = {8, 16, 32};
+        private static readonly float[] _shoppingListLengthRatios = { 0.2f, 0.5f, 0.8f};
+        private const int _repetitions = 3;
 
         static void Main(string[] args)
         {
@@ -28,16 +28,20 @@ namespace BenchmarkRunner
             {
                 foreach (var productCount in _productCounts)
                 {
-                    foreach (var shoppingListLength in _shoppingListLengths)
+                    foreach (var shoppingListLengthRatio in _shoppingListLengthRatios)
                     {
+                        var shoppingListLength = (int) (productCount * shoppingListLengthRatio);
                         double shopEnumTime = 0;
                         double productEnumTime = 0;
+                        Console.Write($"Shop count: {shopCount} | Prid count: {productCount}  | Shopping list: { shoppingListLength} |  Repetition: ");
                         for (var m = 0; m < _repetitions; m++)
                         {
+                            Console.Write($"{m} ");
                             var benchData = DataGenerator.doGenerate(shopCount, productCount, shoppingListLength);
-                            //shopEnumTime += BenchShopEnum(benchData);
-                            //productEnumTime += BenchProductEnum(benchData);
+                            shopEnumTime += BenchShopEnum(benchData);
+                            productEnumTime += BenchProductEnum(benchData);
                         }
+                        Console.Write(Environment.NewLine);
                         using (var streamWriter = File.AppendText(_path))
                         {
                             streamWriter.WriteLine($"{shopCount};{productCount};{shoppingListLength};{shopEnumTime / _repetitions};{productEnumTime / _repetitions}");
