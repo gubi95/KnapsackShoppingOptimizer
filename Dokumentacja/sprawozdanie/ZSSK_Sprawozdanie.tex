@@ -164,9 +164,58 @@ W przypadku tegoż algorytmu konieczne jest znalezienie sposobu na szybkie i osz
 \subsubsection{Algorytm PRODUCT-ENUM}
 Ze względu na konieczność wygenerowania każdej możliwej kombinacji produkt – sklep najprostszym wyjściem jest zastosowanie rekurencji. Implementacja będzie musiała umożliwiać "rozgałęzianie" na każdej pozycji listy zakupów dla wszystkich sklepów, w których dany produkt jest dostępny i jeśli zostanie osiągnięty ostatni poziom drzewa, obliczyć ceny i zwrócić najkorzystniejszą. Takie rozwiązanie będzie miało znaczną złożoność pamięciową, ponieważ wskutek rekursji powstanie drzewo o $n$–poziomach, a każdy węzeł będzie miał maksymalnie $m$–rozgałęzień, gdzie $n$ - ilość produktów na liście, a $m$ - ilość sklepów. Daje to $m^n$ węzłów końcowych.
 \subsection{Diagram klas}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,keepaspectratio]{img/diagram-dto.png}
+\caption{Diagram klas modeli używanych w module algorytmicznym}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,keepaspectratio]{img/diagram-gui.png}
+\caption{Diagram klas modeli używanych w interfejsie użytkownika}
+\end{figure}
 \subsection{Struktura danych wejściowych}
+Struktura danych wejściowych algorytmu wygląda następująco:
+\begin{itemize}
+\item \textit{List<StoreDto> stores} - lista sklepów istniejących w bazie
+\item \textit{Dictionary<Guid, int> productsIDToAmount} - słownik przyporządkowujący każdemu wybranemu produktowi (jego identyfikatorowi) z listy zakupowej ilość tego produktu zakupioną przez użytkownika
+\item \textit{Algorithm algorithm} - typ wyliczeniowy informujący o tym jaki algorytm będzie zastosowany. Typ \textit{Algorithm} może przyjąć jedną wartość z dwóch do wyboru:
+\newline \textit{\textbf{ShopEnum}} lub \textit{\textbf{ProductEnum}}
+\end{itemize}
 \subsection{Struktura wyników}
+Algorytm zwraca obiekt typu \textbf{OptimizedShoppingList}, którego struktura i implementacja wygląda następująco:
+\newline
+\lstset{style=sharpc}
+\begin{lstlisting}
+public class OptimizedShoppingList
+{
+		public List<ShoppingListPosition> Products { get; set; }
+    public TimeSpan TimeElapsed { get; set; }
+    public decimal TotalPrice { get; set; }
 
+    public OptimizedShoppingList()
+    {
+    	TotalPrice = decimal.MaxValue;
+    }
+}
+\end{lstlisting}
+\newpage
+Klasa ta posiada 3 atrybuty:
+\begin{itemize}
+\item \textit{Products} - lista produktów wytypowanych przez algorytm. Każdy obiekt tej listy posiada informację z jakiego jest sklepu, swój identyfikator, cenę i ilość. Implementacja klasy obiektu z listy:
+\newline
+\begin{lstlisting}
+public class ShoppingListPosition
+{
+		public StoreDto Store { get; set; }
+    public Guid ProductId { get; set; }
+    public decimal Price { get; set; }
+    public int Amount { get; set; }
+}  
+\end{lstlisting}
+\item \textit{TimeElapsed} - obiekt zawierający informacje o czasie wykonania się algorytmu
+\item \textit{TotalPrice} - cena całościowa wytypowana przez algorytm
+\end{itemize}
 \section{Implementacja systemu}
 \subsection{Wybrane klasy}
 \subsubsection{ShoppingList}
@@ -176,7 +225,7 @@ public class ShoppingList
 {
     public Guid ShoppingListID { get; set; }
     public string Name { get; set; }
-	public Dictionary<Guid, int> ProductIdToAmountDictionary { get; set; }
+		public Dictionary<Guid, int> ProductIdToAmountDictionary { get; set; }
 }
 \end{lstlisting}
 \begin{flushleft}
@@ -364,9 +413,78 @@ namespace KnapsackOptimizer.ProductEnum.Logic
 Tym razem również algorytm został podzielony na dwie części, ale w przeciwieństwie do algorytm \textit{SHOP-ENUM}, główna funkcjonalność nie znajduje się w szkieletowej funkcji. Tym razem znacznie wygodniej było oprzeć się na rekurencji. W tym celu powstała wywoływana rekurencyjnie funkcja \textit{Permutate}. Rozwiązuje to problem wygenerowania wszystkich możliwych powiązań sklep-produkt. Innymi słowy, chcemy znaleźć wszystkie możliwe sposoby na zrealizowanie listy zakupów.
 
 Funkcja \textit{Permutate} dostaje argumenty \textit{list, stores} oraz \textit{itemIndex}. \textit{List} to po prostu lista zakupów, na której zapisywane są powiązania produkt-sklep. \textit{Stores} to lista dostępnych sklepów, natomiast \textit{item index} odpowiada na pozycję na której funkcja ma dokonać rozgałęzienia. W praktyce polega to na tym, że dla każdej kolejnej pozycji na liście zakupów dokonujemy rozgałęzienia, z których każde odpowiada jednemy ze sklepów, w którym można dany produkt kupić. Funkcja końcy rozgałęzianie, jeśli \textit{item index} jest równy ilości przedmiotów na liście. Wtedy dla każdego rozgałęzienia, których jest $m^n$, obliczana jest cena, którą następnie porównujemy do najlepszej znalezionej.
+\newpage
 \subsection{Metoda odczytu danych wejściowych}
+Dane wejściowe jak zostało to wspomniane wcześniej zapisywane są w formacie \textbf{JSON} do pliku tekstowego. Przykładowy fragment:
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,keepaspectratio]{img/json.png}
+\end{figure}
+\newpage
+Do odczytywania danych użyta została biblioteka \textbf{Json.NET - NewtonSoft}. W celu odczytania danych należało posłużyć się instrukcją:
+\begin{lstlisting}
+this.ModWrapper = JsonConvert.DeserializeObject<ModelsWrapper>(strJson)
+\end{lstlisting} 
+\begin{flushleft}
+Obiekt \textit{ModWrapper} jest obiektem przechowującym dane przy zapisie lub odczycie. Przy odczycie biblioteka pobiera cały plik i deserializuje zapisanego tam JSON-a do obiektu. Struktura i implementacja obiektu \textit{ModWrapper} wygląda następująco:
+\end{flushleft}
+\begin{lstlisting}
+private class ModelsWrapper
+{
+		public List<Product> BaseProducts { get; set; }
+    public List<Store> Stores { get; set; }
+    public List<ShoppingList> ShoppingLists { get; set; }
+}
+\end{lstlisting}
+Klasa zawiera 3 atrybuty:
+\begin{itemize}
+\item \textit{BaseProducts} - lista produktów (sam wzorzec produktu)
+\item \textit{Stores} - lista sklepów
+\item \textit{ShoppingLists} - lista z obiektami reprezentującymi listy zakupowe
+\end{itemize}
 \subsection{Metoda prezentacji i zapisu wyników}
-
+Dane prezentowane są zarówno w oknie głównym aplikacji jak i w pojedynczych mniejszych okienkach (popupach). Oto kilka przykładów:
+\newline
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,keepaspectratio]{img/modal-nowy-sklep.png}
+\caption{Dodawanie nowego sklepu}
+\end{figure}
+\begin{flushleft}
+W tym oknie użytkownik może zdefiniować nowy sklep. Informacje, które należy podać to nazwa sklepu oraz koszt wysyłki produktów.
+\end{flushleft}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,keepaspectratio]{img/modal-nowy-produkt.png}
+\caption{Dodawanie nowego produktu}
+\end{figure}
+\begin{flushleft}
+W tym oknie użytkownik dodaje nowy produkt. Może wpisać jego nazwę oraz ile dany produkt kosztuje w każdym ze zdefiniowanych wcześniej sklepów.
+\end{flushleft}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,keepaspectratio]{img/main.png}
+\caption{Główne okno aplikacji z edycją list zakupowych oraz pozycji sklepowych}
+\end{figure}
+\begin{flushleft}
+W głównym oknie aplikacji użytkownik może zarządzać listami zakupowymi, może je usuwać, zmieniać na nich produkty oraz usuwać produkty z listy. Listy zakupowe wybiera się z listy rozwijanej w lewym górnym rogu. W tym oknie można również zarządzać sklepami. Sklepy wybiera się z listy rozwijanej obok przycisku z napisem "Usuń sklep".
+\end{flushleft}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,keepaspectratio]{img/modal-nowa-lista.png}
+\caption{Tworzenie listy zakupowej}
+\end{figure}
+\begin{flushleft}
+W tym oknie użytkownik może wybrać, które istniejące produkty chce dodać do nowej listy zakupowej wraz z pożądaną ilością oraz może wpisać nazwę tej listy.
+\end{flushleft}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,keepaspectratio]{img/modal-optymalizacja.png}
+\caption{Prezentacja wyniku algorytmu}
+\end{figure}
+\begin{flushleft}
+Okno z wynikiem algorytmu prezentuje produkty, które zostały dodane do listy. Każdy produkt posiada informację z którego sklepu powinien być kupiony w celu optymalizacji kosztów. Okno to prezentuje również cenę sumaryczną za zakupy, czas poświęcony na optymalizację oraz informację jaki algorytm był użyty.
+\end{flushleft}
 \section{Testowanie poprawności i ocena rozwiązań}
 \subsection{Testy jednostkowe}
 \subsection{Weryfikacja poprawności działania algorytmów - przykłady}
