@@ -220,8 +220,8 @@ Powyższa klasa reprezentuje sklep. Posiada ona 5 pól:
 \begin{lstlisting}
 public class Product
 {     
-		public Guid ProductID { get; set; }      
-    public string Name { get; set; }        
+	public Guid ProductID { get; set; }      
+	public string Name { get; set; }        
 }
 \end{lstlisting}
 \begin{flushleft}
@@ -233,7 +233,137 @@ Powyższa klasa reprezentuje produkt. Posiada ona 2 pola:
 \end{flushleft}
 \subsection{Realizacja algorytmów wyznaczania rozwiązań}
 \subsubsection{Algorytm SHOP-ENUM}
+Omówienie algorytmu zaczniemy od zaprezentowania kodu, który prezentuje się następująco.
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
+using KnapsackOptimizer.Model;
+using KnapsackOptimizer.Model.Dto;
+
+namespace KnapsackOptimizer.ShopEnum.Logic
+{
+	public class ShopEnumAlgorithm
+	{
+		public OptimizedShoppingList Run(Dictionary<Guid, int> shoppingList, List<StoreDto> stores)
+		{
+			Stopwatch stopwatch = Stopwatch.StartNew();
+			var bestShoppingList = new AlgorithmShoppingList(shoppingList);
+			bestShoppingList.ComputeCost();
+			var currentShoppingList = new AlgorithmShoppingList(shoppingList);
+
+			var subsetMask = new int[stores.Count];
+			subsetMask[0] = -1;
+
+			while (GetNextPermutation(subsetMask) != 1)
+			{
+				for (var i = 0; i < stores.Count; i++)
+				{
+					if (subsetMask[i] == 0) continue;
+					currentShoppingList.Products.ForEach(shopEnumPosition =>
+					{
+						stores[i].Positions.ForEach(position =>
+						{
+							if (position.BaseProduct.ProductID != shopEnumPosition.ProductId) return;
+							if (position.Price >= shopEnumPosition.Price) return;
+							if (position.Amount < shopEnumPosition.Amount) return;
+							shopEnumPosition.Store = stores[i];
+							shopEnumPosition.ProductId = position.BaseProduct.ProductID;
+							shopEnumPosition.Price = position.Price;
+						});
+					});
+				}
+				currentShoppingList.ComputeCost();
+				if (currentShoppingList.Cost < bestShoppingList.Cost)
+				{
+					var temp = currentShoppingList;
+					currentShoppingList = bestShoppingList;
+					bestShoppingList = temp;
+				}
+				currentShoppingList.Clear();
+			}
+			stopwatch.Stop();
+			var stopwatchElapsed = stopwatch.Elapsed;
+			stopwatch = null;
+			return bestShoppingList.ToOptimizedShoppingList(stopwatchElapsed);
+		}
+		
+		private int GetNextPermutation(int[] subsetMask)
+		{
+			int carry = 1;
+			int index = 0;
+			while (carry == 1 && index < subsetMask.Length)
+			{
+				subsetMask[index] += 1;
+				carry = subsetMask[index] / 2;
+				subsetMask[index] %= 2;
+				index++;
+			}
+
+			return carry;
+		}
+	}
+}
+\end{lstlisting}
+Jak widać, algorytm został podzielony na dwie części. Jedna, będąca szkieletem, odpowiada za obliczanie kolejnych kosztów i kompletowanie listy zakupów, a druga generuje kolejne kombinacje sklepów, które podlegają dalszej analzie, czyli wśród których szukamy produktów do skompletownia listy zakupów. 
+
+Pierwsza, czyli szkielet, odpowiada sa utworzenie listy zakupów, dla każdej wygenerowanej kombinacji sklepów, co zostało już wspomniane. Algorytm kończy działanie w momencie, kiedy wszystkie kombinacje zostały przejrzane. Zwraca wtedy najkozystniejszą opcję, która jest przechowywana w zmiennej \textit{bestShoppingList}. Wewnątrz, każdy sklep, który jest analizowany w danej kombinacji, jest przeszukiwany w celu znalezienia ofert na dany przedmiot. Jeśli óW przedmiot znajduje się w sklepie, to jest sprawdzana jego cena i w przypadku, jeśli jest ona bardziej krozystna, niż do tej pory znaleziona, sklep zostaje powiązany z danym produktem. Po zakończeniu analizy danej kombinacji następuje obliczenie kosztu dla danej listy zakupów i jeśli udało się znaleźć wszystkie przedmioty oraz nowa cena jest niższa od dotychczasowego najlpszego rozwiązania, to aktualna lista i najlepsza zostają zamienione miejscami. Zamiana nie jest w tym przypadku niezbędna, ale pozwala uniknąć konieczności kolejnej alokacji pamięci. Wykorzystujemy dotychczas zaalokowaną strukturę.
+
 \subsubsection{Algorytm PRODUCT-ENUM}
+Opis realizacji modułu zaczniemy od zaprezentowania kodu. Wygląda on następująco.
+\begin{lstlisting}
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using KnapsackOptimizer.Model;
+using KnapsackOptimizer.Model.Dto;
+
+namespace KnapsackOptimizer.ProductEnum.Logic
+{
+	public class ProductEnumAlgorithm
+	{
+		private AlgorithmShoppingList BestSolution;
+		public OptimizedShoppingList Run(Dictionary<Guid, int> shoppingList, List<StoreDto> stores)
+		{
+			Stopwatch stopwatch = Stopwatch.StartNew();
+			BestSolution = new AlgorithmShoppingList(shoppingList);    
+			var shopEnumProducts = new AlgorithmShoppingList(shoppingList);
+			Permutate(shopEnumProducts, stores, 0);
+			stopwatch.Stop();
+			return BestSolution.ToOptimizedShoppingList(stopwatch.Elapsed);
+		}
+
+		private void Permutate(AlgorithmShoppingList list, List<StoreDto> stores, int itemIndex)
+		{
+			if (itemIndex < list.Products.Count)
+			{
+				foreach (var store in stores)
+				{
+					var storePosition = store.findStorePositionById(list.Products[itemIndex].ProductId);
+					if (storePosition.Amount < list.Products[itemIndex].Amount) continue;
+					list.Products[itemIndex].Price = storePosition.Price;
+					list.Products[itemIndex].Store = store;
+
+					Permutate(list, stores, itemIndex + 1);
+				}
+			}
+			else
+			{
+				list.ComputeCost();
+				if (list.Cost >= BestSolution.Cost) return;
+				BestSolution.Products = list.Products;
+				BestSolution.Cost = list.Cost;
+			}
+		}
+	}
+}
+
+\end{lstlisting}
+
+Tym razem również algorytm został podzielony na dwie części, ale w przeciwieństwie do algorytm \textit{SHOP-ENUM}, główna funkcjonalność nie znajduje się w szkieletowej funkcji. Tym razem znacznie wygodniej było oprzeć się na rekurencji. W tym celu powstała wywoływana rekurencyjnie funkcja \textit{Permutate}. Rozwiązuje to problem wygenerowania wszystkich możliwych powiązań sklep-produkt. Innymi słowy, chcemy znaleźć wszystkie możliwe sposoby na zrealizowanie listy zakupów.
+
+Funkcja \textit{Permutate} dostaje argumenty \textit{list, stores} oraz \textit{itemIndex}. \textit{List} to po prostu lista zakupów, na której zapisywane są powiązania produkt-sklep. \textit{Stores} to lista dostępnych sklepów, natomiast \textit{item index} odpowiada na pozycję na której funkcja ma dokonać rozgałęzienia. W praktyce polega to na tym, że dla każdej kolejnej pozycji na liście zakupów dokonujemy rozgałęzienia, z których każde odpowiada jednemy ze sklepów, w którym można dany produkt kupić. Funkcja końcy rozgałęzianie, jeśli \textit{item index} jest równy ilości przedmiotów na liście. Wtedy dla każdego rozgałęzienia, których jest $m^n$, obliczana jest cena, którą następnie porównujemy do najlepszej znalezionej.
 \subsection{Metoda odczytu danych wejściowych}
 \subsection{Metoda prezentacji i zapisu wyników}
 
