@@ -7,13 +7,13 @@
 
 \usepackage[margin=1 in, includefoot]{geometry}
 \pagenumbering{arabic}
-\setcounter{page}{2}
 \usepackage{graphicx}
 \usepackage{epsfig}
 \usepackage{float}
 \usepackage{multirow}
 \usepackage[space]{grffile}
 \usepackage{xcolor, listings}
+\usepackage[nottoc,numbib]{tocbibind}
 \usepackage{mathtools}
 \lstset{
 basicstyle=\footnotesize\ttfamily,
@@ -67,7 +67,7 @@ showstringspaces=false,
 \normalsize{Wrocław 2017}
 \end{center}
 \end{titlepage}
-
+\setcounter{page}{2}
 \tableofcontents 
 \listoffigures
 
@@ -963,6 +963,7 @@ Zgodnie z tym, co napisano podczas analizy złożoności obliczeniowej algorytm�
 Optymalizowanie ceny zakupów, ku naszemu zaskoczeniu, okazało się być znacznie bardziej skomplikowanym zadaniem, niż początkowo sądziliśmy. Pozorna trywialność wynika z faktu, że zwykle trudność problemu poznajemy dopiero w momencie, w którym stawiamy mu czoła. W tym przypadku trudność sprawiło nam wzięcie pod uwagę kosztów wysyłki, bez których problem można rozwiązać w banalny sposób. Udało nam się jednak poprawnie zrozumieć oraz zaimplementować pomysły na rozwiązania owego problemu znajdujące się w [3]. Testy potwierdziły poprawność przez otrzymywane przez nas optymalne wyniki oraz zbieżność w złożoności obliczeniowej pomiędzy implementacją, a szacunkami, zarówno naszymi, jak i zamieszczonymi w [3]. Podczas, gdy coraz większa część życia codziennego przenosi się do internetu, a zakupy online stają się normą, znajomość zaimplementowanych przez nas algorytmów może okazać się bardzo cenna. Nie są to rozwiązania idealne, ale bardzo blisko im do praktycznego zastosowania, którego często brakuje projektom tworzonym w ramach zajęć na Uczelni. Uważamy, że projekt można byłoby dalej rozwijać, ponieważ optymalnym środowiskiem byłaby platforma internetowa służąca zakupom online. Realizacja projektu zakończyła się sukcesem.
 
 Reasumując, wykonując ten projekt nauczyliśmy się wielu rzeczy. Przede wszystkim poznaliśmy ciekawe i praktyczne algorytmy do rozwiązywanego przez nas problemu, a także rozwinęliśmy swoją wiedzę na temat .NET oraz tworzenia aplikacji okienkowych z użyciem technologii XAML. Ważnym elementem naszej pracy była również zdolność komunikacji oraz pójścia na kompromis w niektórych sytuacjach. Istotna okazała się również synchronizacja pracy i planowanie kolejnych zadań w taki sposób, aby nie przeszkadzać sobie nawzajem. Nie bez znaczenia była również znajomość systemu kontroli wersji Git, który pozwolił w wygodny sposób synchronizować prace. Wszystkie te wnioski składają się na znaczną ilość praktycznego doświadczenia, które wynieśliśmy z realizacji projektu. 
+
 \begin{thebibliography}{9}
 
 \bibitem{greene}
