@@ -13,11 +13,11 @@ namespace KnapsackOptimizer.ShopEnum.Logic.Tests
         {
             //given
             var product1Id = Guid.NewGuid();
-            var product1Amount = 5;
+            var product1Amount = 1;
             var product1Name = "Product1Name";
 
             var product2Id = Guid.NewGuid();
-            var product2Amount = 5;
+            var product2Amount = 1;
             var product2Name = "Product1Name";
 
             var shop1Id = Guid.NewGuid();
