@@ -54,7 +54,7 @@ showstringspaces=false,
 \begin{minipage}[t]{.4\textwidth}%
 \flushleft
 \textsc{\Large{Autorzy :}}\\
-\Large{Rafał Gubała }\\
+\Large{Rafał Gubała}\\
 \Large{Jakub Małyjasiak}
 \end{minipage}%
 \begin{minipage}[t]{.5\textwidth}%
@@ -451,7 +451,7 @@ Dane prezentowane są zarówno w oknie głównym aplikacji jak i w pojedynczych 
 \newline
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth,keepaspectratio]{img/modal-nowy-sklep.png}
+\includegraphics[scale=1]{img/modal-nowy-sklep.png}
 \caption{Dodawanie nowego sklepu}
 \end{figure}
 \begin{flushleft}
@@ -459,7 +459,7 @@ W tym oknie użytkownik może zdefiniować nowy sklep. Informacje, które należ
 \end{flushleft}
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth,keepaspectratio]{img/modal-nowy-produkt.png}
+\includegraphics[scale=1]{img/modal-nowy-produkt.png}
 \caption{Dodawanie nowego produktu}
 \end{figure}
 \begin{flushleft}
@@ -475,7 +475,7 @@ W głównym oknie aplikacji użytkownik może zarządzać listami zakupowymi, mo
 \end{flushleft}
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth,keepaspectratio]{img/modal-nowa-lista.png}
+\includegraphics[scale=1]{img/modal-nowa-lista.png}
 \caption{Tworzenie listy zakupowej}
 \end{figure}
 \begin{flushleft}
@@ -483,11 +483,11 @@ W tym oknie użytkownik może wybrać, które istniejące produkty chce dodać d
 \end{flushleft}
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth,keepaspectratio]{img/modal-optymalizacja.png}
+\includegraphics[scale=1]{img/modal-optymalizacja-2.png}
 \caption{Prezentacja wyniku algorytmu}
 \end{figure}
 \begin{flushleft}
-Okno z wynikiem algorytmu prezentuje produkty, które zostały dodane do listy. Każdy produkt posiada informację z którego sklepu powinien być kupiony w celu optymalizacji kosztów. Okno to prezentuje również cenę sumaryczną za zakupy, czas poświęcony na optymalizację oraz informację jaki algorytm był użyty.
+Okno z wynikiem algorytmu prezentuje produkty, które zostały dodane do listy. Każdy produkt posiada informację z którego sklepu powinien być kupiony w celu optymalizacji kosztów. Okno to prezentuje również cenę sumaryczną za zakupy, czas poświęcony na optymalizację oraz informację jaki algorytm był użyty. Algorytm nie jest wybierany automatycznie - użytkownik musi zaznaczyć odpowiedni algorytm przez rozpoczęciem optymalizacji. Przyciski umożliwiające wybór znajdują się na dole głównego okna.
 \end{flushleft}
 \section{Testowanie poprawności i ocena rozwiązań}
 \subsection{Testy jednostkowe}
@@ -707,6 +707,15 @@ namespace ShoppingOptimizerLogicTests.ProductEnum.Logic
 }
 \end{lstlisting}
 
+Wynik wykonania testów zaprezentowanych powyżej przedstawia poniższa ilustracja.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{img/test.png}
+\caption{Wykres czasu wykonania dla m=8}
+\end{figure}
+
+
 \subsection{Weryfikacja poprawności działania algorytmów - przykłady}
 Do udowodnienia poprawności algorytmów wykorzystamy następujący zbiór danych:
 
@@ -796,6 +805,45 @@ $current \leftarrow \{(p1, Sb), (p2, Sa)\}$ i sumaryczny koszt równy 70.}
 \end{enumerate}
 
 \subsubsection{Algorytm PRODUCT-ENUM}
+Przebieg algorytmu dla struktury zaprezentowanej w punkcie 5.2 będzie wyglądał następująco.
+\begin{enumerate}
+\item{ Zainicjalizuj struktury oraz rozpocznij rekurencyjną funkcję \textit{permutate} podając \textit{itemIndex} równy 0.}
+\item { Wewnątrz funkcji \textit{permutate} iterujemy po wszystkich sklepach w poszukiwaniu produktu na pozycji, którą oznacza \textit{itemIndex}. Znajdujemy zatem produkt p1 w sklepie Sa w cenie 35.
+\begin{enumerate}
+\item{Po znalezieniu pierwszego produktu zwiększamy \textit{itemIndex}, dzięki czemu przechodzimy o poziom dalej. Wywołujemy \textit{permutate po raz kolejny i powtarzamy sekwencję}}
+\item{Ze zwiększonym \textit{itemIndex} szukamy teraz drugiego przedmiotu w dostępnych sklepach. Znajdujemy p2 w Sa w cenie 35.
+\begin{enumerate}
+\item{Znów zwiększamy \textit{itemIndex} i wywołujemy \textit{permutate}}
+\item{Tym razem warunek końca rozgałęziania jest spełniony, więc sumujemy koszty produktów z kosztami sklepów wybranych na tej ścieżce. Udało się utworzyć strukturę $\{(p1, Sa), (p2, Sa)\}$, dla której koszt wynosi 80. Porównujemy z najlepszą listą znalezioną do tej pory, której koszt nie był jeszcze porównywany (został zainicjowany maksymalną wartością typu Decimal). Koszt nowej jest oczywiście niższy, więc staje się ona nową najlepszą.}
+\end{enumerate}}
+\item {Następne wystąpienie p2 przypada na sklep Sb. Tworzymy więc powiązanie i przechodzimy dalej.
+\begin{enumerate}
+\item{Zwiększamy \textit{itemIndex} i wywołujemy ponownie \textit{permutate}}
+\item{Tym razem warunek końca rozgałęziania jest spełniony, więc obliczamy koszt dla struktury $\{(p1, Sa), (p2, Sb)\}$, który wynosi 125. Jest on wyższy od najlepszego, więc nie zamieniamy struktur}
+\end{enumerate}
+}
+\end{enumerate}
+}
+\item{następne wystąpienie p1 przypada na sklep Sb, gdzie kosztuje on 5. Tworzymy zatem powiązanie i przechodzimy dalej
+\begin{enumerate}
+\item { Ze zwiększonym \textit{itemIndex} przechodzimy teraz do poszukiwania produktu p2. Jako pierwszy posiada go sklep Sa w cenie 35. Tworzymy zatem powiązanie i przechodzimy dalej
+\begin{enumerate}
+\item {Zwiększamy \textit{itemIndex} i ponownie wywołujemy \textit{permutate}}
+\item {Tym razem warunek końca rozgałęziania zostaje spełniony, wobec czego podliczamy koszt stworzonej w tym rozgałęzieniu listy, czyli $\{(p1, Sb), (p2, Sa)\}$, który wynosi w tym przypadku 70 i porównujemy do najlepszego. Jest on oczywiście korzystniejszy, więc dokonujemy zamiany. Aktualna struktura staje się najlepszą}
+\end{enumerate}
+}
+\item{Następnie produkt p2 znajdujemy w sklepie Sb, gdzie kosztuje on 60. Dokonujemy powiązania i przechodzimy dalej.
+\begin{enumerate}
+\item{Zwiększamy \textit{itemIndex} i wywołujemy po raz kolejny \textit{permutate}}
+\item{Tym razem warunek końca rozgałęziania jest spełniony. Udało się stworzyć strukturę $\{(p1, Sb), (p2, Sb)\}$ o łącznym koszcie równym 95. Jest od wyższy od najlepszego, więc nie dokonujemy zamiany}
+\end{enumerate}
+}
+\end{enumerate}
+}
+\item {Wszystkie ścieżki zostały już wykonane, czyli wszystkie możliwe kombinacje przeanalizowane. Najlepszą jest ta, którą uzyskano w podpunkcie \textit{ii} punktu 3.1. Ma ona koszt równy 70, oraz powiązania $\{(p1, Sb), (p2, Sa)\}$. Jest to optymalne rozwiązanie i zostaje zwrócone przez algorytm.}
+\end{enumerate}
+
+Jak widać, zgadza się ono z oczekiwanym.
 \subsection{Analiza czasów wykonania algorytmów}
 Czasy wykonania algorytmów zostały przeprowadzone dla relatywnie niewielkiej ilości zarówno sklepów, jak i produktów. Jest to spowodowane bardzo szybko rosnącym czasem wykonania. Oba algorytmy dają optymalne rozwiązanie, czego nie da się osiągnąć razem z wielomianowo rosnącym czasem. Konkretyzując, pomiary zostały przeprowadzone dla ilości sklepów $m \in \{8, 10, 12, 16\}$, a ilość \textit{n} produktów na liście była obliczana na podstawie ilości wszystkich dostępnych produktów. Założono, że ilość wszystkich produktów $p \in \{8, 10, 12\}$, a stosunek długości $n$ listy zakupów do wszystkich produktów będzie równy $d \in \{0.3, 0.7\}$. Przykładowo, jeśli liczba wszystkich produktów była równa $8$, to pomiary przeprowadzono dla $n=0.3 \cdot p=0.3 \cdot 8 = 2$ oraz $n=0.7 \cdot p=0.7 \cdot 8 = 6$. 
 

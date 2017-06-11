@@ -9,7 +9,7 @@ namespace KnapsackOptimizer.ShopEnum.Logic.Tests
     public class ShopEnumAlgorithmTests
     {
         [TestMethod]
-        public void RunTest()
+        public void Run_ValidData_ValidOutput()
         {
             //given
             var product1Id = Guid.NewGuid();
